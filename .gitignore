@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+frontend/node_modules
+
+# production
+/build
+/.next
+
+# misc
+.env
+.env.development.local
+.env.test.local
+.env.production.local

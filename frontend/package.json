@@ -1,0 +1,56 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@chakra-ui/avatar": "^2.3.0",
+    "@chakra-ui/form-control": "^2.2.0",
+    "@chakra-ui/hooks": "^2.4.3",
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/layout": "^2.3.1",
+    "@chakra-ui/menu": "^2.2.1",
+    "@chakra-ui/react": "^2.10.4",
+    "@chakra-ui/skeleton": "^2.1.0",
+    "@chakra-ui/toast": "^7.0.2",
+    "@chakra-ui/tooltip": "^2.3.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "axios": "^1.7.9",
+    "cra-template": "1.2.0",
+    "framer-motion": "^4.1.17",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-lottie": "^1.2.10",
+    "react-router-dom": "^5.3.4",
+    "react-scripts": "^5.0.1",
+    "react-scrollable-feed": "^2.0.2",
+    "styled-components": "^6.1.15"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "web-vitals": "^4.2.4"
+  }
+}
