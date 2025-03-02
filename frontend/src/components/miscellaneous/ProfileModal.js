@@ -1,14 +1,12 @@
-import { ViewIcon } from "@chakra-ui/icons";
 import {
     Modal,
     ModalOverlay,
-    ModalCloseButton,
     useDisclosure,
     IconButton,
 } from "@chakra-ui/react";
 import { ReactComponent as EyeIcon } from './../../images/eye-svgrepo.svg';
 
-const ProfileModal = ({ user, children }) => {
+const ProfileModal = ({ user, openProfileModal, setOpenProfileModal, children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <>
@@ -27,7 +25,7 @@ const ProfileModal = ({ user, children }) => {
                         <div className = 'modalHeader'>
                             {user.name}
                         </div>
-                        <ModalCloseButton />
+                        <button className='css-1ik4h6n time1' type='button' aria-label='Close' onClick={onClose} >X</button>
                         <div className='modalBody'>
                             <img className='imgModal' alt={user.name}  src={user.pic} />
                             <p className='textLarge' > Email: {user.email} </p>

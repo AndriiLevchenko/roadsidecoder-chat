@@ -7,7 +7,7 @@ import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
-import { ReactComponent as AddIcon } from './../images/plus-large.svg';
+import Addicon from "../images/Addicon";
 
 const MyChats = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
@@ -42,7 +42,6 @@ const MyChats = ({ fetchAgain }) => {
     console.log("chats  = ", chats );
     return (
         <div className='box31'
-            // display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
             style={{display: `${!!selectedChat  ? 'none' : 'flex'}` }}
         >
             <div className='myChatsHeader'>
@@ -50,36 +49,38 @@ const MyChats = ({ fetchAgain }) => {
                 <GroupChatModal>
                     <button className='newChat' type='button' >
                         <span>New group chat</span>
-                        <AddIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
+                        <Addicon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                     </button>
                 </GroupChatModal>
             </div>
             <div className='myChats'>
                 {chats ? (
-                    <Stack overflowY="scroll">
+                    <div className='myChats-scroll'>
                         {chats.map((chat) => (
-                            <div className='chatItem' onClick={() => setSelectedChat(chat)}
-                                 style={{backgroundColor: `${selectedChat === chat ? '#38B2AC' : '#E8E8E8'}`,
-                                        color: `${selectedChat === chat ? 'white' : 'black'}` }}
-
+                            <div className={ `${selectedChat === chat ? "chatItem active" : "chatItem" }` } onClick={() => setSelectedChat(chat)}
                                 key={chat._id}
                             >
-                                <p className='text'>
-                                    {!chat.isGroupChat
-                                        ? getSender(loggedUser, chat.users)
-                                        : chat.chatName}
-                                </p>
-                                {chat.latestMessage && (
-                                    <p className='lastMessage'>
-                                        <b>{chat.latestMessage.sender.name} : </b>
-                                        {chat.latestMessage.content.length > 50
-                                            ? chat.latestMessage.content.substring(0, 51) + "..."
-                                            : chat.latestMessage.content}
+                                <div className='chatItemImage'>
+                                    <img src={`${chat.users[0].name == user.name ? chat.users[1].pic : chat.users[0].pic}`}  alt='' />
+                                </div>
+                                <div>
+                                    <p className='text'>
+                                        {!chat.isGroupChat
+                                            ? getSender(loggedUser, chat.users)
+                                            : chat.chatName}
                                     </p>
-                                )}
+                                    {chat.latestMessage && (
+                                        <p className=' text lastMessage'>
+                                            <b>{chat.latestMessage.sender.name} : </b>
+                                            {chat.latestMessage.content.length > 50
+                                                ? chat.latestMessage.content.substring(0, 51) + "..."
+                                                : chat.latestMessage.content}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         ))}
-                    </Stack>
+                    </div>
                 ) : (
                     <ChatLoading />
                 )}

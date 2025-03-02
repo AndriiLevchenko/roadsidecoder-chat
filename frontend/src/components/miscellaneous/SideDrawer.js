@@ -20,7 +20,6 @@ import {
     MenuList,
 } from "@chakra-ui/menu";
 import { useDisclosure} from "@chakra-ui/hooks";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import {useToast} from "@chakra-ui/toast";
 import ProfileModal from "./ProfileModal";
@@ -36,6 +35,9 @@ const SideDrawer = () => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
+    const [openProfileModal, setOpenProfileModal] = useState(false);
+    const [openNotifications, setOpenNotifications] = useState(false);
+    const [openAvatar, setOpenAvatar] = useState(false)
     const {user, setSelectedChat, chats, setChats, notification, setNotification } = ChatState();
     console.log("notification in Drawer = ", notification);
     const toast = useToast();
@@ -105,52 +107,63 @@ const SideDrawer = () => {
 
         return (
         <>
-            <Box   display="flex" justifyContent="space-between" alignItems="center" bg="white"  w="100%" p="5px 10px 5px 10px" borderWidth="5px">
+            <Box   display="flex" justifyContent="space-around" alignItems="center" bg="white"  w="100%" p="5px 10px 5px 10px" borderWidth="5px">
                 <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
                     <Button variant="ghost" onClick={onOpen} >
                         <i className="fas fa-search"></i>
-                        <Text display={{ base: "none", md: "flex" }} px={4}>
+                        <p className = 'searchUser'>
                             Search User
-                        </Text>
+                        </p>
                     </Button>
                 </Tooltip>
-                <Text fontSize="2xl" fontFamily="Work sans">
+                <h2 fontSize="2xl" fontFamily="Work sans">
                     Talk-A-Tive
-                </Text>
-                <div>
-                    <Menu>
-                        <button className='notification '>
+                </h2>
+                <div className='rightMenu'>
+                    <div className = 'notificationMenu'  >
+                        <button className='notification' onClick={()=>setOpenNotifications(!openNotifications)}>
                             <Bellicon className = '' focusable="false" aria-hidden="true" />
                             <span className='icon-button'>{notification.length}</span>
                         </button>
-                        {/*<MenuList pl={2}>*/}
-                        {/*    {!notification.length && "No New Messages"}*/}
-                        {/*    {notification.map((notif) => (*/}
-                        {/*        <MenuItem*/}
-                        {/*            key={notif._id}*/}
-                        {/*            onClick={() => {*/}
-                        {/*                setSelectedChat(notif.chat);*/}
-                        {/*                setNotification(notification.filter((n) => n !== notif));*/}
-                        {/*            }}*/}
-                        {/*        >*/}
-                        {/*            {notif.chat.isGroupChat*/}
-                        {/*                ? `New Message in ${notif.chat.chatName}`*/}
-                        {/*                : `New Message from ${getSender(user, notif.chat.users)}`}*/}
-                        {/*        </MenuItem>*/}
-                        {/*    ))}*/}
-                        {/*</MenuList>*/}
-                    </Menu>
+                        {openNotifications &&
+                            <ul className='listMenu'>
+                                {!notification.length && "No New Messages"}
+                                {notification.map((notif) => (
+                                    <li className='listElement'>
+                                    <button className='myProfile'
+                                        key={notif._id}
+                                            tabindex="-1"
+                                        onClick={() => {
+                                            setSelectedChat(notif.chat);
+                                            setNotification(notification.filter((n) => n !== notif));
+                                        }}
+                                    >
+                                        {notif.chat.isGroupChat
+                                            ? `New Message in ${notif.chat.chatName}`
+                                            : `New Message from ${getSender(user, notif.chat.users)}`}
+                                    </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        }
+                    </div>
                     <Menu>
-                        <MenuButton as={Button} bg="transparent" rightIcon={<ChevronDownIcon />}>
-                            <Avatar size="sm" cursor="pointer" name={user.name} src={user.pic} />
-                        </MenuButton>
-                        <MenuList>
-                            <ProfileModal user={user}>
-                                <button className='myProfile'>My Profile</button>{" "}
-                            </ProfileModal>
-                            <MenuDivider />
-                            <button  className='myProfile' onClick={logoutHandler} >Logout</button>
-                        </MenuList>
+                        <button className='buttonAvatar' onClick={()=>setOpenAvatar(!openAvatar)}>
+                            <span className='spanAvatar'>
+                                <img className='imgAvatar' name={user.name} src={user.pic} />
+                            </span>
+                        </button>
+                        { openAvatar && <ul className='listMenu'>
+                            <li className='listElement'>
+                                <ProfileModal user={user} openProfileModal={openProfileModal} setOpenProfileModal={setOpenProfileModal} >
+                                    <button className='myProfile' onClick={()=>setOpenProfileModal(true)}>My Profile</button>{" "}
+                                </ProfileModal>
+                            </li>
+                                <hr />
+                            <li className='listElement'>
+                                <button  className='myProfile' onClick={logoutHandler} >Logout</button>
+                            </li>
+                        </ul> }
                     </Menu>
                 </div>
             </Box>
