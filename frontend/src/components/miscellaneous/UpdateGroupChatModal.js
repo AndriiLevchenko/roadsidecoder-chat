@@ -24,6 +24,7 @@ import UserListItem from "../userAvatar/UserListItem";
 import login from "../Authentication/Login";
 import ConfirmModal from "./ConfirmModal";
 import {ReactComponent as EyeIcon} from "../../images/eye-svgrepo.svg";
+import Closeicon from "../../images/Closeicon";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,7 +35,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     const [renameloading, setRenameLoading] = useState(false);
     const toast = useToast();
 
-    const { selectedChat, setSelectedChat, user } = ChatState();
+    const { selectedChat, setSelectedChat, user, openProfileModal, setOpenProfileModal } = ChatState();
     const [isOpenModal, setIsOpenModal] = useState(false); //modal Window Skynix
     const [isConfirmModal, setIsConfirmModal] = useState(false); //modal Window Confirm Skynix
     const onConfirmModal =()=> {
@@ -229,25 +230,21 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     return (
         <>
-            <button type='button' className='' onClick={onOpen} >
+            <button type='button' className='' onClick={()=>setOpenProfileModal(true)} >
                 <EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
             </button>
             < ConfirmModal isOpen={isOpenModal} onClose={onCloseModal} onConfirm={onConfirmModal} />
-            <Modal onClose={onClose} isOpen={isOpen} isCentered>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader
-                        fontSize="35px"
-                        fontFamily="Work sans"
-                        display="flex"
-                        justifyContent="center"
-                    >
+            { openProfileModal && <div className='modalContent chakra-modal__content-container css-wl0d9u' >
+                {/*<ModalOverlay />*/}
+                <div className='modalOverlay'></div>
+                <div className='modalContentTime' role='dialog' tabIndex='-1' aria-modal='true'>
+                    <div className='modalHeader'>
                         {selectedChat.chatName}
-                    </ModalHeader>
-
-                    <ModalCloseButton />
-                    <ModalBody display="flex" flexDir="column" alignItems="center">
-                        <Box w="100%" display="flex" flexWrap="wrap" pb={3}>
+                    </div>
+                    {/*<ModalCloseButton />*/}
+                    <Closeicon setOpenProfileModal={setOpenProfileModal}/>
+                    <div id='chakra-modal--body' className='modalBody' display="flex" flexDir="column" alignItems="center">
+                        <div className='badgeBlock' >
                             {selectedChat.users.map((u) => (
                                 <UserBadgeItem
                                     key={u._id}
@@ -256,31 +253,29 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                                     handleFunction={() => handleRemove(u)}
                                 />
                             ))}
-                        </Box>
-                        <FormControl display="flex">
-                            <Input
+                        </div>
+                        <div className='updateBlock'>
+                            <input
                                 placeholder="Chat Name"
-                                mb={3}
+                                className='updateInput'
                                 value={groupChatName}
                                 onChange={(e) => setGroupChatName(e.target.value)}
                             />
-                            <Button
-                                variant="solid"
-                                colorScheme="teal"
-                                ml={1}
+                            <button
+                                className='updateButton'
                                 isLoading={renameloading}
                                 onClick={handleRename}
                             >
                                 Update
-                            </Button>
-                        </FormControl>
-                        <FormControl>
-                            <Input
+                            </button>
+                        </div>
+                        <div className='updateBlock'>
+                            <input
                                 placeholder="Add User to group"
-                                mb={1}
+                                className='updateInput'
                                 onChange={(e) => handleSearch(e.target.value)}
                             />
-                        </FormControl>
+                        </div>
 
                         {loading ? (
                             <Spinner size="lg" />
@@ -293,14 +288,14 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                                 />
                             ))
                         )}
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button onClick={() => handleRemove(user)} colorScheme="red">
+                    </div>
+                    <div className='updateFooter'>
+                        <button className='updateButton' onClick={() => handleRemove(user)} >
                             Leave Group
-                        </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
+                        </button>
+                    </div>
+                </div>
+            </div> }
         </>
     );
 };

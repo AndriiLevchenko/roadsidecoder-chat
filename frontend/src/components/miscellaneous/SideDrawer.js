@@ -35,11 +35,11 @@ const SideDrawer = () => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
-    const [openProfileModal, setOpenProfileModal] = useState(false);
+    // const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openNotifications, setOpenNotifications] = useState(false);
     const [openAvatar, setOpenAvatar] = useState(false)
-    const {user, setSelectedChat, chats, setChats, notification, setNotification } = ChatState();
-    console.log("notification in Drawer = ", notification);
+    const {user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal } = ChatState();
+    //console.log("notification in Drawer = ", notification);
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const history = useHistory();
@@ -60,7 +60,7 @@ const SideDrawer = () => {
         }
         try {
             setLoading(true);
-            console.log("user.token = ", user.token);
+            //console.log("user.token = ", user.token);
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` }
             };
@@ -81,7 +81,7 @@ const SideDrawer = () => {
     }
 
     const accessChat = async (userId) => {
-        console.log(userId);
+        //console.log(userId);
         try {
             setLoadingChat(true);
             const config = {
@@ -104,7 +104,11 @@ const SideDrawer = () => {
             });
         }
     }
-
+    const setModalCloseMenu =()=> {
+        setOpenProfileModal(true);
+        setOpenAvatar(false);
+    }
+    console.log("user = ", user);
         return (
         <>
             <Box   display="flex" justifyContent="space-around" alignItems="center" bg="white"  w="100%" p="5px 10px 5px 10px" borderWidth="5px">
@@ -155,8 +159,8 @@ const SideDrawer = () => {
                         </button>
                         { openAvatar && <ul className='listMenu'>
                             <li className='listElement'>
-                                <ProfileModal user={user} openProfileModal={openProfileModal} setOpenProfileModal={setOpenProfileModal} >
-                                    <button className='myProfile' onClick={()=>setOpenProfileModal(true)}>My Profile</button>{" "}
+                                <ProfileModal user={user}  >
+                                    <button onClick={()=>setModalCloseMenu()}   className='myProfile' >My Profile</button>{" "}
                                 </ProfileModal>
                             </li>
                                 <hr />
@@ -170,17 +174,17 @@ const SideDrawer = () => {
             <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
-                    <DrawerBody>
-                        <Box display="flex" pb={2}>
-                            <Input
+                    <div className='blockSearchHeader' borderBottomWidth="1px">Search Users</div>
+                    <div className='blockSearchGross'>
+                        <div className='blockSearch'>
+                            <input
+                                className='inputSearch'
                                 placeholder="Search by name or email"
-                                mr={2}
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
-                            <Button onClick={handleSearch}>Go</Button>
-                        </Box>
+                            <button onClick={handleSearch}>Gooo</button>
+                        </div>
                         {loading ? (
                             <ChatLoading />
                         ) : (
@@ -193,7 +197,7 @@ const SideDrawer = () => {
                             ))
                         )}
                         {loadingChat && <Spinner ml="auto" d="flex" />}
-                    </DrawerBody>
+                    </div>
                 </DrawerContent>
             </Drawer>
         </>

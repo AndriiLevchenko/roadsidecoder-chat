@@ -9,6 +9,7 @@ const ChatProvider = ({children}) => {
     const [user, setUser] = useState();
     const [notification, setNotification] = useState([]);
     const [chats, setChats] = useState();
+    const [openProfileModal, setOpenProfileModal] = useState(false);
     const history = useHistory();
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -17,7 +18,8 @@ const ChatProvider = ({children}) => {
     }, [history]);
     console.log("user = ", user);
     return (
-        <ChatContext.Provider value={{ selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats }}>
+        // <ChatContext.Provider value={{ selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, modalProfileOpen, setModalProfileOpen }}>
+        <ChatContext.Provider value={{ selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal }}>
             {children}
         </ChatContext.Provider>
     )

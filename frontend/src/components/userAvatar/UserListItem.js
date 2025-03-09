@@ -10,7 +10,7 @@ const UserListItem = ({ handleFunction }) => {
                 <img className='imgAvatar' alt='Avatar' src={user.pic} />
                 <span>name={user.name}</span>
             </span>
-            <div>
+            <div className='modalListItem-data'>
                 <p>{user.name}</p>
                 <p>
                     <b>Email : </b>

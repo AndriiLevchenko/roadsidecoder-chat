@@ -1,42 +1,48 @@
 import {
     Modal,
-    ModalOverlay,
     useDisclosure,
-    IconButton,
+    IconButton, background,
 } from "@chakra-ui/react";
 import { ReactComponent as EyeIcon } from './../../images/eye-svgrepo.svg';
+import Addicon from "../../images/Addicon";
+import Closeicon from "../../images/Closeicon";
+import {useState} from "react";
+import {ChatState} from "../../Context/ChatProvider";
 
-const ProfileModal = ({ user, openProfileModal, setOpenProfileModal, children }) => {
+const ProfileModal = ({ user,  children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    //const [modelProfileOpen, setModelProfileOpen] = ChatState();
+    const { setSelectedChat, chats, setChats, notification, setNotification, modelProfileOpen, setModelProfileOpen, openProfileModal, setOpenProfileModal} = ChatState();
+    console.log("user = ", user);
+    console.log("children = ", children);
+    console.log("openProfileModal = ", openProfileModal);
     return (
         <>
-            {children ? (
-                <span onClick={onOpen}>{children}</span>
-            ) : (
-                <button type='button' className='' onClick={onOpen} >
-                    <EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
-                </button>
-            )}
-            <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
-                <ModalOverlay />
-
-                <div className = 'modalContent'>
-                    <section className='modalSection' role="dialog" id="chakra-modal-:rf:" tabIndex="-1" aria-modal="true" >
+            {children
+                 ? <span style={{background: "#fbfe0f", width: "49px", height: "40px", }} >{children}</span>
+                 : <button onClick={setOpenProfileModal}  style={{background: "#32fbb0", color: "red"}}  type='button' className=''  >
+                        <EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
+                   </button>
+            }
+            { openProfileModal ? <div className=' timeProfile Time222' >
+                <div className = 'modalContent' >
+                    {/*<section className='modalSection' role="dialog" id="chakra-modal-:rf:" tabIndex="-1" aria-modal="true" >*/}
+                    <section className='modalSection' >
                         <div className = 'modalHeader'>
                             {user.name}
                         </div>
-                        <button className='css-1ik4h6n time1' type='button' aria-label='Close' onClick={onClose} >X</button>
+                        <button className='css-1ik4h6n buttonClose' type='button' aria-label='Close' ><Closeicon setOpenProfileModal={setOpenProfileModal} /></button>
                         <div className='modalBody'>
                             <img className='imgModal' alt={user.name}  src={user.pic} />
                             <p className='textLarge' > Email: {user.email} </p>
                         </div>
                         <div className='modalFooter'>
-                            <button className='button' onClick={onClose}>Close</button>
+                            <button className='button' onClick={()=>setOpenProfileModal(false)}>Close</button>
                         </div>
                     </section>
                 </div>
 
-            </Modal>
+            </div>  : null}
         </>
     )
 }

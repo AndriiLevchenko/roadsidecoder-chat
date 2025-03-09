@@ -3,6 +3,7 @@ import { Tooltip } from "@chakra-ui/tooltip";
 import ScrollableFeed from "react-scrollable-feed";
 import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser,} from "../config/ChatLogics";
 import { ChatState } from "../Context/ChatProvider";
+import {extractDate, extractTime} from "../utils/functions";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
@@ -25,19 +26,23 @@ const ScrollableChat = ({ messages }) => {
                 />
               </Tooltip>
             )}
-            <span
+            <span className='chatMessage'
               style={{
                 backgroundColor: `${
                   m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
                 }`,
                 marginLeft: isSameSenderMargin(messages, m, i, user._id),
                 marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
-                borderRadius: "20px",
-                padding: "5px 15px",
-                maxWidth: "75%",
               }}
             >
-              {m.content}
+              {/*<span className='chatMessageText'>*/}
+                {m.sender._id !== user._id ? <span className='chatMessageName'>{m.sender.name}</span> : null }
+                <span>{m.content}</span>
+              {/*</span>*/}
+              <span className='chatMessageTime'>
+                {extractTime(m.updatedAt)}
+                <span className='chatMessageDate'> {extractDate(m.updatedAt)}</span>
+              </span>
             </span>
           </div>
         ))}
