@@ -11,6 +11,7 @@ const ChatProvider = ({children}) => {
     const [chats, setChats] = useState();
     const [openProfileModal, setOpenProfileModal] = useState(false);
     const history = useHistory();
+    const [openAvatar, setOpenAvatar] = useState(false)
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         setUser(userInfo);
@@ -19,7 +20,7 @@ const ChatProvider = ({children}) => {
     console.log("user = ", user);
     return (
         // <ChatContext.Provider value={{ selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, modalProfileOpen, setModalProfileOpen }}>
-        <ChatContext.Provider value={{ selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal }}>
+        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal }}>
             {children}
         </ChatContext.Provider>
     )

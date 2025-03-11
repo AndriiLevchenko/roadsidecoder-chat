@@ -155,7 +155,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         }, timerLength);
     };
 
-
+    console.log("user in SingleChatNew  = ", user);
     return (
         <>
             {selectedChat ? (

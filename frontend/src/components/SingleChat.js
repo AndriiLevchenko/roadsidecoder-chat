@@ -37,7 +37,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
-    const { selectedChat, setSelectedChat, user, notification, setNotification } =
+    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar } =
         ChatState();
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -167,9 +167,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         //console.log("Message already in notification");
                     }
                 } else {
-                    //console.log("messages before:", messages);
                     setMessages([...messages, newMessageRecieved]);
-                    //console.log("messages after:", messages);
                 }
             } catch (error) {
                 console.error("Error in handleMessageRecieved:", error); // Додано лог помилки
@@ -227,7 +225,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         }, timerLength);
     };
 
-
+    console.log("user in SingleChat = ", user);
     return (
         <>
             {selectedChat ? (
@@ -236,22 +234,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         <button type='button' className='iconArrow' onClick={() => setSelectedChat("")} >
                             <Arrowlefticon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                         </button>
-                        { messages &&
+                        { messages && // !openAvatar &&     When Avatar (Redistrierter User) is on - man must not open
                             (!selectedChat.isGroupChat ? (
                                 <>
                                     {getSender(user, selectedChat.users)}
-                                    <ProfileModal
+                                    { !openAvatar &&  <ProfileModal className='SingleChat ProfileModal'
                                         user={getSenderFull(user, selectedChat.users)}
-                                    />
+                                    />}
                                 </>
                             ) : (
                                 <>
                                     {selectedChat.chatName.toUpperCase()}
-                                    <UpdateGroupChatModal
+                                    { !openAvatar &&  <UpdateGroupChatModal   className='SingleChat UpdateGroupChatModal'
                                         fetchMessages={fetchMessages}
                                         fetchAgain={fetchAgain}
                                         setFetchAgain={setFetchAgain}
-                                    />
+                                    />}
                                 </>
                             ))}
                     </div>
@@ -271,11 +269,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             </div>
                         )}
 
-                        <div className='form-control'
-                            onKeyDown={sendMessage}
-                            id="first-name"
-                            isRequired
-                        >
+                        <div className='form-control' onKeyDown={sendMessage}  id="first-name">
                             {istyping ? (
                                 <div>
                                     <Lottie

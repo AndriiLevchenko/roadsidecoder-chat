@@ -243,7 +243,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                     </div>
                     {/*<ModalCloseButton />*/}
                     <Closeicon setOpenProfileModal={setOpenProfileModal}/>
-                    <div id='chakra-modal--body' className='modalBody' display="flex" flexDir="column" alignItems="center">
+                    {/*<div id='chakra-modal--body' className='modalBody' display="flex" flexDir="column" alignItems="center">*/}
+                    <div id='chakra-modal--body' className='modalBody'>
                         <div className='badgeBlock' >
                             {selectedChat.users.map((u) => (
                                 <UserBadgeItem

@@ -4,7 +4,6 @@ import { ChatState } from "../Context/ChatProvider";
 
 const Chatbox = ({ fetchAgain, setFetchAgain }) => {
     const { selectedChat } = ChatState();
-    console.log("selectedChat = ", !!selectedChat);
     return (
         <div className={ `${!!selectedChat ? "box68single box68" : "box68group box68" }`} >
             <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />

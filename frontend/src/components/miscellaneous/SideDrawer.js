@@ -37,8 +37,8 @@ const SideDrawer = () => {
     const [loadingChat, setLoadingChat] = useState(false);
     // const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openNotifications, setOpenNotifications] = useState(false);
-    const [openAvatar, setOpenAvatar] = useState(false)
-    const {user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal } = ChatState();
+    // const [openAvatar, setOpenAvatar] = useState(false)
+    const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal } = ChatState();
     //console.log("notification in Drawer = ", notification);
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -108,7 +108,7 @@ const SideDrawer = () => {
         setOpenProfileModal(true);
         setOpenAvatar(false);
     }
-    console.log("user = ", user);
+    console.log("user in SideDrawer  = ", user);
         return (
         <>
             <Box   display="flex" justifyContent="space-around" alignItems="center" bg="white"  w="100%" p="5px 10px 5px 10px" borderWidth="5px">
@@ -160,7 +160,7 @@ const SideDrawer = () => {
                         { openAvatar && <ul className='listMenu'>
                             <li className='listElement'>
                                 <ProfileModal user={user}  >
-                                    <button onClick={()=>setModalCloseMenu()}   className='myProfile' >My Profile</button>{" "}
+                                    <button onClick={()=>setOpenProfileModal(true)}   className='myProfile' >My Profile</button>{" "}
                                 </ProfileModal>
                             </li>
                                 <hr />
@@ -173,7 +173,7 @@ const SideDrawer = () => {
             </Box>
             <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
-                <DrawerContent>
+                <DrawerContent className='drawer_content'>
                     <div className='blockSearchHeader' borderBottomWidth="1px">Search Users</div>
                     <div className='blockSearchGross'>
                         <div className='blockSearch'>
