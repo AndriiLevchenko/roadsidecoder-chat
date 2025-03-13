@@ -11,10 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.chatPage {
+.chats_page {
   width: 100%;
 }
-.chatPage_myChats-singleChat {
+.chats_page_myChats-singleChat {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,14 +26,21 @@ code {
   height: 91.5vh;
   padding: 10px;
 }
-.myChatsHeader {
+.myChats_header {
   display: flex;
   justify-content: space-between;
   width: 100%;
   align-items: center;
   padding: 0 3px 3px;
   font-size: 26px;
+  font-weight: 600;
   font-family: Work sans;
+}
+.myChats_header button  span {
+  display: none;
+}
+.myChats_header button  svg {
+  border-radius: 50%;
 }
 .myChats {
   display: flex;
@@ -85,7 +92,18 @@ code {
   justify-content: center;
   height: 100%;
   align-items:  center;
-  justify-content: center;
+}
+.badges_box {
+  width: 100%;
+  display:flex;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+.items_box {
+  display: block;
+  width: 100%;
+  max-height: 280px;
+  overflow-y: auto;
 }
 .box31 {
   width: 100%;
@@ -136,31 +154,34 @@ code {
   padding: 2px;
 }
 .chatItemImage img {
+  width: 46px;
+  height: 46px;
   object-fit: cover;
   border: 1px solid #0FD3FF;
   border-radius: 50%;
 
 }
-.modalListItem {
+.modal-listItem {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   margin-bottom: 2px;
-  padding: 2px 12px;
+  padding: 1px 12px 1px 4px;
   align-items: center;
   cursor: pointer;
   color: black;
   background-color: #E8E8E8;
   border-radius: 5px;
 }
-.modalListItem:hover {
-  background-color: #38B2AC;
-  color: white;
+.modal-listItem:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid #E8E8E8;
 }
-.modalListItem-data {
-
+.modal_listItem-data {
+  font-size: 16px;
 }
-.modalListItem-data p {
+.modal_listItem-data p {
   margin: 0;
   text-align: left;
 }
@@ -200,12 +221,6 @@ code {
 .box68single {
   width: 100%;
 }
-.spanAvatar {
-
-}
-.spanAvatar span {
-  position: absolute;
-}
 /*.modal_header {*/
 /*  font-size: 26px;*/
 /*  display: flex;*/
@@ -213,6 +228,16 @@ code {
 /*}*/
 .groupChatModal {
 
+}
+.create_group_chat {
+}
+.create_group_chat .modal_section {
+  position: absolute;
+  min-width: 320px;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3454;
 }
 .modalWindow {
   position: absolute;
@@ -258,30 +283,55 @@ code {
   background: #fff;
   opacity: 1;
 }
+.search_button {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+  transition-duration: 200ms;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  font-size: 18px;
+  padding: 4px;
+  color: inherit;
+}
+.search_button * {
+  display: inline-block;
+}
+.close_button {
+  width: 30px;
+  height: 30px;
+}
 .modalHeader + .close_button {
   position: absolute;
   top: 0;
   right: 4px;
 }
-.modalSection {
+.modal_section {
   display: flex;
   flex-direction: column;
   position: relative;
   width: 100%;
   max-width: 320px;
-  height: 410px;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
   border-radius: 4px;
   color: inherit;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-inline-start: auto;
-  margin-inline-end: auto;
+  margin: auto;
   background-color: white;
   opacity: 1;
 }
-.modalBody {
+.modal_body {
   display: flex;
   flex-direction: column;
   padding: 0 8px;
@@ -310,7 +360,7 @@ code {
   flex-wrap: wrap;
   padding-bottom: 3px;
 }
-.badgeItem {
+.badge_item {
   display: flex;
   justify-content: space-between;
   white-space: nowrap;
@@ -323,10 +373,10 @@ code {
   font-size: 12px;
   cursor: pointer;
 }
-.badgeItem span {
-  margin-top: 1px;
+.badge_item span {
+  margin-top: 2px;
 }
-.badgeItem .icon {
+.badge_item .icon {
   width: 22px;
   height: 22px;
   background-color: transparent;
@@ -338,6 +388,9 @@ code {
   padding: 3px;
   width: 100%;
   align-items: center;
+}
+.single_chat span {
+  margin: 0 auto;
 }
 .single_chat-field {
   display: flex;
@@ -418,10 +471,10 @@ code {
   background: inherit;
   margin-bottom: 3px;
 }
-.form-control {
+.form_control {
   width: 100%;
   position: relative;
-  margin: 10px 10px 33px;
+  margin: 8px;
 }
 .overlay {
   opacity: 1;
@@ -433,7 +486,21 @@ code {
   background: var(--chakra-colors-blackAlpha-600);
   z-index: var(--chakra-zIndices-modal);
 }
-
+.modal_footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 4px;
+  padding: 6px;
+}
+.enter_button {
+  padding: 4px 8px;
+  color: white;
+  border-radius: 3px;
+  background: linear-gradient(81.02deg, #FA5560 -23.47%, #B14BF4 45.52%, #4D91FF 114.8%);
+  font-size: 16px;
+  font-weight: 600;
+}
 .inputSearch {
   width: 100%;
   height: var(--input-height);
@@ -496,6 +563,18 @@ code {
   display: flex;
   padding-bottom: 2px;
 }
+.chats_header {
+  display: flex;
+  justify-content: space-around;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: white;
+  width: 100%;
+  padding: 5px 10px 5px 10px;
+  border-width: 5px;
+}
 .modalHeader {
   display: flex;
   justify-content: center;
@@ -503,17 +582,7 @@ code {
   font-size: 32px;
   font-weight: 600;
 }
-/*.modalBody {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  padding: 0 8px;*/
-/*  align-items: center;*/
-/*  justify-content: space-between;*/
-/*}*/
-.modalFooter button {
-  display: block;
-  margin: 0 auto;
-}
+
 .imgAvatar {
   display: block;
   width: 100%;
@@ -653,16 +722,17 @@ img {
   line-height: 1.2;
   background-color: transparent;
 }
-.spanAvatar {
+.span_avatar {
   width: 4rem;
   height: 4rem;
+  margin: 2px;
   border-radius: 50%;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   position: relative;
   cursor: pointer;
+}
+.span_avatar span {
+  position: absolute;
 }
 .listMenu {
   position: absolute;
@@ -705,6 +775,10 @@ img {
   }
   .searchUser {
     display: flex;
+  }
+  .myChats_header button  span {
+    display: block;
+    font-size: 18px;
   }
 }
 @media screen and (min-width: 1024px) {

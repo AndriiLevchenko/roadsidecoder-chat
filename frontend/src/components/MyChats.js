@@ -10,7 +10,7 @@ import {extractTime, extractTimeOderDate} from "../utils/functions";
 
 const MyChats = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
-    const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+    const { selectedChat, setSelectedChat, user, chats, setChats, setOpenCreateGroupChat } = ChatState();
     const toast = useToast();
 
     const fetchChats = async () => {
@@ -43,10 +43,10 @@ const MyChats = ({ fetchAgain }) => {
         <div className='box31'
             style={{display: `${!!selectedChat  ? 'none' : 'flex'}` }}
         >
-            <div className='myChatsHeader'>
-                My Chats
+            <div className='myChats_header'>
+                <span>My Chats</span>
                 <GroupChatModal>
-                    <button className='newChat' type='button' >
+                    <button className='newChat' type='button'  onClick={()=>setOpenCreateGroupChat(true)} >
                         <span>New group chat</span>
                         <Addicon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                     </button>

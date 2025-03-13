@@ -9,7 +9,7 @@ import Closeicon from "../../images/Closeicon";
 import {useState} from "react";
 import {ChatState} from "../../Context/ChatProvider";
 
-const ProfileModal = ({ user,  children }) => {
+const ProfileModal = ({ user,  children, closeModalCloseMenu, setOpenAvatar }) => {
     //const { isOpen, onOpen, onClose } = useDisclosure();
     //const [modelProfileOpen, setModelProfileOpen] = ChatState();
     const { setSelectedChat, chats, setChats, notification, setNotification, modelProfileOpen, setModelProfileOpen, openProfileModal, setOpenProfileModal} = ChatState();
@@ -30,18 +30,18 @@ const ProfileModal = ({ user,  children }) => {
             }
             { openProfileModal ? <div className=' timeProfile Time222' >
                 <div className = 'modalContent' >
-                    {/*<section className='modalSection' role="dialog" id="chakra-modal-:rf:" tabIndex="-1" aria-modal="true" >*/}
-                    <section className='modalSection' >
+                    {/*<section className='modal_section' role="dialog" id="chakra-modal-:rf:" tabIndex="-1" aria-modal="true" >*/}
+                    <section className='modal_section' >
                         <div className = 'modalHeader'>
                             {user.name}
                         </div>
-                        <button className='css-1ik4h6n buttonClose' type='button' aria-label='Close' ><Closeicon setOpenProfileModal={setOpenProfileModal} /></button>
-                        <div className='modalBody'>
+                        <button className='css-1ik4h6n buttonClose' type='button' aria-label='Close' onClick={()=>{setOpenProfileModal(false); !!setOpenAvatar && setOpenAvatar(false); }} ><Closeicon /></button>
+                        <div className='modal_body'>
                             <img className='imgModal' alt={user.name}  src={user.pic} />
                             <p className='textLarge' > Email: {user.email} </p>
                         </div>
-                        <div className='modalFooter'>
-                            <button className='button' onClick={()=>setOpenProfileModal(false)}>Close</button>
+                        <div className='modal_footer'>
+                            <button className='button'  onClick={()=>{setOpenProfileModal(false); !!setOpenAvatar && setOpenAvatar(false); }} >Close</button>
                         </div>
                     </section>
                 </div>

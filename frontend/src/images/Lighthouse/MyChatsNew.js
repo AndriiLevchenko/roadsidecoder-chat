@@ -11,7 +11,7 @@ import { ReactComponent as AddIcon } from './../images/plus-large.svg';
 
 const MyChats = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
-    const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+    const { selectedChat, setSelectedChat, user, chats, setChats, setOpenProfileModal } = ChatState();
     const toast = useToast();
 
     const fetchChats = async () => {
@@ -63,7 +63,7 @@ const MyChats = ({ fetchAgain }) => {
             >
                 My Chats
                 <GroupChatModal>
-                    <button className='newChat' type='button' >
+                    <button className='newChat  neeTime' type='button' onClick={()=>setOpenProfileModal(true)} >
                         <span>New group chat</span>
                         <AddIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                     </button>

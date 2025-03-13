@@ -10,9 +10,9 @@ const ChatPage = () => {
     const {user} = ChatState();
 
     return (
-        <div className='chatPage'>
+        <div className='chats_page'>
             {user && <SideDrawer />}
-            <div className='chatPage_myChats-singleChat' >
+            <div className='chats_page_myChats-singleChat' >
                 {user &&  <MyChats fetchAgain={fetchAgain} />}
                 {user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} /> }
             </div>

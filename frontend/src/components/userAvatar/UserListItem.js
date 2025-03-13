@@ -1,21 +1,17 @@
 import { ChatState } from "../../Context/ChatProvider";
 
 //Це список який видає пошук при створенні групи
-const UserListItem = ({ handleFunction }) => {
-    const { user } = ChatState();
+const UserListItem = ({ handleFunction, user }) => {
+    //const { user } = ChatState();
 
     return (
-        <div onClick={handleFunction} className='modalListItem'>
-            <span className='spanAvatar'>
+        <div onClick={handleFunction} className='modal-listItem'>
+            <span className='span_avatar'>
                 <img className='imgAvatar' alt='Avatar' src={user.pic} />
-                <span>name={user.name}</span>
             </span>
-            <div className='modalListItem-data'>
-                <p>{user.name}</p>
-                <p>
-                    <b>Email : </b>
-                    {user.email}
-                </p>
+            <div className='modal_listItem-data'>
+                <p><b>Name: </b> {user.name} </p>
+                <p><b>Email: </b> {user.email} </p>
             </div>
         </div>
     );

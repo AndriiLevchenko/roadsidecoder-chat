@@ -10,15 +10,8 @@ import {
     // MenuList,
     Spinner,
     Text,
-    Tooltip,
+    // Tooltip,
 } from "@chakra-ui/react";
-import {
-    Menu,
-    MenuButton,
-    MenuDivider,
-    MenuItem,
-    MenuList,
-} from "@chakra-ui/menu";
 import { useDisclosure} from "@chakra-ui/hooks";
 import axios from "axios";
 import {useToast} from "@chakra-ui/toast";
@@ -29,6 +22,7 @@ import { getSender } from "../../config/ChatLogics";
 import UserListItem from "../userAvatar/UserListItem";
 import {ChatState} from "../../Context/ChatProvider";
 import Bellicon from "./../../images/Bellicon";
+import Tooltip from "../../utils/Tooltip/Tooltip";
 
 const SideDrawer = () => {
     const [search, setSearch] = useState("");
@@ -37,7 +31,6 @@ const SideDrawer = () => {
     const [loadingChat, setLoadingChat] = useState(false);
     // const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openNotifications, setOpenNotifications] = useState(false);
-    // const [openAvatar, setOpenAvatar] = useState(false)
     const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal } = ChatState();
     //console.log("notification in Drawer = ", notification);
     const toast = useToast();
@@ -104,24 +97,20 @@ const SideDrawer = () => {
             });
         }
     }
-    const setModalCloseMenu =()=> {
-        setOpenProfileModal(true);
-        setOpenAvatar(false);
-    }
     console.log("user in SideDrawer  = ", user);
         return (
         <>
-            <Box   display="flex" justifyContent="space-around" alignItems="center" bg="white"  w="100%" p="5px 10px 5px 10px" borderWidth="5px">
-                <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-                    <Button variant="ghost" onClick={onOpen} >
+            <div  className='chats_header'>
+                <Tooltip content="Search Users to chat" direction="bottom">
+                    <button className='search_button' variant="ghost" onClick={onOpen} >
                         <i className="fas fa-search"></i>
                         <p className = 'searchUser'>
                             Search User
                         </p>
-                    </Button>
+                    </button>
                 </Tooltip>
                 <h2 fontSize="2xl" fontFamily="Work sans">
-                    Talk-A-Tive
+                    MainName
                 </h2>
                 <div className='rightMenu'>
                     <div className = 'notificationMenu'  >
@@ -151,15 +140,15 @@ const SideDrawer = () => {
                             </ul>
                         }
                     </div>
-                    <Menu>
+                    <div>
                         <button className='buttonAvatar' onClick={()=>setOpenAvatar(!openAvatar)}>
-                            <span className='spanAvatar'>
+                            <span className='span_avatar'>
                                 <img className='imgAvatar' name={user.name} src={user.pic} />
                             </span>
                         </button>
                         { openAvatar && <ul className='listMenu'>
                             <li className='listElement'>
-                                <ProfileModal user={user}  >
+                                <ProfileModal user={user} setOpenProfileModal={setOpenProfileModal} setOpenAvatar={setOpenAvatar} >
                                     <button onClick={()=>setOpenProfileModal(true)}   className='myProfile' >My Profile</button>{" "}
                                 </ProfileModal>
                             </li>
@@ -168,11 +157,12 @@ const SideDrawer = () => {
                                 <button  className='myProfile' onClick={logoutHandler} >Logout</button>
                             </li>
                         </ul> }
-                    </Menu>
+                    </div>
                 </div>
-            </Box>
+            </div>
             <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-                <DrawerOverlay />
+                {/*<DrawerOverlay />*/}
+                <div className='modalOverlay'></div>
                 <DrawerContent className='drawer_content'>
                     <div className='blockSearchHeader' borderBottomWidth="1px">Search Users</div>
                     <div className='blockSearchGross'>
@@ -197,6 +187,7 @@ const SideDrawer = () => {
                             ))
                         )}
                         {loadingChat && <Spinner ml="auto" d="flex" />}
+                        {loadingChat && <ChatLoading />}
                     </div>
                 </DrawerContent>
             </Drawer>

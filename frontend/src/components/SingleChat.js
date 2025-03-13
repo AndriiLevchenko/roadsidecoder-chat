@@ -121,50 +121,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         // eslint-disable-next-line
     }, [selectedChat]);
 
-    // useEffect(() => {
-    //     const handleMessageRecieved = (newMessageRecieved) => {
-    //         console.log("newMessageRecieved = ", newMessageRecieved);
-    //         if (
-    //             !selectedChatCompare ||
-    //             selectedChatCompare._id !== newMessageRecieved.chat._id
-    //         ) {
-    //             console.log("notification = ", notification);
-    //             if (!notification.includes(newMessageRecieved)) {
-    //                 setNotification([newMessageRecieved, ...notification]);
-    //                 setFetchAgain(!fetchAgain);
-    //                 console.log("Notofocation = ", notification);
-    //             }
-    //         } else {
-    //             console.log("  else   newMessageRecieved = ", newMessageRecieved);
-    //             setMessages([...messages, newMessageRecieved]);
-    //         }
-    //     };
-    //
-    //     socket.on("message recieved", handleMessageRecieved);
-    //
-    //     return () => {
-    //         socket.off("message recieved", handleMessageRecieved);
-    //     };
-    // }, [socket, messages, notification, selectedChatCompare, setMessages, setNotification, setFetchAgain]);
     useEffect(() => {
         console.log("useEffect works");
         const handleMessageRecieved = (newMessageRecieved) => {
             try {
-                //console.log("message recieved:", newMessageRecieved);
-                //console.log("selectedChatCompare:", selectedChatCompare);
-
                 if (
                     !selectedChatCompare ||
                     selectedChatCompare._id !== newMessageRecieved.chat._id
                 ) {
-
                     if (!notification.includes(newMessageRecieved)) {
-                        //console.log("Adding to notification");
                         setNotification([newMessageRecieved, ...notification]);
                         setFetchAgain(!fetchAgain);
-                        //console.log("notification after:", notification);
                     } else {
-                        //console.log("Message already in notification");
+                        console.log("Message already in notification");
                     }
                 } else {
                     setMessages([...messages, newMessageRecieved]);
@@ -237,14 +206,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         { messages && // !openAvatar &&     When Avatar (Redistrierter User) is on - man must not open
                             (!selectedChat.isGroupChat ? (
                                 <>
-                                    {getSender(user, selectedChat.users)}
+                                    <span>{getSender(user, selectedChat.users)}</span>
                                     { !openAvatar &&  <ProfileModal className='SingleChat ProfileModal'
                                         user={getSenderFull(user, selectedChat.users)}
                                     />}
                                 </>
                             ) : (
                                 <>
-                                    {selectedChat.chatName.toUpperCase()}
+                                    <span>{selectedChat.chatName.toUpperCase()} </span>
                                     { !openAvatar &&  <UpdateGroupChatModal   className='SingleChat UpdateGroupChatModal'
                                         fetchMessages={fetchMessages}
                                         fetchAgain={fetchAgain}
