@@ -41,7 +41,7 @@ const ProfileModal = ({ user,  children, closeModalCloseMenu, setOpenAvatar }) =
                             <p className='textLarge' > Email: {user.email} </p>
                         </div>
                         <div className='modal_footer'>
-                            <button className='button'  onClick={()=>{setOpenProfileModal(false); !!setOpenAvatar && setOpenAvatar(false); }} >Close</button>
+                            <button className=' button signup_button'  onClick={()=>{setOpenProfileModal(false); !!setOpenAvatar && setOpenAvatar(false); }} >Close</button>
                         </div>
                     </section>
                 </div>

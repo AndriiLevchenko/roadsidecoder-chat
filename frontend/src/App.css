@@ -52,6 +52,7 @@ body a {
   width: 100%;
   padding: 10px;
   background-color: white;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 .loginFormBlock div form div{
   padding-bottom: 10px;
@@ -112,12 +113,11 @@ button.button:hover {
 
 /* -- font styles ------------------------------------- */
 .display1 {
+  margin-top: 5px;
   font-size: 28px;
   font-weight: 100;
   line-height: 1.2;
   color: #757575;
-  text-transform: inherit;
-  letter-spacing: inherit;
 }
 
 .subhead {

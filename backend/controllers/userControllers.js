@@ -5,12 +5,12 @@ import bcrypt from "bcryptjs";
 
 export const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, pic} = req.body;
+    console.log("email = ", email);
     if( !name || !email || !password) {
         res.status(400);
         throw new Error("Please enter all the fields");
     }
     const userExist = await Userroad.findOne({email});
-    console.log("email = ", email);
     if (userExist) {
         res.status(400);
         throw new Error("The user already exists");

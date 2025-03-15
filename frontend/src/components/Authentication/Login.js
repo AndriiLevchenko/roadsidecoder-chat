@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-//import useLogin from "../../hooks/useLogin.js";
 import { useToast } from '@chakra-ui/react'
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
-import {Button} from "@chakra-ui/react";
 
-const Login = () => {
+const Login = (props) => {
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -64,10 +61,6 @@ const Login = () => {
             });
             setLoading(false);
         }
-
-
-
-        //await login(username, password);
     };
 
     return (
@@ -75,7 +68,7 @@ const Login = () => {
             <div >
                 <h1 className='display1'>
                     Login
-                    <span className='text-blue-500'> ChatApp</span>
+                    <b> ChatApp</b>
                 </h1>
 
                 <form>
@@ -91,7 +84,6 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-
                     <div>
                         <label className='label'>
                             <span className='text-base text-white'>Password</span>
@@ -104,71 +96,27 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <Link to='/signup' className=''>
+                    <button onClick={()=>props.setLoginSignup(false)}  className='link_account'>
                         {"Don't"} have an account?
-                    </Link>
+                    </button>
 
                     <div className='buttons-login'>
-                        <Button className='button' disabled={loading} isLoading={loading} onClick={submitHandler}>
+                        <button className=' button signup_button' disabled={loading} isLoading={loading} onClick={submitHandler}>
                             {loading ? <span className='loading loading-spinner '></span> : "Login"}
-                        </Button>
-                        <Button
+                        </button>
+                        <button
+                            className=' button signup_button'
                             variant="solid"
-                            className='button'
-                            width="100%"
                             onClick={() => {
                                 setEmail("guest@example.com");
                                 setPassword("12345678");
                             }}
                         >
                             Guest Credentials
-                        </Button>
+                        </button>
                     </div>
                 </form>
             </div>
-
     );
 };
 export default Login;
-
-// STARTER CODE FOR THIS FILE
-// const Login = () => {
-// 	return (
-// 		<div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
-// 			<div className='w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-// 				<h1 className='text-3xl font-semibold text-center text-gray-300'>
-// 					Login
-// 					<span className='text-blue-500'> ChatApp</span>
-// 				</h1>
-
-// 				<form>
-// 					<div>
-// 						<label className='label p-2'>
-// 							<span className='text-base label-text'>Username</span>
-// 						</label>
-// 						<input type='text' placeholder='Enter username' className='w-full input input-bordered h-10' />
-// 					</div>
-
-// 					<div>
-// 						<label className='label'>
-// 							<span className='text-base label-text'>Password</span>
-// 						</label>
-// 						<input
-// 							type='password'
-// 							placeholder='Enter Password'
-// 							className='w-full input input-bordered h-10'
-// 						/>
-// 					</div>
-// 					<a href='#' className='text-sm  hover:underline hover:text-blue-600 mt-2 inline-block'>
-// 						{"Don't"} have an account?
-// 					</a>
-
-// 					<div>
-// 						<button className='btn btn-block btn-sm mt-2'>Login</button>
-// 					</div>
-// 				</form>
-// 			</div>
-// 		</div>
-// 	);
-// };
-// export default Login;

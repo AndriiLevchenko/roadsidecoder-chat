@@ -1,3 +1,4 @@
+@import url("styles/login_signup.css");
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,6 +15,9 @@ code {
 .chats_page {
   width: 100%;
 }
+.modal_group_chat {
+  position: relative;
+}
 .chats_page_myChats-singleChat {
   display: -webkit-box;
   display: -webkit-flex;
@@ -25,6 +29,12 @@ code {
   width: 100%;
   height: 91.5vh;
   padding: 10px;
+}
+.link_account {
+  margin-bottom: 6px;
+}
+.link_account:hover {
+  color: mediumblue;
 }
 .myChats_header {
   display: flex;
@@ -124,42 +134,56 @@ code {
   border-radius:  0.5rem;
   border-width: 1px;
 }
-.chatItemElement {
+.chat_item {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
+  width: 100%;
   height: 55px;
   cursor: pointer;
   background-color: #ECFCFF;
   color: #000;
   padding: 2px 3px;
   border-radius: 3px;
+  overflow: hidden;
 }
 
-.chatItemElment.active {
+.chat_item.active {
   background-color: #0FD3FF;
   color: #FFF;
 }
-.chatItem {
-  display: flex;
-  justify-content: flex-start;
-}
-.chatItem.active img {
-  border: 1px solid #ECFCFF;
-}
-.chatItemImage {
+.chat_item-image {
   width: 46px;
   height: 46px;
   min-width: 46px;
-  margin: 3px;
-  padding: 2px;
+  margin: 2px 3px 2px 0;
+  padding: 0px;
 }
-.chatItemImage img {
+.chat_item-image img {
   width: 46px;
   height: 46px;
   object-fit: cover;
   border: 1px solid #0FD3FF;
   border-radius: 50%;
-
+}
+.chat_item-text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.chat_item-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.chat_item.active img {
+  border: 1px solid #ECFCFF;
+}
+.chat_item-name_date {
+  display: flex;
+  justify-content: space-between;
+}
+.chat_item-date_time {
+  font-size: 12px;
 }
 .modal-listItem {
   display: flex;
@@ -234,7 +258,7 @@ code {
 .create_group_chat .modal_section {
   position: absolute;
   min-width: 320px;
-  top: 45px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3454;
@@ -310,6 +334,10 @@ code {
 .search_button * {
   display: inline-block;
 }
+.signup_button {
+  display: block;
+  margin: 0 auto;
+}
 .close_button {
   width: 30px;
   height: 30px;
@@ -325,6 +353,7 @@ code {
   position: relative;
   width: 100%;
   max-width: 320px;
+  border: 1px solid #B9D0E2;
   border-radius: 4px;
   color: inherit;
   margin: auto;
@@ -373,12 +402,16 @@ code {
   font-size: 12px;
   cursor: pointer;
 }
-.badge_item span {
+.badge_item > span{
   margin-top: 2px;
 }
-.badge_item .icon {
+.badgeBlock .badge_item span {
+  margin-top: 2px;
+}
+.badge_item .close_button, .badge_item .close_button svg {
   width: 22px;
   height: 22px;
+  padding: 0;
   background-color: transparent;
 }
 .single_chat {
@@ -532,6 +565,15 @@ code {
   border-color: inherit;
   background: inherit;
   margin-right: var(--chakra-space-2);
+}
+.input_upload {
+  width: 100%;
+  position: relative;
+  padding-bottom: 10px;
+}
+.css-1kxonj9 {
+  width: 100%;
+  position: relative;
 }
 .blockSearchHeader {
   -webkit-flex: 0;
@@ -706,15 +748,15 @@ img {
 .myProfile:hover {
   background-color: #eee;
 }
-.buttonAvatar {
+.avatar_block {
+  position: relative;
+}
+.avatar_button {
   display: inline-flex;
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
   appearance: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -734,28 +776,41 @@ img {
 .span_avatar span {
   position: absolute;
 }
-.listMenu {
-  position: absolute;
-  top: 46px;
-  padding: 6px;
-  background-color: pink;
-  transition: line-height 0.5s, color 0.5s;
-  border: 1px solid #bbb;
-  white-space: nowrap;
-  z-index: 22;
-}
 .buttonClose {
   position: absolute;
   right: 0;
   top: 0;
   margin: 10px;
 }
-.listElement {
-  padding: 2px 4px;
-  overflow: hidden;
-
+.listMenu {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  padding: 0;
+  background-color: white;
+  transition: line-height 0.5s, color 0.5s;
+  border: 1px solid #B9D0E2;
+  border-radius: 3px;
+  white-space: nowrap;
+  z-index: 22;
 }
-
+.listElement {
+  padding: 4px 14px;
+  overflow: hidden;
+}
+.listElement:nth-child(2) {
+  padding-bottom: 18px;
+}
+.listElement:hover, .listElement:hover .myProfile {
+  background-color: #E2FCFF;
+}
+li::marker { background-color: red }
+.listElement ::marker {
+  background-color: red
+}
+.listElement::marker {
+  background-color: red
+}
 @media screen and (min-width: 768px) {
   .box31 {
     display: flex!important;
@@ -766,6 +821,10 @@ img {
     display: flex;
     flex-direction: column;
     width: 68%;
+  }
+  .listMenu {
+    right: initial;
+    left: 0;
   }
   .iconArrow {
     display: none;

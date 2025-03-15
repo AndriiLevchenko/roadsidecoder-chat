@@ -7,11 +7,12 @@ import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
 import Closeicon from "../../images/Closeicon";
+import ButtonConfirm from "../utils/ButtonConfirm/ButtonConfirm";
 
 
 const GroupChatModal = ({children}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [groupChatName, setGroupChatName] = useState();
+    const [groupChatName, setGroupChatName] = useState("");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState([]);
@@ -48,6 +49,7 @@ const GroupChatModal = ({children}) => {
             console.log(data);
             setLoading(false);
             setSearchResult(data);
+            setSearch("");
         } catch (error) {
             toast({
                 title: "Error Occured!",
@@ -92,7 +94,7 @@ const GroupChatModal = ({children}) => {
             );
             setChats([data, ...chats]);
             //onClose();
-            setOpenCreateGroupChat(false);
+            //setOpenCreateGroupChat(false);
             toast({
                 title: "New Group Chat Created!",
                 status: "success",
@@ -100,6 +102,10 @@ const GroupChatModal = ({children}) => {
                 isClosable: true,
                 position: "bottom",
             });
+            setGroupChatName("");
+            setSelectedUsers([]);
+            setSearchResult([]);
+            setSearch("");
         } catch (error) {
             toast({
                 title: "Failed to Create the Chat!",
@@ -112,10 +118,24 @@ const GroupChatModal = ({children}) => {
         }
     };
 //const openProfileModal = true;
-
+    const onConfirmDel=(type, param, id)=>
+    {
+        console.log("type + param + id = ", type, " ",  param, " ",  id);
+        if(type === "yes") {
+            handleSubmit();
+        } else if(type === "no") {
+            setGroupChatName("");
+            setSelectedUsers([]);
+            setSearchResult([]);
+            setSearch("");
+            return
+        }
+        return
+    }
+    //const queryMessage = "Are you sure you want to create " + groupChatName + "?";
     return (
         <>
-            <span >{children}</span>
+            <span className='modal_group_chat'>{children}</span>
 
             {/*<Modal  style={{background: "#35abc2"}} className='groupChatModal' onClose={onClose} isOpen={isOpen} >*/}
                 { openCreateGroupChat && <div className=' create_group_chat' >
@@ -133,13 +153,16 @@ const GroupChatModal = ({children}) => {
                                 className='updateInput'
                                 placeholder="Chat Name"
                                 onChange={(e) => setGroupChatName(e.target.value)}
+                                value={groupChatName}
                             />
                         </div>
                         <div className='form_control'>
+                            {/*<div>{"Are you sure you want to create " + groupChatName + " ?"} </div>*/}
                             <input
                                 className='updateInput'
                                 placeholder="Add Users eg: John, Piyush, Jane"
                                 onChange={(e) => handleSearch(e.target.value)}
+                                value={search}
                             />
                         </div>
                         <div  className='badges_box' >
@@ -169,9 +192,10 @@ const GroupChatModal = ({children}) => {
                         </div>
                     </div>
                     <div className='modal_footer'>
-                        <button className='enter_button' onClick={handleSubmit} colorScheme="blue">
-                            Create Chat
-                        </button>
+                        {/*<button className='enter_button' onClick={handleSubmit} colorScheme="blue">*/}
+                        {/*    Create Chat*/}
+                        {/*</button>*/}
+                        <ButtonConfirm  className='enter_button' onConfirm={onConfirmDel.bind(this) }  title="Create Chat" query={"Are you sure you want to create group" + groupChatName + "?"}  />
                     </div>
                 </div>
              </div>  }

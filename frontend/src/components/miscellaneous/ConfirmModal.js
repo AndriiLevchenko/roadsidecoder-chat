@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import "./ConfirmModal.css";
+import "../utils/ButtonConfirm/ConfirmModal.css";
 
 
 const ModalContainer = styled.div`

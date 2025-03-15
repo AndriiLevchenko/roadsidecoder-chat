@@ -3,14 +3,7 @@ import {
     Avatar,
     Box,
     Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input,
-    // Menu,
-    // MenuButton,
-    // MenuDivider,
-    // MenuItem,
-    // MenuList,
     Spinner,
-    Text,
-    // Tooltip,
 } from "@chakra-ui/react";
 import { useDisclosure} from "@chakra-ui/hooks";
 import axios from "axios";
@@ -123,25 +116,25 @@ const SideDrawer = () => {
                                 {!notification.length && "No New Messages"}
                                 {notification.map((notif) => (
                                     <li className='listElement'>
-                                    <button className='myProfile'
-                                        key={notif._id}
-                                            tabindex="-1"
-                                        onClick={() => {
-                                            setSelectedChat(notif.chat);
-                                            setNotification(notification.filter((n) => n !== notif));
-                                        }}
-                                    >
-                                        {notif.chat.isGroupChat
-                                            ? `New Message in ${notif.chat.chatName}`
-                                            : `New Message from ${getSender(user, notif.chat.users)}`}
-                                    </button>
+                                        <button className='myProfile'
+                                            key={notif._id}
+                                                tabindex="-1"
+                                            onClick={() => {
+                                                setSelectedChat(notif.chat);
+                                                setNotification(notification.filter((n) => n !== notif));
+                                            }}
+                                        >
+                                            {notif.chat.isGroupChat
+                                                ? `New Message in ${notif.chat.chatName}`
+                                                : `New Message from ${getSender(user, notif.chat.users)}`}
+                                        </button>
                                     </li>
                                 ))}
                             </ul>
                         }
                     </div>
-                    <div>
-                        <button className='buttonAvatar' onClick={()=>setOpenAvatar(!openAvatar)}>
+                    <div className='avatar_block'>
+                        <button className='avatar_button' onClick={()=>setOpenAvatar(!openAvatar)}>
                             <span className='span_avatar'>
                                 <img className='imgAvatar' name={user.name} src={user.pic} />
                             </span>
@@ -149,10 +142,9 @@ const SideDrawer = () => {
                         { openAvatar && <ul className='listMenu'>
                             <li className='listElement'>
                                 <ProfileModal user={user} setOpenProfileModal={setOpenProfileModal} setOpenAvatar={setOpenAvatar} >
-                                    <button onClick={()=>setOpenProfileModal(true)}   className='myProfile' >My Profile</button>{" "}
+                                    <button onClick={()=>setOpenProfileModal(true)}   className='myProfile' >My Profile</button>
                                 </ProfileModal>
                             </li>
-                                <hr />
                             <li className='listElement'>
                                 <button  className='myProfile' onClick={logoutHandler} >Logout</button>
                             </li>

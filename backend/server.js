@@ -6,7 +6,7 @@ import cors from "cors";
 //import chats from "./data/data.js";
 import colors from 'colors';
 import connectToMongoDB from "./config/connectToMongoDB.js";
-//import connectCloudinary from "./config/cloudinary.js";
+import connectCloudinary from "./config/cloudinary.js";
 
 import userRoutes from "./routes/userRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
@@ -29,7 +29,7 @@ app.use("/api/message", messageRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
-//connectCloudinary()
+connectCloudinary();
 
 const server = app.listen(PORT, ()=> {
     // connectToMongoDB();

@@ -1,0 +1,48 @@
+.modal-container .wrapper-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-container .wrapper-buttons button {
+    border: 0;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: 'Jellee', sans-serif;
+    font-weight: 400;
+    color: white;
+    border-radius: 5px;
+}
+
+.modal-container .wrapper-buttons button:first-child {
+    background: green;
+}
+
+.modal-container .wrapper-buttons button:last-child {
+    background: red;
+}
+.button.buttonAlert:not(.buttons_yes_no > .button.buttonAlert) {
+    position: absolute;
+}
+.dialog_alert {
+    position: absolute;
+    min-width: 280px;
+    padding: 6px;
+    box-shadow: 0 0  1px #004daa, 0 0  15px #48a6d9;
+}
+.buttons_yes_no {
+    display: flex;
+    justify-content: space-around;
+    margin: 22px ;
+    padding: 12px;
+}
+.dialog_alert button, .button.signup_button {
+    cursor: pointer;
+}
+.enter_button {
+    padding: 4px 8px;
+    color: white;
+    border-radius: 3px;
+    background: linear-gradient(81.02deg, #FA5560 -23.47%, #B14BF4 45.52%, #4D91FF 114.8%);
+    font-size: 16px;
+    font-weight: 600;
+}

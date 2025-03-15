@@ -14,31 +14,20 @@ const Homepage = () => {
         if(user) history.push("/chats");
     },[history]);
     return (
-        <Container maxW="xl" centerContent>
-            <Box
-                display="flex"
-                justifyContent="center"
-                p={3}
-                bg="white"
-                w="100%"
-                m="40px 0 15px 0"
-                borderRadius="lg"
-                borderWidth="1px"
-            >
-                <h1   className='display1' fontSize="4xl" fontFamily="Work sans">
-                    Chats
-                </h1>
-            </Box>
-            <Box bg="white" w="100%" p={4}>
-                <div  variant="soft-rounded">
+        <div className='login_signup_container' >
+            <div className='login_signup_box'>
+                <h1>Chats</h1>
+            </div>
+            <div className='login_signup_buttons_box'>
+                <div variant="soft-rounded">
                     <div className="navigation">
                         <div className={`navigation-li ${LoginSignup ? 'active' : ''}`}> <button onClick={()=>setLoginSignup(!LoginSignup)}> Login </button> </div>
                         <div className={`navigation-li ${LoginSignup ?  '' : 'active'}`}> <button onClick={()=>setLoginSignup(!LoginSignup)}> SignUp </button> </div>
                     </div>
                 </div>
-            </Box>
-                            <div  className='loginFormBlock'>{ LoginSignup ? <Login /> : <SignUp /> }</div>
-        </Container>
+            </div>
+            <div  className='loginFormBlock'>{ LoginSignup ? <Login setLoginSignup={setLoginSignup}/> : <SignUp setLoginSignup={setLoginSignup} /> }</div>
+        </div>
     )
 }
 export default Homepage
