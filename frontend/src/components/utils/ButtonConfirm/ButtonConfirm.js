@@ -8,7 +8,7 @@ class ButtonConfirm extends React.Component
 
         this.state = {
             title: this.props.title,
-            classButtonName: 'buttonForm buttonAlert  button signup_button enter_button',
+            classButtonName: 'buttonForm buttonAlert button ',
             classDialogName: 'dialog_alert modal_section',
             query: this.props.query,
             param: "del",

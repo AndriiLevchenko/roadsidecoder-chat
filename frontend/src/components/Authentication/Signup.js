@@ -195,16 +195,16 @@ const SignUp = (props) => {
                         <input type="file" className='inputFile' accept="image/*" onChange={(e)=>postDetails(e.target.files[0])} />
                     </div>
                     <div>
-                        <button onClick={()=>props.setLoginSignup(true)} className='link_account' href='#'> Already have an account? </button>
+                        <button onClick={()=>props.setLoginSignup(true)} className='link_account'> Already have an account? </button>
                     </div>
-                    <div className='navigation-li active'>
-                        <button className='signup_button' disabled={picLoading} onClick={()=>submitHandler()} isLoading = {picLoading}>
+                    <div className='signup_button'>
+                        <button className='button' disabled={picLoading} onClick={()=>submitHandler()} isLoading = {picLoading}>
                             {picLoading ? <span className='loading loading-spinner'></span> : "Sign Up"}
                         </button>
                     </div>
 
                 </form>
-                {/*<button className='updateButton'*/}
+                {/*<button className='update_button'*/}
                 {/*    onClick={() =>*/}
                 {/*        toast({*/}
                 {/*            title: 'Account created.',*/}

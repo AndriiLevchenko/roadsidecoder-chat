@@ -200,7 +200,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {selectedChat ? (
                 <>
                     <div className='single_chat'>
-                        <button type='button' className='iconArrow' onClick={() => setSelectedChat("")} >
+                        <button type='button' className='icon_arrow icon_button' onClick={() => setSelectedChat("")} >
                             <Arrowlefticon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                         </button>
                         { messages && // !openAvatar &&     When Avatar (Redistrierter User) is on - man must not open

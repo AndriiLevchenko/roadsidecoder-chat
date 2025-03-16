@@ -100,19 +100,19 @@ const Login = (props) => {
                         {"Don't"} have an account?
                     </button>
 
-                    <div className='buttons-login'>
+                    <div className='login_buttons'>
                         <button className=' button signup_button' disabled={loading} isLoading={loading} onClick={submitHandler}>
                             {loading ? <span className='loading loading-spinner '></span> : "Login"}
                         </button>
                         <button
-                            className=' button signup_button'
+                            className=' button'
                             variant="solid"
                             onClick={() => {
                                 setEmail("guest@example.com");
                                 setPassword("12345678");
                             }}
                         >
-                            Guest Credentials
+                            Guest
                         </button>
                     </div>
                 </form>

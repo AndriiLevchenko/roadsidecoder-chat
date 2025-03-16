@@ -5,7 +5,7 @@ const UserListItem = ({ handleFunction, user }) => {
     //const { user } = ChatState();
 
     return (
-        <div onClick={handleFunction} className='modal-listItem'>
+        <div onClick={handleFunction} className='modal_listItem'>
             <span className='span_avatar'>
                 <img className='imgAvatar' alt='Avatar' src={user.pic} />
             </span>

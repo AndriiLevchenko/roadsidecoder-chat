@@ -106,13 +106,13 @@ const SideDrawer = () => {
                     MainName
                 </h2>
                 <div className='rightMenu'>
-                    <div className = 'notificationMenu'  >
-                        <button className='notification' onClick={()=>setOpenNotifications(!openNotifications)}>
+                    <div className = 'notification_menu'  >
+                        <button className='notification icon_button' onClick={()=>setOpenNotifications(!openNotifications)}>
                             <Bellicon className = '' focusable="false" aria-hidden="true" />
-                            <span className='icon-button'>{notification.length}</span>
+                            {notification.length === 0 ? null : <span className='icon_button_notification'>{notification.length}</span>}
                         </button>
                         {openNotifications &&
-                            <ul className='listMenu'>
+                            <ul className='list_menu'>
                                 {!notification.length && "No New Messages"}
                                 {notification.map((notif) => (
                                     <li className='listElement'>
@@ -139,7 +139,7 @@ const SideDrawer = () => {
                                 <img className='imgAvatar' name={user.name} src={user.pic} />
                             </span>
                         </button>
-                        { openAvatar && <ul className='listMenu'>
+                        { openAvatar && <ul className='list_menu'>
                             <li className='listElement'>
                                 <ProfileModal user={user} setOpenProfileModal={setOpenProfileModal} setOpenAvatar={setOpenAvatar} >
                                     <button onClick={()=>setOpenProfileModal(true)}   className='myProfile' >My Profile</button>
@@ -156,16 +156,16 @@ const SideDrawer = () => {
                 {/*<DrawerOverlay />*/}
                 <div className='modalOverlay'></div>
                 <DrawerContent className='drawer_content'>
-                    <div className='blockSearchHeader' borderBottomWidth="1px">Search Users</div>
-                    <div className='blockSearchGross'>
-                        <div className='blockSearch'>
+                    <div className='search_block_Header' borderBottomWidth="1px">Search Users</div>
+                    <div className='search_block_Gross'>
+                        <div className='search_block'>
                             <input
                                 className='inputSearch'
                                 placeholder="Search by name or email"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
-                            <button onClick={handleSearch}>Gooo</button>
+                            <button className='button' onClick={handleSearch}>Go</button>
                         </div>
                         {loading ? (
                             <ChatLoading />

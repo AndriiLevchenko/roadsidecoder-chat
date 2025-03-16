@@ -51,9 +51,11 @@ const MyChats = ({ fetchAgain }) => {
             <div className='myChats_header'>
                 <span>My Chats</span>
                 <GroupChatModal>
-                    <button className='newChat' type='button'  onClick={()=>setOpenCreateGroupChat(true)} >
+                    <button className='newChat ' type='button'  onClick={()=>setOpenCreateGroupChat(true)} >
                         <span>New group chat</span>
-                        <Addicon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
+                        <span className=' close_button'>
+                            <Addicon className = '' focusable="false" aria-hidden="true" />
+                        </span>
                     </button>
                     {/*<ButtonConfirm  onConfirm={onConfirmDel.bind(this) }  title="Delete" query="Are you sure...?"  />*/}
                 </GroupChatModal>

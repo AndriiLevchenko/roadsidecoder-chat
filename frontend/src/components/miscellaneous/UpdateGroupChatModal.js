@@ -230,7 +230,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     return (
         <>
-            <button type='button' className='' onClick={()=>setOpenProfileModal(true)} >
+            <button type='button' className='icon_button' onClick={()=>setOpenProfileModal(true)} >
                 <EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
             </button>
             < ConfirmModal isOpen={isOpenModal} onClose={onCloseModal} onConfirm={onConfirmModal} />
@@ -238,7 +238,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 {/*<ModalOverlay />*/}
                 <div className='modalOverlay'></div>
                 <div className='modalContentTime' role='dialog' tabIndex='-1' aria-modal='true'>
-                    <div className='modalHeader'>
+                    <div className='modal_header'>
                         {selectedChat.chatName}
                     </div>
                     {/*<ModalCloseButton />*/}
@@ -263,7 +263,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                                 onChange={(e) => setGroupChatName(e.target.value)}
                             />
                             <button
-                                className='updateButton'
+                                className='update_button button'
                                 isLoading={renameloading}
                                 onClick={handleRename}
                             >
@@ -290,8 +290,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                             ))
                         )}
                     </div>
-                    <div className='updateFooter'>
-                        <button className='updateButton' onClick={() => handleRemove(user)} >
+                    <div className='update_footer'>
+                        <button className=' button update_button' onClick={() => handleRemove(user)} >
                             Leave Group
                         </button>
                     </div>

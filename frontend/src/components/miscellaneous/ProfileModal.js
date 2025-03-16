@@ -24,7 +24,7 @@ const ProfileModal = ({ user,  children, closeModalCloseMenu, setOpenAvatar }) =
         <>
             {children
                  ? <span style={{background: "#fbfe0f", width: "49px", height: "40px", }} >{children}</span>
-                 : <button onClick={setOpenProfileModal}  style={{background: "#32fbb0", color: "red"}}  type='button' className=''  >
+                 : <button onClick={setOpenProfileModal}  type='button' className='icon_button'  >
                         <EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                    </button>
             }
@@ -32,7 +32,7 @@ const ProfileModal = ({ user,  children, closeModalCloseMenu, setOpenAvatar }) =
                 <div className = 'modalContent' >
                     {/*<section className='modal_section' role="dialog" id="chakra-modal-:rf:" tabIndex="-1" aria-modal="true" >*/}
                     <section className='modal_section' >
-                        <div className = 'modalHeader'>
+                        <div className = 'modal_header'>
                             {user.name}
                         </div>
                         <button className='css-1ik4h6n buttonClose' type='button' aria-label='Close' onClick={()=>{setOpenProfileModal(false); !!setOpenAvatar && setOpenAvatar(false); }} ><Closeicon /></button>

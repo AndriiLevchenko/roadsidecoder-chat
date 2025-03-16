@@ -6,15 +6,15 @@ import { ChatState } from "../Context/ChatProvider";
 import {extractDate, extractTime} from "../utils/functions";
 
 const ScrollableChat = ({ messages }) => {
-  const { user } = ChatState();
-
+  const { user, selectedChat } = ChatState();
+  console.log("selectedChat = ", selectedChat);
   return (
     <ScrollableFeed>
       {messages &&
         messages.map((m, i) => (
           <div style={{ display: "flex" }} key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
-              isLastMessage(messages, i, user._id)) && (
+              isLastMessage(messages, i, user._id)) && selectedChat.isGroupChat && (
               <Tooltip label={m.sender.name} placement="bottom-start" hasArrow>
                 <Avatar
                   mt="7px"
@@ -31,12 +31,16 @@ const ScrollableChat = ({ messages }) => {
                 backgroundColor: `${
                   m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
                 }`,
-                marginLeft: isSameSenderMargin(messages, m, i, user._id),
-                marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
+                marginLeft:  selectedChat.isGroupChat
+                    ? isSameSenderMargin(messages, m, i, user._id)
+                    : !selectedChat.isGroupChat &&  m.sender._id === user._id
+                      ? isSameSenderMargin(messages, m, i, user._id)
+                      : 0,
+                marginTop: selectedChat.isGroupChat && isSameUser(messages, m, i, user._id) ? 3 : 10,
               }}
             >
               {/*<span className='chatMessageText'>*/}
-                {m.sender._id !== user._id ? <span className='chatMessageName'>{m.sender.name}</span> : null }
+                {m.sender._id !== user._id && selectedChat.isGroupChat ? <span className='chatMessageName'>{m.sender.name}</span> : null }
                 <span>{m.content}</span>
               {/*</span>*/}
               <span className='chatMessageTime'>

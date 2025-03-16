@@ -1,6 +1,5 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button,
         useDisclosure, Input, useToast, Box } from "@chakra-ui/react";
-import { FormControl } from "@chakra-ui/form-control"
 import axios from "axios";
 import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
@@ -11,7 +10,7 @@ import ButtonConfirm from "../utils/ButtonConfirm/ButtonConfirm";
 
 
 const GroupChatModal = ({children}) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    //const { isOpen, onOpen, onClose } = useDisclosure();
     const [groupChatName, setGroupChatName] = useState("");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [search, setSearch] = useState("");
@@ -49,7 +48,6 @@ const GroupChatModal = ({children}) => {
             console.log(data);
             setLoading(false);
             setSearchResult(data);
-            setSearch("");
         } catch (error) {
             toast({
                 title: "Error Occured!",
@@ -142,7 +140,7 @@ const GroupChatModal = ({children}) => {
                 {/*<ModalOverlay />*/}
                 <div className='modalOverlay'></div>
                 <div className='modal_section'>
-                    <p className='modalHeader'>
+                    <p className='modal_header'>
                         Create Group Chat
                     </p>
                     {/*<ModalCloseButton />*/}

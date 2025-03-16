@@ -170,7 +170,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         justifyContent={{ base: "space-between" }}
                         alignItems="center"
                     >
-                        <button type='button' className='iconArrow' onClick={() => setSelectedChat("")} >
+                        <button type='button' className='icon_arrow' onClick={() => setSelectedChat("")} >
                             <ArrowLeftIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                         </button>
                         { messages &&

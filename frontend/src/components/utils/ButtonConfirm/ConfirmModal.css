@@ -20,9 +20,9 @@
 .modal-container .wrapper-buttons button:last-child {
     background: red;
 }
-.button.buttonAlert:not(.buttons_yes_no > .button.buttonAlert) {
-    position: absolute;
-}
+/*.button.buttonAlert:not(.buttons_yes_no > .button.buttonAlert) {*/
+/*    position: absolute;*/
+/*}*/
 .dialog_alert {
     position: absolute;
     min-width: 280px;
@@ -34,9 +34,6 @@
     justify-content: space-around;
     margin: 22px ;
     padding: 12px;
-}
-.dialog_alert button, .button.signup_button {
-    cursor: pointer;
 }
 .enter_button {
     padding: 4px 8px;

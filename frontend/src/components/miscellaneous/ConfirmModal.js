@@ -10,22 +10,22 @@ const ModalContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: #23ba3e;
   justify-content: center;
   align-items: center;
   z-index: 999;
 `;
 
 const ModalContent = styled.div`
-  background: #fff;
-  padding: 20px;
+  background: "#43ab0f";
+  padding: 200px;
   border-radius: 8px;
   text-align: center;
   max-width: 450px;  
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 100px 200px;
   margin: 0 5px;
   cursor: pointer;
 `;
