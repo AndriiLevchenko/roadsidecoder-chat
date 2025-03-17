@@ -16,6 +16,7 @@ import UserListItem from "../userAvatar/UserListItem";
 import {ChatState} from "../../Context/ChatProvider";
 import Bellicon from "./../../images/Bellicon";
 import Tooltip from "../../utils/Tooltip/Tooltip";
+import Closeicon from "../../images/Closeicon";
 
 const SideDrawer = () => {
     const [search, setSearch] = useState("");
@@ -26,6 +27,7 @@ const SideDrawer = () => {
     const [openNotifications, setOpenNotifications] = useState(false);
     const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal } = ChatState();
     //console.log("notification in Drawer = ", notification);
+    const [drawerOpenClose, setDrawerOpenClose] = useState("close");
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const history = useHistory();
@@ -95,7 +97,7 @@ const SideDrawer = () => {
         <>
             <div  className='chats_header'>
                 <Tooltip content="Search Users to chat" direction="bottom">
-                    <button className='search_button' variant="ghost" onClick={onOpen} >
+                    <button className='search_button' variant="ghost" onClick={()=>setDrawerOpenClose("open")} >
                         <i className="fas fa-search"></i>
                         <p className = 'searchUser'>
                             Search User
@@ -152,11 +154,17 @@ const SideDrawer = () => {
                     </div>
                 </div>
             </div>
-            <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+            {/*<Drawer placement="left" onClose={onClose} isOpen={isOpen}>*/}
+            <div className={`drawer_block  ${drawerOpenClose}`} >
                 {/*<DrawerOverlay />*/}
-                <div className='modalOverlay'></div>
-                <DrawerContent className='drawer_content'>
-                    <div className='search_block_Header' borderBottomWidth="1px">Search Users</div>
+                <div className='modalOverlay' onClick={()=>setDrawerOpenClose("close")}></div>
+                <div className={`drawer_content  ${drawerOpenClose}`}>
+                    <div className='search_block_Header' >
+                        <span onClick={()=>setDrawerOpenClose("close")} className=' close_button'>
+                            <Closeicon />
+                        </span>
+                        <h2>Search Users</h2>
+                    </div>
                     <div className='search_block_Gross'>
                         <div className='search_block'>
                             <input
@@ -181,8 +189,8 @@ const SideDrawer = () => {
                         {loadingChat && <Spinner ml="auto" d="flex" />}
                         {loadingChat && <ChatLoading />}
                     </div>
-                </DrawerContent>
-            </Drawer>
+                </div>
+            </div>
         </>
     )
 }

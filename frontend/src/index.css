@@ -72,6 +72,33 @@ code {
   gap: 0.5rem;
   overflow-y: auto;
 }
+.drawer_block.open .modalOverlay {
+  opacity: 1;
+  transition: opacity 1.5s ease-in;
+}
+.drawer_block.close .modalOverlay {
+  opacity: 0;
+  transition: opacity 2.52s ease-in;
+  z-index: -11;
+}
+.drawer_content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 92%;
+  max-width: 340px;
+  padding: 20px 0;
+  box-sizing: border-box;
+  background: #fff;
+  transform: translateX(0);
+  transition: left .52s ease-in;
+  z-index: 2010;
+}
+.drawer_content.close {
+  left: -340px;
+  transition: left .52s ease-in;
+}
 .messages {
   display: flex;
   flex-direction: column;
@@ -351,6 +378,7 @@ code {
 .close_button {
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 .close_button svg {
   border-radius: 50%;
@@ -524,16 +552,16 @@ code {
   position: relative;
   margin: 8px;
 }
-.overlay {
-  opacity: 1;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100vw;
-  height: 100vh;
-  background: var(--chakra-colors-blackAlpha-600);
-  z-index: var(--chakra-zIndices-modal);
-}
+/*.overlay {*/
+/*  opacity: 1;*/
+/*  position: fixed;*/
+/*  left: 0px;*/
+/*  top: 0px;*/
+/*  width: 100vw;*/
+/*  height: 100vh;*/
+/*  background: var(--chakra-colors-blackAlpha-600);*/
+/*  z-index: var(--chakra-zIndices-modal);*/
+/*}*/
 .modal_footer {
   display: flex;
   justify-content: center;
@@ -550,35 +578,18 @@ code {
 }
 .inputSearch {
   width: 100%;
-  height: var(--input-height);
-  font-size: var(--input-font-size);
-  -webkit-padding-start: var(--input-padding);
-  padding-inline-start: var(--input-padding);
-  -webkit-padding-end: var(--input-padding);
-  padding-inline-end: var(--input-padding);
-  border-radius: var(--input-border-radius);
+  padding: 4px;
+  border-radius: 3px;
   min-width: 0px;
   outline: 2px solid transparent;
   outline-offset: 2px;
   position: relative;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
   appearance: none;
-  transition-property: var(--chakra-transition-property-common);
-  transition-duration: var(--chakra-transition-duration-normal);
-  --input-font-size: var(--chakra-fontSizes-md);
-  --input-padding: var(--chakra-space-4);
-  --input-border-radius: var(--chakra-radii-md);
-  --input-height: var(--chakra-sizes-10);
+  font-size: 18px;
   border: 1px solid;
-  border-top-color: currentcolor;
-  border-right-color: currentcolor;
-  border-bottom-color: currentcolor;
-  border-left-color: currentcolor;
   border-color: inherit;
   background: inherit;
-  margin-right: var(--chakra-space-2);
+  margin-right: 4px;
 }
 .input_upload {
   width: 100%;
@@ -590,26 +601,21 @@ code {
   position: relative;
 }
 .search_block_Header {
+  position: relative;
   -webkit-flex: 0;
   -ms-flex: 0;
   flex: 0;
-  -webkit-padding-start: var(--chakra-space-6);
-  padding-inline-start: var(--chakra-space-6);
-  -webkit-padding-end: var(--chakra-space-6);
-  padding-inline-end: var(--chakra-space-6);
-  padding-top: var(--chakra-space-4);
-  padding-bottom: var(--chakra-space-4);
-  font-size: var(--chakra-fontSizes-xl);
-  font-weight: var(--chakra-fontWeights-semibold);
+  padding: 8px;
+  font-weight: 600;
   border-bottom-width: 1px;
 }
+.search_block_Header .close_button {
+  position: absolute;
+  top: -6px;
+  right: 8px;
+}
 .search_block_Gross {
-   -webkit-padding-start: var(--chakra-space-6);
-   padding-inline-start: var(--chakra-space-6);
-   -webkit-padding-end: var(--chakra-space-6);
-   padding-inline-end: var(--chakra-space-6);
-   padding-top: var(--chakra-space-2);
-   padding-bottom: var(--chakra-space-2);
+  padding: 8px;
    -webkit-flex: 1;
    -ms-flex: 1;
    flex: 2;
