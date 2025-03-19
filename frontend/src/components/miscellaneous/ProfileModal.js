@@ -14,8 +14,8 @@ const ProfileModal = ({ user,  children, closeModalCloseMenu, setOpenAvatar }) =
     //const [modelProfileOpen, setModelProfileOpen] = ChatState();
     const { setSelectedChat, chats, setChats, notification, setNotification, modelProfileOpen, setModelProfileOpen, openProfileModal, setOpenProfileModal} = ChatState();
     console.log("user = ", user);
-    console.log("children = ", children);
-    console.log("openProfileModal = ", openProfileModal);
+    //console.log("children = ", children);
+    //console.log("openProfileModal = ", openProfileModal);
     //window.props = [];
     console.log("props = ", window.props);
 

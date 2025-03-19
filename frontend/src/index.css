@@ -232,19 +232,24 @@ code {
   border: 1px solid #E8E8E8;
 }
 .modal_listItem .span_avatar {
-  width: 3rem;
-  height: 3rem;
+  width: 36px;
+  height: 36px;
   margin: 2px;
 }
 .modal_listItem img {
   border: 1px solid #0FD3FF;
 }
 .modal_listItem-data {
-  font-size: 16px;
+  font-size: 14px;
 }
 .modal_listItem-data p {
   margin: 0;
   text-align: left;
+}
+.scrollable {
+  max-height: inherit;
+  height: inherit;
+  overflow-y: auto;
 }
 .chatMessage {
   display: flex;
@@ -252,6 +257,36 @@ code {
   border-radius: 20px;
   padding: 4px 15px 7px;
   max-width: 75%;
+}
+.chat_message_avatar {
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  vertical-align: top;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  --avatar-size: 2rem;
+  --avatar-font-size: calc(2rem / 2.5);
+  margin-top: 7px;
+  margin-right: 4px;
+  cursor: pointer;
+}
+.chat_message_avatar_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .chatMessageName{
  font-weight: 600;
@@ -464,7 +499,8 @@ code {
   align-items: center;
 }
 .single_chat span {
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: 8px;
 }
 .single_chat-field {
   display: flex;
@@ -476,6 +512,92 @@ code {
   border-radius: 5px;
   overflow-y: hidden;
   background-color: #F3F3FF;
+}
+.single_chat-field .form-control {
+  position: relative;
+}
+.single_chat-field .icon_picture {
+  /*position: absolute;*/
+  /*top: 1px;*/
+  /*right: 6px;*/
+}
+.single_chat-field .icon_picture input {
+  /*display: none;*/
+}
+.read_write_button {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 8px;
+}
+.write_read_span1 {
+  padding: 2px 4px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.writeActive {
+  color: #000;
+  font-weight: 600;
+
+}
+.writeActive, .writePassive {
+  min-width: 60px;
+  opacity: 1;
+  font-size: 18px;
+  -webkit-animation: flash 1.4s;
+  animation: flash 1.4s;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+.writePassive {
+  color: #DDD;
+  font-weight: 400;
+}
+.switch {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 31px;
+}
+.switch-input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.switch-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 34px;
+  transition: 1s;
+}
+.switch-slider:before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  bottom: 4px;
+  left: 32px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.6s;
+  box-shadow: 0 2px 11px 2px #AFDBF5;
+}
+.switch-input:focus + .switch-slider {
+  box-shadow: 0 0 10px #AFDBF5;
+}
+.switch-input:checked + .switch-slider {
+  background-color: #AFDBF5;
+}
+.switch-input:checked + .switch-slider:before {
+  transform: translateX(-28px);
+  -webkit-transform: translateX(-28px);
+  -ms-transform: translateX(-28px);
 }
 .update_footer {
   margin: 12px auto;
@@ -647,7 +769,7 @@ code {
   display: flex;
   justify-content: center;
   margin: 42px auto 20px;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
 }
 
@@ -669,8 +791,8 @@ img {
   border-style: none;
 }
 .icon {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   padding: 3px;
   background-color: #eee;
   border-radius: 3px;
@@ -686,6 +808,9 @@ img {
 }
 .icon_arrow {
   display: flex;
+}
+.icon_picture {
+  position: absolute;
 }
 .newChat {
   display: flex;
@@ -856,6 +981,9 @@ li::marker { background-color: red }
     flex-direction: column;
     width: 68%;
   }
+  .single_chat {
+    flex-direction: column;
+  }
   .list_menu {
     right: initial;
     left: 0;
@@ -875,6 +1003,9 @@ li::marker { background-color: red }
   }
 }
 @media screen and (min-width: 1024px) {
+  .single_chat {
+    flex-direction: row;
+  }
   .newChat {
     font-size: 17px;
   }

@@ -55,6 +55,7 @@ body a {
 }
 h2 {
   font-size: 30px;
+  font-weight: 600;
 }
 .loginFormBlock {
   width: 100%;
