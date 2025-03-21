@@ -131,6 +131,7 @@ box-shadow: 0 10px 20px rgba(0, 0, 0, .19),
   position: relative;
   color: #333;
   background: #EEE;
+  border: 1px solid #B9D0E2;
   border-radius: 50%;
 }
 /* -- font styles ------------------------------------- */

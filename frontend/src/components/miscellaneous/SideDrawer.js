@@ -25,9 +25,10 @@ const SideDrawer = () => {
     const [loadingChat, setLoadingChat] = useState(false);
     // const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openNotifications, setOpenNotifications] = useState(false);
-    const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal } = ChatState();
+    const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal, encryption, setEncryption } = ChatState();
     //console.log("notification in Drawer = ", notification);
     const [drawerOpenClose, setDrawerOpenClose] = useState("close");
+    const [settings, setSettings] = useState(false);
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const history = useHistory();
@@ -146,6 +147,18 @@ const SideDrawer = () => {
                                 <ProfileModal user={user} setOpenProfileModal={setOpenProfileModal} setOpenAvatar={setOpenAvatar} >
                                     <button onClick={()=>setOpenProfileModal(true)}   className='myProfile' >My Profile</button>
                                 </ProfileModal>
+                            </li>
+                            <li className='listElement'>
+                                <button  className='myProfile' onClick={()=>setSettings(!settings)} >Settings</button>
+                                <div className={`myProfile_settings ${settings ? 'active' : '' }`}>
+                                    <span className='settings_item'>
+                                        <span onClick={()=>setEncryption(encryption)}>Encryption</span>
+                                        <label className='switch px-2'>
+                                            <input type = 'checkbox' className='switch-input' onClick = {()=>setEncryption(encryption)}/>
+                                            <span className='switch-slider'></span>
+                                        </label>
+                                    </span>
+                                </div>
                             </li>
                             <li className='listElement'>
                                 <button  className='myProfile' onClick={logoutHandler} >Logout</button>

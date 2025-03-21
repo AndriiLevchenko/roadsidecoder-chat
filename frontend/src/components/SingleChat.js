@@ -1,8 +1,5 @@
-import { FormControl } from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/react";
-import { Box, Text } from "@chakra-ui/layout";
 import "../index.css";
-import { IconButton, Spinner, useToast } from "@chakra-ui/react";
+import { Spinner, useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
@@ -13,10 +10,9 @@ import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-import login from "./Authentication/Login";
+// import login from "./Authentication/Login";
 import Arrowlefticon from "../images/Arrowlefticon";
 import notificationSound from "../utils/notification.mp3";
-import Addicon from "../images/Addicon";
 const ENDPOINT = "http://localhost:5000"; // "https://МОЄВЛАСНЕІМ'Я.herokuapp.com"; -> After deployment
 var socket;
 
@@ -30,8 +26,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const toast = useToast();
     const [selectedChatCompare, setSelectedChatCompare] = useState();
     const [fileName, setFileName] = useState(' ');
-    const [fileNameFile, setFileNameFile] = useState(null);
     const [writeRead, toggleWriteRead] = useState(false);
+
 
     const [picLoading, setPicLoading ] = useState(false);
 
@@ -43,7 +39,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
-    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar } =
+    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption } =
         ChatState();
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -259,20 +255,23 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {selectedChat ? (
                 <>
                     <div className='single_chat'>
-                        <div>
+                        <div className='single_chat_header1'>
                             <button type='button' className='icon_arrow icon_button' onClick={() => setSelectedChat("")} >
                                 <Arrowlefticon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                             </button>
-                            <div className='read_write_button'>
-                                <span className={`write_read_span1 ${writeRead ? 'writeActive' : 'writePassive'}`}>WRITE</span>
-                                <label className='switch px-2'>
-                                    <input type = 'checkbox' className='switch-input' onClick = {()=>toggleWriteRead(!writeRead)}/>
-                                    <span className='switch-slider'></span>
-                                </label>
-                                <span className={`write_read_span1 read ${writeRead ? 'writePassive' : 'writeActive'}`}>READ</span>
-                            </div>
+                            { encryption ?  <div className='read_write_button'>
+                                                <span className={`write_read_span1 ${writeRead ? 'writeActive' : 'writePassive'}`}>WRITE</span>
+                                                <label className='switch px-2'>
+                                                    <input type = 'checkbox' className='switch-input' onClick = {()=>toggleWriteRead(!writeRead)}/>
+                                                    <span className='switch-slider'></span>
+                                                </label>
+                                                <span className={`write_read_span1 read ${writeRead ? 'writePassive' : 'writeActive'}`}>READ</span>
+                                            </div>
+                                         :  <div className='read_write_button'>
+                                                <button onClick={()=>setEncryption(true)}><span className='write_read_span1' >Encryption is disabled </span> </button >
+                                            </div> }
                         </div>
-                        <div>
+                        <div className='single_chat_header2'>
                             { messages && // !openAvatar &&     When Avatar (Redistrierter User) is on - man must not open
                                 (!selectedChat.isGroupChat ? (
                                     <>
@@ -331,7 +330,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             <div className=' input_picture'>
                                 {/*<span>{fileName}</span>*/}
                                 {/*{fileName && <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} ref={fileInput}  />}*/}
-                                <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} key={messages.length} />
+                                {picLoading
+                                 ?   <Spinner
+                                        size="xl"
+                                        w={20}
+                                        h={20}
+                                        alignSelf="center"
+                                        margin="auto"
+                                    />
+                                :  <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} key={messages.length} /> }
                                 {/*<button onClick={() => handleClick()} className='icon'><Addicon/></button>*/}
                             </div>
 

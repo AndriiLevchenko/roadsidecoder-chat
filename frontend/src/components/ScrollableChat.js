@@ -1,6 +1,3 @@
-import { Avatar } from "@chakra-ui/avatar";
-import { Tooltip } from "@chakra-ui/tooltip";
-import ScrollableFeed from "react-scrollable-feed";
 import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser,} from "../config/ChatLogics";
 import { ChatState } from "../Context/ChatProvider";
 import {extractDate, extractTime} from "../utils/functions";
@@ -32,12 +29,13 @@ const ScrollableChat = ({ messages }) => {
                       ? isSameSenderMargin(messages, m, i, user._id)
                       : 0,
                 marginTop: selectedChat.isGroupChat && isSameUser(messages, m, i, user._id) ? 3 : 10,
-                width: m.pic ? '50%' : '100%',
+                width: m.pic ? '50%' : 'auto',
+                minWidth: m.pic ? 'initial' : '50%',
               }}
             >
               {/*<span className='chatMessageText'>*/}
                 {m.sender._id !== user._id && selectedChat.isGroupChat ? <span className='chatMessageName'>{m.sender.name}</span> : null }
-                <span>{m.content}</span>
+                <span className={` ${m.pic ?  'picture_content' : '' }`}>{m.content}</span>
               {/*</span>*/}
               {m.pic && <img alt='' src={m.pic} />}
               <span className='chatMessageTime'>

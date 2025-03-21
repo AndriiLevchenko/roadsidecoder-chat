@@ -1,5 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button,
-        useDisclosure, Input, useToast, Box } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";

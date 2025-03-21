@@ -1,25 +1,11 @@
-import {
-    Modal,
-    useDisclosure,
-    IconButton, background,
-} from "@chakra-ui/react";
 import { ReactComponent as EyeIcon } from './../../images/eye-svgrepo.svg';
-import Addicon from "../../images/Addicon";
 import Closeicon from "../../images/Closeicon";
-import {useState} from "react";
 import {ChatState} from "../../Context/ChatProvider";
 
-const ProfileModal = ({ user,  children, closeModalCloseMenu, setOpenAvatar }) => {
-    //const { isOpen, onOpen, onClose } = useDisclosure();
-    //const [modelProfileOpen, setModelProfileOpen] = ChatState();
-    const { setSelectedChat, chats, setChats, notification, setNotification, modelProfileOpen, setModelProfileOpen, openProfileModal, setOpenProfileModal} = ChatState();
+const ProfileModal = ({ user,  children, setOpenAvatar }) => {
+    const { openProfileModal, setOpenProfileModal} = ChatState();
     console.log("user = ", user);
-    //console.log("children = ", children);
-    //console.log("openProfileModal = ", openProfileModal);
-    //window.props = [];
     console.log("props = ", window.props);
-
-
     return (
         <>
             {children
@@ -45,7 +31,6 @@ const ProfileModal = ({ user,  children, closeModalCloseMenu, setOpenAvatar }) =
                         </div>
                     </section>
                 </div>
-
             </div>  : null}
         </>
     )

@@ -224,12 +224,12 @@ code {
   cursor: pointer;
   color: black;
   background-color: #E8E8E8;
+  border: 1px solid #E8E8E8;
   border-radius: 5px;
 }
 .modal_listItem:hover {
   background-color: white;
   color: black;
-  border: 1px solid #E8E8E8;
 }
 .modal_listItem .span_avatar {
   width: 36px;
@@ -255,8 +255,17 @@ code {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 4px 15px 7px;
+  padding: 4px 6px 6px;
   max-width: 75%;
+}
+.chatMessage span {
+  margin-left: 6px;
+  margin-right: 6px;
+  line-height: 1.2;
+}
+.picture_content {
+  margin-top: 6px;
+  margin-bottom: 8px;
 }
 .chat_message_avatar {
   display: inline-flex;
@@ -377,6 +386,7 @@ code {
   z-index: 34344;
   --modal-bg: #fff;
   background: #fff;
+  border-radius: 4px;
   opacity: 1;
 }
 .search_button {
@@ -492,11 +502,21 @@ code {
 }
 .single_chat {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   font-size: 28px;
   padding: 6px;
   width: 100%;
   align-items: center;
+}
+.single_chat_header1 {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+.single_chat_header2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 .single_chat span {
   margin-left: auto;
@@ -540,9 +560,9 @@ code {
 
 }
 .writeActive, .writePassive {
-  min-width: 60px;
+  min-width: 75px;
   opacity: 1;
-  font-size: 18px;
+  font-size: 24px;
   -webkit-animation: flash 1.4s;
   animation: flash 1.4s;
   transform: translate3d(0, 0, 0);
@@ -556,8 +576,8 @@ code {
 .switch {
   display: inline-block;
   position: relative;
-  width: 60px;
-  height: 31px;
+  width: 85px;
+  height: 38px;
 }
 .switch-input {
   width: 0;
@@ -571,19 +591,19 @@ code {
   bottom: 0;
   right: 0;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #AFDBF5;
   border-radius: 34px;
   transition: 1s;
 }
 .switch-slider:before {
   content: "";
   position: absolute;
-  height: 24px;
-  width: 24px;
+  height: 30px;
+  width: 30px;
   bottom: 4px;
-  left: 32px;
+  left: 46px;
   cursor: pointer;
-  background-color: white;
+  background-color: #FFF;
   border-radius: 50%;
   transition: 0.6s;
   box-shadow: 0 2px 11px 2px #AFDBF5;
@@ -592,12 +612,12 @@ code {
   box-shadow: 0 0 10px #AFDBF5;
 }
 .switch-input:checked + .switch-slider {
-  background-color: #AFDBF5;
+  background-color: #FFF;
 }
 .switch-input:checked + .switch-slider:before {
-  transform: translateX(-28px);
-  -webkit-transform: translateX(-28px);
-  -ms-transform: translateX(-28px);
+  transform: translateX(-42px);
+  -webkit-transform: translateX(-42px);
+  -ms-transform: translateX(-42px);
 }
 .update_footer {
   margin: 12px auto;
@@ -943,9 +963,9 @@ button .span_avatar:hover{
 }
 .list_menu {
   position: absolute;
-  top: 46px;
+  top: 54px;
   right: 0;
-  padding: 4px;
+  padding: 4px 0;
   background-color: white;
   transition: line-height 0.5s, color 0.5s;
   border: 1px solid #B9D0E2;
@@ -954,14 +974,50 @@ button .span_avatar:hover{
   z-index: 22;
 }
 .listElement {
-  padding: 4px 14px;
+  width: 190px;
+  padding: 4px 24px 4px 4px;
+  font-size: 18px;
   overflow: hidden;
 }
-.listElement:nth-child(2) {
-  padding-bottom: 18px;
+.listElement button {
+  font-weight: 600;
 }
+
 .listElement:hover, .listElement:hover .myProfile {
   background-color: #E2FCFF;
+}
+.listElement:hover myProfile_settings.active {
+
+}
+.myProfile_settings {
+  height: 0;
+  transition: height 0.5s ease-in;
+}
+.myProfile_settings.active {
+  height: 33px;
+  transition: height 0.5s ease-in;
+}
+.myProfile_settings .switch {
+  width: 56px;
+  height: 28px;
+  margin-left: 6px;
+}
+.myProfile_settings .switch-slider:before {
+  width: 20px;
+  height: 20px;
+  left: 30px;
+}
+.myProfile_settings .switch-input:checked + .switch-slider::before {
+  transform: translateX(-28px);
+  -webkit-transform: translateX(-28px);
+  -ms-transform: translateX(-28px);
+}
+.settings_item {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 8px;
+  padding: 4px 0 0 0.75rem;
+  font-size: 14px;
 }
 li::marker { background-color: red }
 .listElement ::marker {

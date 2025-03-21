@@ -1,19 +1,17 @@
-import { ViewIcon } from "@chakra-ui/icons";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    useDisclosure,
-    FormControl,
-    Input,
+    // Modal,
+    // ModalOverlay,
+    // ModalContent,
+    // ModalHeader,
+    // ModalFooter,
+    // ModalBody,
+    // ModalCloseButton,
+    // Button,
+    // FormControl,
+    // Input,
     useToast,
-    Box,
-    IconButton,
+    // Box,
+    // IconButton,
     Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -21,13 +19,12 @@ import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
-import login from "../Authentication/Login";
+// import login from "../Authentication/Login";
 import ConfirmModal from "./ConfirmModal";
 import {ReactComponent as EyeIcon} from "../../images/eye-svgrepo.svg";
 import Closeicon from "../../images/Closeicon";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
     const [groupChatName, setGroupChatName] = useState();
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState([]);
