@@ -5,7 +5,6 @@ import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
-import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
@@ -13,6 +12,8 @@ import { ChatState } from "../Context/ChatProvider";
 // import login from "./Authentication/Login";
 import Arrowlefticon from "../images/Arrowlefticon";
 import notificationSound from "../utils/notification.mp3";
+import MessagesInputs from "./MessagesInputs";
+import ButtonConfirmNew from "./utils/ButtonConfirm/ButtonConfirmNew";
 const ENDPOINT = "http://localhost:5000"; // "https://МОЄВЛАСНЕІМ'Я.herokuapp.com"; -> After deployment
 var socket;
 
@@ -26,7 +27,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const toast = useToast();
     const [selectedChatCompare, setSelectedChatCompare] = useState();
     const [fileName, setFileName] = useState(' ');
-    const [writeRead, toggleWriteRead] = useState(false);
+    let [codedMessage, setCodedMessage] = useState(" ");
+    let [decodedMessage, setDecodedMessage] = useState(" ");
 
 
     const [picLoading, setPicLoading ] = useState(false);
@@ -39,7 +41,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
-    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption } =
+    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption, writeRead, toggleWriteRead, setModal, modal } =
         ChatState();
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -54,7 +56,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 `http://localhost:5000/api/message/${selectedChat._id}`,
                 config
             );
-            console.log("messages = ", messages);
+            //console.log("messages = ", messages);
             setMessages(data);
             setLoading(false);
 
@@ -75,6 +77,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         if (event.key === "Enter" && newMessage) {
             socket.emit("stop typing", selectedChat._id);
             try {
+                if (writeRead === false) {
+                    onClickSpanFunction();
+                    alert("Switch sending message");
+                    return
+                }
                 const config = {
                     headers: { "Content-type": "application/json", Authorization: `Bearer ${user.token}` }
                 };
@@ -82,7 +89,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 const { data } = await axios.post(
                     "http://localhost:5000/api/message",
                     {
-                        content: newMessage,
+                        content: codedMessage,
                         chatId: selectedChat,
                         pic: fileName
                     },
@@ -93,8 +100,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 sound.play();
                 setMessages([...messages, data]);
                 setFileName(' ');
-                console.log("data in SingleChat = ", data);
-                console.log("messages = ", messages);
+                //console.log("data in SingleChat = ", data);
+                //console.log("messages = ", messages);
             } catch (error) {
                 toast({
                     title: "Error Occured!",
@@ -126,7 +133,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }, [selectedChat]);
 
     useEffect(() => {
-        console.log("useEffect works");
+        //console.log("useEffect works");
         const handleMessageRecieved = (newMessageRecieved) => {
             try {
                 if (
@@ -148,7 +155,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
 
         socket.on("message recieved", handleMessageRecieved);
-        console.log("messages in SingleChat = ", messages);
+        //console.log("messages in SingleChat = ", messages);
         return () => {
             socket.off("message recieved", handleMessageRecieved);
         };
@@ -173,7 +180,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     useEffect(() => {
         if (selectedChat) {
             socket.emit("join chat", selectedChat._id);
-            console.log("Joined chat:", selectedChat._id); // Додано лог
+            //console.log("Joined chat:", selectedChat._id); // Додано лог
         }
     }, [selectedChat]);
 
@@ -250,6 +257,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             return;
         }
     }
+    const deleteMessageHandler =(index)=> {
+        const messagesNewArray = messages;
+        messagesNewArray.splice(index, 1);
+        //setMessages([...messagesNewArray]);
+    }
+    const onClickSpanFunction =()=> {
+        setModal({ ...modal, view: "query"});
+    }
+    console.log(" coded  n Mesegas Input = ", codedMessage);
     return (
         <>
             {selectedChat ? (
@@ -293,6 +309,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         </div>
                     </div>
                     <div className ='single_chat-field'>
+                        {/*<ButtonConfirmNew    title="" query="Включи режим писання! "/>*/}
                         {loading ? (
                             <Spinner
                                 size="xl"
@@ -304,29 +321,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
                         ) : (
                             <div className="messages">
-                                <ScrollableChat messages={messages} />
+                                <ScrollableChat messages={messages} deleteMessageHandler={deleteMessageHandler}/>
                             </div>
                         )}
 
                         <div className='form-control' onKeyDown={sendMessage}  id="first-name">
-                            {istyping ? (
-                                <div>
-                                    <Lottie
-                                        options={defaultOptions}
-                                        // height={50}
-                                        width={70}
-                                        style={{ marginBottom: 15, marginLeft: 0 }}
-                                    />
-                                </div>
-                            ) : (
-                                <></>
-                            )}
-                            <input
-                                className='updateInput'
-                                placeholder="Enter a message.."
-                                value={newMessage}
-                                onChange={typingHandler}
-                            />
+                            <MessagesInputs sendMessage={sendMessage} istyping={istyping} defaultOptions={defaultOptions} newMessage={newMessage} typingHandler={typingHandler} picLoading={picLoading} handleFileChange={handleFileChange} codedMessage={codedMessage} setCodedMessage={setCodedMessage} decodedMessage={decodedMessage} setDecodedMessage={setDecodedMessage} />
                             <div className=' input_picture'>
                                 {/*<span>{fileName}</span>*/}
                                 {/*{fileName && <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} ref={fileInput}  />}*/}
@@ -338,7 +338,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                         alignSelf="center"
                                         margin="auto"
                                     />
-                                :  <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} key={messages.length} /> }
+                                // :  <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} key={messages.length} /> }
+                                    :   <span>
+                                            { fileName === ' ' ? <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} key={messages.length} />
+                                            : <span>{fileName.split('/').pop()}</span>}
+                                        </span> }
                                 {/*<button onClick={() => handleClick()} className='icon'><Addicon/></button>*/}
                             </div>
 

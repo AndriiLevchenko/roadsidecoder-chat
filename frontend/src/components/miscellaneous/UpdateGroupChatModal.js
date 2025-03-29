@@ -20,7 +20,7 @@ import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
 // import login from "../Authentication/Login";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "../Modals/ConfirmModal/ConfirmModal";
 import {ReactComponent as EyeIcon} from "../../images/eye-svgrepo.svg";
 import Closeicon from "../../images/Closeicon";
 

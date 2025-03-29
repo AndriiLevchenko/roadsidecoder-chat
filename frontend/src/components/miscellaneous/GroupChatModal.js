@@ -6,6 +6,7 @@ import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
 import Closeicon from "../../images/Closeicon";
 import ButtonConfirm from "../utils/ButtonConfirm/ButtonConfirm";
+import ConfirmModal from "../Modals/ConfirmModal/ConfirmModal";
 
 
 const GroupChatModal = ({children}) => {
@@ -16,6 +17,9 @@ const GroupChatModal = ({children}) => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const toast = useToast();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenCreateDelete, setIsOpenCreateDelete] = useState(false);
+    const [userForDelete, setUserForDelete] = useState(null);
 
     const { user, chats, setChats, openCreateGroupChat, setOpenCreateGroupChat } = ChatState();
 
@@ -59,9 +63,16 @@ const GroupChatModal = ({children}) => {
         }
     };
 
-    const handleDelete = (delUser) => {
-        setSelectedUsers(selectedUsers.filter((sel) => sel._id !== delUser._id));
+    // const handleDelete = (delUser) => {
+    //     setSelectedUsers(selectedUsers.filter((sel) => sel._id !== delUser._id));
+    // };
+    const handleDelete = () => {
+        setSelectedUsers(selectedUsers.filter((sel) => sel._id !== userForDelete._id));
     };
+    const setIsOpenCreateDeleteFunction =(u)=> {
+        setUserForDelete(u);
+        setIsOpenCreateDelete(true)
+    }
 
     const handleSubmit = async () => {
         if (!groupChatName || !selectedUsers) {
@@ -138,7 +149,7 @@ const GroupChatModal = ({children}) => {
                 { openCreateGroupChat && <div className=' create_group_chat' >
                 {/*<ModalOverlay />*/}
                 <div className='modalOverlay'></div>
-                <div className='modal_section'>
+                <div className='dialog_alert modal_section'>
                     <p className='modal_header'>
                         Create Group Chat
                     </p>
@@ -167,9 +178,12 @@ const GroupChatModal = ({children}) => {
                                 <UserBadgeItem
                                     key={u._id}
                                     user={u}
-                                    handleFunction={() => handleDelete(u)}
+                                    handleFunction={()=>setIsOpenCreateDeleteFunction(u)}
+                                    // handleFunction={() => handleDelete(u)}
+
                                 />
                             ))}
+                            <ConfirmModal isOpen={isOpenCreateDelete} onConfirm={handleDelete} content="Do you really want to delede user list off?" onClose={()=>setIsOpenCreateDelete(false)}/>
                         </div>
                         <div className='items_box'>
                             {loading ? (
@@ -192,7 +206,9 @@ const GroupChatModal = ({children}) => {
                         {/*<button className='enter_button' onClick={handleSubmit} colorScheme="blue">*/}
                         {/*    Create Chat*/}
                         {/*</button>*/}
-                        <ButtonConfirm  className='enter_button' onConfirm={onConfirmDel.bind(this) }  title="Create Chat" query={"Are you sure you want to create group" + groupChatName + "?"}  />
+                        {/*<ButtonConfirm  className='button' onConfirm={()=>{ setIsOpen(true); onConfirmDel.bind(this); } } title="Create Chat" query={"Are you sure you want to create group" + groupChatName + "?"}  />*/}
+                        <button className="button" onClick={()=>setIsOpen(true)}>Create Chat</button>
+                        <ConfirmModal isOpen={isOpen} onConfirm={handleSubmit} content="Do you really want to create a new chat?" onClose={()=>setIsOpen(false)}/>
                     </div>
                 </div>
              </div>  }

@@ -93,7 +93,7 @@ const SideDrawer = () => {
             });
         }
     }
-    console.log("user in SideDrawer  = ", user);
+    //console.log("user in SideDrawer  = ", user);
         return (
         <>
             <div  className='chats_header'>
@@ -152,9 +152,9 @@ const SideDrawer = () => {
                                 <button  className='myProfile' onClick={()=>setSettings(!settings)} >Settings</button>
                                 <div className={`myProfile_settings ${settings ? 'active' : '' }`}>
                                     <span className='settings_item'>
-                                        <span onClick={()=>setEncryption(encryption)}>Encryption</span>
+                                        <span onClick={()=>setEncryption(!encryption)}>Encryption</span>
                                         <label className='switch px-2'>
-                                            <input type = 'checkbox' className='switch-input' onClick = {()=>setEncryption(encryption)}/>
+                                            <input type = 'checkbox' className='switch-input' onClick = {()=>setEncryption(!encryption)}/>
                                             <span className='switch-slider'></span>
                                         </label>
                                     </span>

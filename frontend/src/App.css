@@ -127,7 +127,7 @@ box-shadow: 0 10px 20px rgba(0, 0, 0, .19),
 }
 .icon_button {
   display: inline-flex;
-  padding: 7px;
+  padding: 8px;
   position: relative;
   color: #333;
   background: #EEE;

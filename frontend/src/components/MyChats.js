@@ -20,7 +20,7 @@ const MyChats = ({ fetchAgain }) => {
                 headers: { Authorization: `Bearer ${user.token}`}
             };
             const { data } = await axios.get("http://localhost:5000/api/chat", config);
-            console.log("data  = ", data );
+            //console.log("data  = ", data );
             setChats(data);
         } catch (error) {
             toast({
@@ -52,7 +52,7 @@ const MyChats = ({ fetchAgain }) => {
                 <span>My Chats</span>
                 <GroupChatModal>
                     <button className='newChat ' type='button'  onClick={()=>setOpenCreateGroupChat(true)} >
-                        <span>New group chat</span>
+                        <span className=' new_group_button'>New group chat</span>
                         <span className=' close_button'>
                             <Addicon className = '' focusable="false" aria-hidden="true" />
                         </span>

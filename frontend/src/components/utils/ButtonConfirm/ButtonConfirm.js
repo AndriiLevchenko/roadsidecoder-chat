@@ -1,4 +1,5 @@
 import React from "react";
+import ConfirmBlockModalWindow from "../ConfirmBlockModalWindow";
 
 class ButtonConfirm extends React.Component
 {
@@ -9,7 +10,7 @@ class ButtonConfirm extends React.Component
         this.state = {
             title: this.props.title,
             classButtonName: 'buttonForm buttonAlert button ',
-            classDialogName: 'dialog_alert modal_section',
+            classDialogName: ' modal_section',
             query: this.props.query,
             param: "del",
             param_id: "-1",
@@ -28,15 +29,18 @@ class ButtonConfirm extends React.Component
 
     onClickYes()
     {
+        alert("Yes we delete this.state.param_id = " + this.state.param_id + " this.state.param = " + this.state.param);
         this.setState({
             view: "button"
         });
 
         this.props.onConfirm("yes",this.state.param, this.state.param_id);
+
     }
 
     onClickNo()
     {
+        alert(" No we delete this.state.param_id = " + this.state.param_id + " this.state.param = " + this.state.param);
         this.setState({
             view: "button"
         });
@@ -57,16 +61,7 @@ class ButtonConfirm extends React.Component
         {
             console.log("query = ", this.props.query);
             return (
-                <div className={this.state.classDialogName}>
-                    <div>{this.state.title}</div>
-                    <div className=''>
-                        <div>{this.props.query}</div>
-                        <div className='buttons_yes_no'>
-                            <button className={this.state.classButtonName} onClick={this.onClickYes.bind(this) } >YES</button>
-                            <button className={this.state.classButtonName} onClick={this.onClickNo.bind(this) } >NO</button>
-                        </div>
-                    </div>
-                </div>
+                <ConfirmBlockModalWindow classDialogName={this.state.classDialogName} title={this.state.title} query={this.props.query} classButtonName={this.state.classButtonName} onClickYes={this.onClickYes.bind(this) } onClickNo={this.onClickNo.bind(this) } />
             );
         }
     }

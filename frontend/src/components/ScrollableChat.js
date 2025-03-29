@@ -1,15 +1,48 @@
 import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser,} from "../config/ChatLogics";
 import { ChatState } from "../Context/ChatProvider";
 import {extractDate, extractTime} from "../utils/functions";
+//import ButtonConfirm from "./utils/ButtonConfirm/ButtonConfirm";
+import ButtonConfirmNew from "./utils/ButtonConfirm/ButtonConfirmNew";
+import {useState} from "react";
+import ConfirmModal from "./Modals/ConfirmModal/ConfirmModal";
 
-const ScrollableChat = ({ messages }) => {
-  const { user, selectedChat } = ChatState();
+const ScrollableChat = ({ messages, deleteMessageHandler }) => {
+  const { user, selectedChat, modal, setModal } = ChatState();
+  const [i, setI] = useState(null);
   console.log("selectedChat = ", selectedChat);
+  // console.log("isSameSender(messages, m, i, user._id) = ", isSameSender(messages, m, i, user._id);
+  // console.log("isLastMessage(messages, i, user._id)) = ", isLastMessage(messages, i, user._id);
+  // console.log("selectedChat.isGroupChat = ", selectedChat.isGroupChat);
+  const [isOpen, setIsOpen] = useState(false);
+  const onContextMenuFunction =()=> {
+    // if (e.which === 3 || e.button === 2)
+    {
+      //console.log('"Right" at ', e.clientX, ' x ', e.clientY);
+      console.log(' delete i =  ', i);
+      setModal({ ...modal, view: "button"});
+      deleteMessageHandler(i);
+      setI(null);
+    }
+  }
+  const onClickSpanFunction =(e, i)=> {
+    setI(i);
+    setIsOpen(true);
+    e.preventDefault();
+    // setModal({ ...modal, view: "query"});
+  }
+  const onClose =()=> {
+    setIsOpen(false);
+  }
   return (
     <div className='scrollable'>
+      {/*<ButtonConfirmNew  onConfirm={onContextMenuFunction}  title="" query="Do you really want to delete Message '.....'?"/>*/}
+      <ConfirmModal onConfirm={onContextMenuFunction} onClose={onClose} isOpen={isOpen} content = {"Ревльно хочеш видалити месседж?"} />
       {messages &&
-        messages.map((m, i) => (
-          <div style={{ display: "flex" }} key={m._id}>
+        messages.map((m, i) => {
+          //console.log("isSameSender(messages, m, i, user._id) = ", isSameSender(messages, m, i, user._id));
+          //console.log("isLastMessage(messages, i, user._id) = ", isLastMessage(messages, i, user._id));
+          //console.log("selectedChat.isGroupChat = ", selectedChat.isGroupChat);
+          return (<div style={{ display: "flex" }} key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
               isLastMessage(messages, i, user._id)) && selectedChat.isGroupChat && (
               <span className='chat_message_avatar' label={m.sender.name} placement="bottom-start" hasArrow>
@@ -32,6 +65,8 @@ const ScrollableChat = ({ messages }) => {
                 width: m.pic ? '50%' : 'auto',
                 minWidth: m.pic ? 'initial' : '50%',
               }}
+                  // onMouseUp = {()=> {setI(i); setModal({ ...modal, view: "query"})}}  onContextMenu={(e)=> e.preventDefault()}
+                  onContextMenu={(e)=>onClickSpanFunction(e, i)}
             >
               {/*<span className='chatMessageText'>*/}
                 {m.sender._id !== user._id && selectedChat.isGroupChat ? <span className='chatMessageName'>{m.sender.name}</span> : null }
@@ -41,11 +76,10 @@ const ScrollableChat = ({ messages }) => {
               <span className='chatMessageTime'>
                 {extractTime(m.updatedAt)}
                 <span className='chatMessageDate'> {extractDate(m.updatedAt)}</span>
-
               </span>
             </span>
-          </div>
-        ))}
+          </div>)
+      })}
     </div>
   );
 };
