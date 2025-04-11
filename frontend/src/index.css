@@ -148,7 +148,7 @@ code {
   align-items: center;
   padding: 8px;
   background-color: white;
-  border-radius: 3px;
+  border-radius: 4px;
   border-width: 1px;
 }
 .box68 {
@@ -156,7 +156,7 @@ code {
   align-items: center;
   padding: 3px;
   background-color: white;
-  border-radius:  0.5rem;
+  border-radius:  4px;
   border-width: 1px;
 }
 .chat_item {
@@ -179,11 +179,26 @@ code {
   color: #FFF;
 }
 .chat_item-image {
+  position: relative;
   width: 46px;
   height: 46px;
   min-width: 46px;
   margin: 2px 3px 2px 0;
   padding: 0px;
+}
+.chat_item-image-images {
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+  width: 100%;
+  height: 24px;
+  bottom: 0;
+  overflow-x: hidden;
+}
+.chat_item-image .chat_item-image-images-image {
+  position: relative;
+  width: 24px;
+  height: 24px;
 }
 .chat_item-image img {
   width: 46px;
@@ -235,6 +250,25 @@ code {
   width: 36px;
   height: 36px;
   margin: 2px;
+}
+.group_avatar {
+  display: flex;
+  height: 50px;
+}
+.group_avatar .imgAvatar {
+  width: 50px;
+  border: 1px solid #CCC;
+}
+.group_avatar .imgAvatar:hover {
+  border-color: #333;
+}
+.group_avatar .chat_item-image-images-image {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #CCC;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .modal_listItem img {
   border: 1px solid #0FD3FF;
@@ -525,6 +559,13 @@ code {
   width: 100%;
   font-size: 18px;
 }
+.single_chat_header2 .span_avatar {
+  display: flex;justify-content: flex-start;
+}
+.single_chat_header2 .chat_item-image-images {
+  position: static;
+  height: initial;
+}
 .single_chat span {
   display: inline-block;
   margin-left: auto;
@@ -533,6 +574,15 @@ code {
   line-height: 42px;
   font-weight: 600;
 }
+.single_chat_header2 .span_avatar {
+  margin: 0;
+}
+.single_chat_header2 .span_avatar:hover {
+  border: none;
+}
+.single_chat_header2 .icon_button {
+  padding: 0;
+}
 .single_chat-field {
   position: relative;
   display: flex;
@@ -540,7 +590,7 @@ code {
   justify-content: flex-end;
   padding: 3px;
   width: 100%;
-  height: 84%;
+  height: 82%;
   border-radius: 5px;
   overflow-y: hidden;
   background-color: #F3F3FF;
@@ -611,6 +661,7 @@ code {
   right: 0;
   cursor: pointer;
   background-color: #AFDBF5;
+  border: 1px solid #D3EBFA;
   border-radius: 34px;
   transition: 1s;
 }
@@ -699,23 +750,23 @@ code {
   position: relative;
   appearance: none;
   border: 1px solid;
-  background: inherit;
+  background-color: #fdfdff;
   margin-bottom: 3px;
 }
 .updateBlock .updateInput {
-  margin-bottom: 3px;
-  width: 100%;
-  height: 2.5rem;
-  font-size: 18px;
-  padding: 4px;
-  border-radius: 3px;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  position: relative;
-  appearance: none;
-  border: 1px solid;
-  background: inherit;
-  margin-bottom: 3px;
+  /*margin-bottom: 3px;*/
+  /*width: 100%;*/
+  /*height: 2.5rem;*/
+  /*font-size: 18px;*/
+  /*padding: 4px;*/
+  /*border-radius: 3px;*/
+  /*outline: 2px solid transparent;*/
+  /*outline-offset: 2px;*/
+  /*position: relative;*/
+  /*appearance: none;*/
+  /*border: 1px solid;*/
+  /*background: inherit;*/
+  /*margin-bottom: 3px;*/
 }
 .form_control {
   width: 100%;
@@ -873,6 +924,9 @@ img {
   border-radius: 3px;
   font-weight: 500;
   font-size: 18px;
+  background: #eee;
+  border-radius: 15px;
+  padding: 0;
 }
 .searchUser {
   display: none;
@@ -890,6 +944,9 @@ img {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   margin-right: 34px;
+}
+.notification_menu  .listElement {
+  width: initial;
 }
 .notification {
   /*display: inline-flex;*/
@@ -995,6 +1052,7 @@ button .span_avatar:hover{
   top: 54px;
   right: 0;
   padding: 4px 0;
+  padding: 4px 8px;
   background-color: white;
   transition: line-height 0.5s, color 0.5s;
   border: 1px solid #B9D0E2;
@@ -1004,11 +1062,12 @@ button .span_avatar:hover{
 }
 .listElement {
   width: 190px;
-  padding: 4px 24px 4px 4px;
+  /*padding: 4px 24px 4px 4px;*/
   font-size: 18px;
   overflow: hidden;
 }
 .listElement button {
+  padding: 4px;
   font-weight: 600;
 }
 
@@ -1056,6 +1115,9 @@ li::marker { background-color: red }
   background-color: red
 }
 @media screen and (min-width: 600px) {
+  .newChat {
+    padding-left: 4px;
+  }
   .myChats_header button span.new_group_button {
     display: block;
     font-size: 18px;
@@ -1085,6 +1147,9 @@ li::marker { background-color: red }
   /*.newChat {*/
   /*  font-size: 18px;*/
   /*}*/
+  .newChat {
+    padding-left: 0;
+  }
   .searchUser {
     display: flex;
   }
@@ -1101,6 +1166,12 @@ li::marker { background-color: red }
   /*}*/
   .myChats_header button  span.new_group_button {
     display: block;
+  }
+  .single_chat-field {
+    height: 90%;
+  }
+  .newChat {
+    padding-left: 4px;
   }
 }
 @media only screen

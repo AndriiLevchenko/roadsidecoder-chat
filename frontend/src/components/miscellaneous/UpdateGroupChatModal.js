@@ -15,7 +15,7 @@ import {
     Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
@@ -165,7 +165,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         }
         setGroupChatName("");
     };
-//delete 1 droup-participant
+    let shift = 0;
+//delete 1 group-participant
     const handleRemove = async (user1) => {
         if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
             toast({
@@ -224,11 +225,20 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         setIsOpenModal(false);
         setIsConfirmModal(false);
     };
-
+    console.log("selectedChat = ", selectedChat);
     return (
         <>
-            <button type='button' className='icon_button' onClick={()=>setOpenProfileModal(true)} >
-                <EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
+            <button type='button' className='group_icon_button' onClick={()=>setOpenProfileModal(true)} >
+                {/*<EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />*/}
+                <div className='group_avatar'>
+                    <img className='imgAvatar'  src={selectedChat.groupAdmin.pic} alt='imgAvatar'/>
+                    <div className='chat_item-image-images'>
+                         {selectedChat.users.map((user, i) => {
+                             if(user.name === selectedChat.groupAdmin.name) { shift = shift + 1; return}
+                             return <img style={{left: `${(-i*2 + shift*2 + '0px')}`}} key={i}  className='chat_item-image-images-image' src={user.pic} alt='groupMember'/>
+                         })}
+                    </div>
+                </div>
             </button>
             < ConfirmModal isOpen={isOpenModal} onClose={onCloseModal} onConfirm={onConfirmModal} />
             { openProfileModal && <div className='modalContent chakra-modal__content-container css-wl0d9u' >

@@ -23,7 +23,8 @@ const ChatProvider = ({children}) => {
         param: "del",
         param_id: "-1",
         view: "button"
-    })
+    });
+    const [csrfToken, setCsrfToken] = useState('');
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         setUser(userInfo);
@@ -31,7 +32,7 @@ const ChatProvider = ({children}) => {
     }, [history]);
     //console.log("user = ", user);
     return (
-        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal }}>
+        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal, csrfToken, setCsrfToken }}>
             {children}
         </ChatContext.Provider>
     )

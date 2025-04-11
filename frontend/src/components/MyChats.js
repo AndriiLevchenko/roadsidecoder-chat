@@ -8,11 +8,14 @@ import { ChatState } from "../Context/ChatProvider";
 import Addicon from "../images/Addicon";
 import {extractTime, extractTimeOderDate} from "../utils/functions";
 import ButtonConfirm from "./utils/ButtonConfirm/ButtonConfirm";
+import ConfirmModal from "./Modals/ConfirmModal/ConfirmModal";
 
 const MyChats = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
     const { selectedChat, setSelectedChat, user, chats, setChats, setOpenCreateGroupChat } = ChatState();
     const toast = useToast();
+    const [isOpen, setIsOpen] = useState(false);
+    const [i, setI] = useState(null);
 
     const fetchChats = async () => {
         try {
@@ -40,9 +43,19 @@ const MyChats = ({ fetchAgain }) => {
         // eslint-disable-next-line
     }, [fetchAgain]);
     console.log("chats  = ", chats );
-    const onConfirmDel=(type, param, id)=>
-    {
-        console.log(type + param + id);
+    const onClickSpanFunction =(e, i)=> {
+        setI(i);
+        setIsOpen(true);
+        e.preventDefault();
+        alert("i = " + i);
+        // setModal({ ...modal, view: "query"});
+    }
+    // const onConfirmDel=(type, param, id)=>
+    // {
+    //     console.log(type + param + id);
+    // }
+    const onClose =()=> {
+        setIsOpen(false);
     }
     return (
         <div className='box31'
@@ -59,15 +72,31 @@ const MyChats = ({ fetchAgain }) => {
                     </button>
                     {/*<ButtonConfirm  onConfirm={onConfirmDel.bind(this) }  title="Delete" query="Are you sure...?"  />*/}
                 </GroupChatModal>
+                <ConfirmModal onClose={onClose} isOpen={isOpen} content = {"Реально треба видалити чат?"}  />
             </div>
             <div className='myChats'>
                 {chats ? (
                     <div className='myChats-scroll'>
-                        {chats.map((chat) => (
-                            <div className={ `${selectedChat === chat ? "chat_item active" : "chat_item" }` } onClick={() => setSelectedChat(chat)}
-                                 key={chat._id} >
+                        {chats.map((chat) => {    var shift = 0;
+                            return <div className={`${selectedChat === chat ? "chat_item active" : "chat_item"}`}
+                                 onClick={() => setSelectedChat(chat)}
+                                 key={chat._id} onContextMenu={(e) => onClickSpanFunction(e, i)}>
                                 <div className='chat_item-image'>
-                                    <img src={`${chat.users[0].name == user.name ? chat.users[1].pic : chat.users[0].pic}`}  alt='' />
+                                    {/*<img src={`${chat.users[0].name == user.name ? chat.users[1].pic : chat.users[0].pic}`}  alt='' />*/}
+                                    <img
+                                        src={chat.isGroupChat ? chat.groupAdmin.pic : chat.users[0].name == user.name ? chat.users[1].pic : chat.users[0].pic}
+                                        alt=''/>
+                                    <div className='chat_item-image-images'>
+                                        {chat.isGroupChat && chat.users.map((user, i) => {
+                                            if (user.name === chat.groupAdmin.name) {
+                                                shift = shift + 1;
+                                                console.log("shift = ", shift, i);
+                                                return
+                                            }
+                                            return <img style={{left: `${(-i + shift + '0px')}`}} key={i}
+                                                        className='chat_item-image-images-image' src={user.pic}/>
+                                        })}
+                                    </div>
                                 </div>
                                 <div className='chat_item-text'>
                                     <div className='chat_item-name_date'>
@@ -76,7 +105,8 @@ const MyChats = ({ fetchAgain }) => {
                                                 ? getSender(loggedUser, chat.users)
                                                 : chat.chatName}
                                         </p>
-                                        <div className='chat_item-date_time'> <span>{extractTimeOderDate(chat.updatedAt)}</span></div>
+                                        <div className='chat_item-date_time'>
+                                            <span>{extractTimeOderDate(chat.updatedAt)}</span></div>
                                     </div>
                                     <div className='chat_item-lastMessage'>
                                         {chat.latestMessage && (
@@ -90,7 +120,7 @@ const MyChats = ({ fetchAgain }) => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        })}
                     </div>
                 ) : (
                     <ChatLoading />

@@ -168,7 +168,7 @@ const GroupChatModal = ({children}) => {
                             {/*<div>{"Are you sure you want to create " + groupChatName + " ?"} </div>*/}
                             <input
                                 className='updateInput'
-                                placeholder="Add Users eg: John, Piyush, Jane"
+                                placeholder="Add Users: John, Salman, Jane"
                                 onChange={(e) => handleSearch(e.target.value)}
                                 value={search}
                             />

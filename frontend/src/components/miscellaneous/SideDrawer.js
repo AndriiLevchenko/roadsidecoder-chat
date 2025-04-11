@@ -1,8 +1,8 @@
 import React, { useState} from 'react'
 import {
-    Avatar,
-    Box,
-    Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input,
+    // Avatar,
+    // Box,
+    // Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input,
     Spinner,
 } from "@chakra-ui/react";
 import { useDisclosure} from "@chakra-ui/hooks";
@@ -30,7 +30,8 @@ const SideDrawer = () => {
     const [drawerOpenClose, setDrawerOpenClose] = useState("close");
     const [settings, setSettings] = useState(false);
     const toast = useToast();
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    // const { isOpen, onOpen, onClose } = useDisclosure();
+    const {onClose } = useDisclosure();
     const history = useHistory();
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");

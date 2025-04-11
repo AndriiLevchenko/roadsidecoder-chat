@@ -7,6 +7,7 @@ import cors from "cors";
 import colors from 'colors';
 import connectToMongoDB from "./config/connectToMongoDB.js";
 import connectCloudinary from "./config/cloudinary.js";
+import cookieParser from 'cookie-parser';
 
 import userRoutes from "./routes/userRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
@@ -14,13 +15,23 @@ import messageRoutes from "./routes/messageRoutes.js";
 import {errorHandler, notFound} from "./middleware/errorMiddleware.js";
 
 import { Server } from "socket.io";
+import {sessionMiddleware} from "./middleware/sessionMiddleware.js";
+import crypto  from 'crypto';
 
 const PORT  = process.env.PORT || 5000;
 const app = express();
-app.use(cors());
+//app.use(cors());
 dotenv.config();
 connectToMongoDB();
 
+
+const corsOptions = {
+    origin: 'http://localhost:3000', // URL вашого фронтенду
+    credentials: true,
+};
+app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(sessionMiddleware);
 app.use(express.json());  //to parse the incoming requests with JSON payloads (from req.body)
 
 app.use("/api/user", userRoutes);
@@ -46,7 +57,7 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log("Connected to socket.io");
+    //console.log("Connected to socket.io");
     socket.on("setup", (userData) => {
         socket.join(userData._id);
         socket.emit("connected");
@@ -54,7 +65,7 @@ io.on("connection", (socket) => {
 
     socket.on("join chat", (room) => {
         socket.join(room);
-        console.log("User Joined Room: " + room);
+        //console.log("User Joined Room: " + room);
     });
     socket.on("typing", (room) => socket.in(room).emit("typing"));
     socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));

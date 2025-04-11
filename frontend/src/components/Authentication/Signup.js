@@ -143,7 +143,7 @@ const SignUp = (props) => {
                         <input
                             type='text'
                             placeholder='Enter full name'
-                            className='form-control'
+                            className='updateInput'
                             value={inputs.name}
                             onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
                         />
@@ -156,7 +156,7 @@ const SignUp = (props) => {
                         <input
                             type='text'
                             placeholder='Enter Email-username'
-                            className='form-control'
+                            className='updateInput'
                             value={inputs.email}
                             onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
                         />
@@ -169,7 +169,7 @@ const SignUp = (props) => {
                         <input
                             type='password'
                             placeholder='Enter Password'
-                            className='form-control'
+                            className='updateInput'
                             value={inputs.password}
                             onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
                         />
@@ -182,7 +182,7 @@ const SignUp = (props) => {
                         <input
                             type='password'
                             placeholder='Confirm Password'
-                            className='form-control'
+                            className='updateInput'
                             value={inputs.confirmPassword}
                             onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
                         />

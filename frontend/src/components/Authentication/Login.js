@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
+import {ChatState} from "../../Context/ChatProvider";
+
 
 const Login = (props) => {
     const [show, setShow] = useState(false);
@@ -12,7 +14,7 @@ const Login = (props) => {
     const handleClick = ()=> setShow(!show);
     const history = useHistory();
     //const { loading, login } = useLogin();
-
+    const { setCsrfToken } = ChatState();
     const submitHandler = async () => {
         //e.preventDefault();
         setLoading(true);
@@ -32,6 +34,7 @@ const Login = (props) => {
                 headers: {
                     "Content-type": "application/json"
                 },
+                withCredentials: true
             };
             console.log('email password = ', email, password);
             const { data } = await axios.post(
@@ -48,6 +51,8 @@ const Login = (props) => {
                 position: "top",
             });
             localStorage.setItem("userInfo", JSON.stringify(data));
+            setCsrfToken(data.csrfToken); // Отримуємо CSRF-токен з відповіді
+            console.log("Отриманий CSRF-токен:", data.csrfToken);
             setLoading(false);
             history.push("/chats");
         } catch (error) {
@@ -79,7 +84,7 @@ const Login = (props) => {
                         <input
                             type='text'
                             placeholder='Enter Email-username'
-                            className='form-control'
+                            className='updateInput'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -91,7 +96,7 @@ const Login = (props) => {
                         <input
                             type='password'
                             placeholder='Enter Password'
-                            className='form-control'
+                            className='updateInput'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />

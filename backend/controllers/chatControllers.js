@@ -47,7 +47,7 @@ export const accessChat = asyncHandler(async (req, res) => {
 });
 
 export const fetchChats = asyncHandler(async (req, res) => {
-    console.log("rreq 1 = ");
+    console.log("chatControllers.js ");
     try {
         Chat.find({ users: { $elemMatch: { $eq: req.user._id }}})
                              .populate("users", "-password")

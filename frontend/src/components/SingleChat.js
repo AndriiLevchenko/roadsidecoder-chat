@@ -14,6 +14,8 @@ import Arrowlefticon from "../images/Arrowlefticon";
 import notificationSound from "../utils/notification.mp3";
 import MessagesInputs from "./MessagesInputs";
 import ButtonConfirmNew from "./utils/ButtonConfirm/ButtonConfirmNew";
+import {getCsrfToken} from "../utils/functions";
+import login from "./Authentication/Login";
 const ENDPOINT = "http://localhost:5000"; // "https://МОЄВЛАСНЕІМ'Я.herokuapp.com"; -> After deployment
 var socket;
 
@@ -41,7 +43,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
-    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption, writeRead, toggleWriteRead, setModal, modal } =
+    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption, writeRead, toggleWriteRead, setModal, modal, csrfToken } =
         ChatState();
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -72,7 +74,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             });
         }
     };
-
+    const getCsrfTokenForRequest = () => {
+        alert("token = "+ csrfToken);
+        return csrfToken; // Повертаємо CSRF-токен зі стану
+    };
     const sendMessage = async (event) => {
         if (event.key === "Enter" && newMessage) {
             socket.emit("stop typing", selectedChat._id);
@@ -83,8 +88,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     return
                 }
                 const config = {
-                    headers: { "Content-type": "application/json", Authorization: `Bearer ${user.token}` }
+                    headers: { "Content-type": "application/json", Authorization: `Bearer ${user.token}`,  'X-CSRF-Token': csrfToken },
+                    withCredentials: true     //Це щоб додавались cookies
                 };
+                console.log("csrfToken = ", csrfToken);
                 setNewMessage("");
                 const { data } = await axios.post(
                     "http://localhost:5000/api/message",
@@ -224,7 +231,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             return;
         }
         console.log("pics = ", pics);
-        if(pics.type === "image/jpeg" || pics.type === "image/png") {
+        if(pics.type === "image/jpeg" || pics.type === "image/jpg" || pics.type === "image/png") {
             const data = new FormData();
             console.log("data = new Formadta = ", data);
             data.append("file", pics );
@@ -257,10 +264,26 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             return;
         }
     }
-    const deleteMessageHandler =(index)=> {
-        const messagesNewArray = messages;
-        messagesNewArray.splice(index, 1);
+    const deleteMessageHandler = async(index)=> {
+        console.log(" deleteMessageHandler before in async = ", index);
+        //const messagesNewArray = messages;
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` }
+        };
+
+        setLoading(true);
+        //messagesNewArray.splice(index, 1);
         //setMessages([...messagesNewArray]);
+        console.log(" deleteMessageHandler before axios= ");
+        const { data } = await axios.post(
+            "http://localhost:5000/api/message/deleteMessage",
+            {
+                 _id: index
+            },
+            config
+        );
+        console.log(" deleteMessageHandler after axios, data = ", data);
+        setLoading(false);
     }
     const onClickSpanFunction =()=> {
         setModal({ ...modal, view: "query"});
@@ -276,12 +299,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 <Arrowlefticon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
                             </button>
                             { encryption ?  <div className='read_write_button'>
-                                                <span className={`write_read_span1 ${writeRead ? 'writeActive' : 'writePassive'}`}>WRITE</span>
+                                                <span className={`write_read_span1 ${writeRead ? 'writePassive ' : ' writeActive'}`}>READ </span>
                                                 <label className='switch px-2'>
                                                     <input type = 'checkbox' className='switch-input' onClick = {()=>toggleWriteRead(!writeRead)}/>
                                                     <span className='switch-slider'></span>
                                                 </label>
-                                                <span className={`write_read_span1 read ${writeRead ? 'writePassive' : 'writeActive'}`}>READ</span>
+                                                <span className={`write_read_span1 read ${writeRead ? ' writeActive' : 'writePassive '}`}>WRITE</span>
                                             </div>
                                          :  <div className='read_write_button'>
                                                 <button onClick={()=>setEncryption(true)}><span className='write_read_span1' >Encryption is disabled </span> </button >

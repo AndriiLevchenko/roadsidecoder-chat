@@ -24,10 +24,12 @@ const ScrollableChat = ({ messages, deleteMessageHandler }) => {
       setI(null);
     }
   }
-  const onClickSpanFunction =(e, i)=> {
-    setI(i);
+  const onClickSpanFunction =(e, m)=> {
+    //setI(i);
     setIsOpen(true);
+    console.log(' delete e.target =  ', e.target, "m = ", m._id);
     e.preventDefault();
+    deleteMessageHandler(m._id);
     // setModal({ ...modal, view: "query"});
   }
   const onClose =()=> {
@@ -66,7 +68,8 @@ const ScrollableChat = ({ messages, deleteMessageHandler }) => {
                 minWidth: m.pic ? 'initial' : '50%',
               }}
                   // onMouseUp = {()=> {setI(i); setModal({ ...modal, view: "query"})}}  onContextMenu={(e)=> e.preventDefault()}
-                  onContextMenu={(e)=>onClickSpanFunction(e, i)}
+                  // onContextMenu={(e)=>onClickSpanFunction(e, i)}
+                  onClick={(e)=>onClickSpanFunction(e, m)}
             >
               {/*<span className='chatMessageText'>*/}
                 {m.sender._id !== user._id && selectedChat.isGroupChat ? <span className='chatMessageName'>{m.sender.name}</span> : null }

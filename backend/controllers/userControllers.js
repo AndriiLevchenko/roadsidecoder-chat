@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import Userroad from "./../models/userModel.js";
 import generateToken from "../config/generateToken.js";
 import bcrypt from "bcryptjs";
+import crypto  from 'crypto';
 
 export const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, pic} = req.body;
@@ -37,16 +38,30 @@ export const authUser = asyncHandler(async (req, res) => {
     const { email, password} = req.body;
     console.log("email login = ", email);
     const user  = await Userroad.findOne({email});
-    console.log("user login = ", user);
     const isPasswordCorrect = await bcrypt.compare(password, user?.password || '');
+    // console.log("user.csrfToken = ", user.csrfToken);
     if (user && isPasswordCorrect) {
+        const csrfToken = crypto.randomBytes(32).toString('hex');
+        req.session.csrfToken = csrfToken;
+        console.log("Згенерований та збережений в сесії CSRF-токен (authUser):", csrfToken);
+        res.cookie('XSRF-TOKEN', csrfToken, {
+            path: '/',
+            httpOnly: true, // Важливо: забороняє доступ з JavaScript
+            sameSite: 'Lax',
+            secure: false,
+            domain: 'localhost',
+            maxAge: 3600 * 24 * 7,
+        });
         res.status(200).json({
             _id: user._id,
             name: user.name,
             email: user.email,
             pic: user.pic,
             token: generateToken(user._id),
+            csrfToken: csrfToken // НЕ надсилайте токен явно в JSON
         });
+        console.log("user login = ", user);
+        console.log("Згенерований CSRF-токен (з req):", req.csrfToken);
     } else {
         res.status(401);
         throw new Error("Invalid credentials");

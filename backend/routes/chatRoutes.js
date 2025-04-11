@@ -6,7 +6,8 @@ import {accessChat, fetchChats, createGroupChat, renameGroup, removeFromGroup, a
 const router = express.Router();
 
 router.route("/").post(protect, accessChat);
-router.route("/").get(protect, fetchChats);
+router.route("/").get(protect, fetchChats);   //  Оригінал
+//router.route("/").get( fetchChats); // Тимчасово вмдалено  protect
 router.route("/group").post(protect, createGroupChat);
 router.route("/rename").put(protect, renameGroup);
 router.route("/groupremove").put(protect, removeFromGroup);

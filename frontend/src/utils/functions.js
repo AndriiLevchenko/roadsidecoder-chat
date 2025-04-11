@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export function extractTimeOderDate(dateString) {
     let today = new Date(); // take the current time
 
@@ -37,3 +39,12 @@ export function extractDate(dateString) {
 function padZero(number) {
     return number.toString().padStart(2, "0");
 }
+
+export const getCsrfToken = () => {
+    // Використовуйте бібліотеку для роботи з cookie (наприклад, js-cookie)
+    const csrfToken = Cookies.get('XSRF-TOKEN'); // Припустимо, ви назвали cookie 'XSRF-TOKEN' на сервері
+    console.log("Cookies = ", Cookies);
+    console.log("csrfToken = ", csrfToken);
+    alert("csrfToken =  " + csrfToken);
+    return csrfToken;
+};

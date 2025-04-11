@@ -53,4 +53,42 @@ export const sendMessage = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
+export const deleteMessage = asyncHandler(async (req, res) => {  //ця функція не завершена
+  // const { massageId } = req.body;
+  const { massageId } = req;
+  console.log("message id, massageId = ", massageId );
+
+
+  // const removed = await Message.findByIdAndUpdate(
+  const removed = await Message.deleteOne(
+      { _id: massageId}, function(err, res) {
+        console.log("error = ", err);
+      }
+  ).then(  console.log("await Message.deleteOne = "));
+      // .populate("users", "-password")
+      // .populate("groupAdmin", "-password");
+
+  if (!removed) {
+    res.status(404);
+    throw new Error("Message was not deleted");
+  } else {
+    res.send({status: "Ok", Data: "deleted"});
+  }
+  // try {
+  //   var message = await Message.create(newMessage);
+  //
+  //   message = await message.populate("sender", "name pic");
+  //   message = await message.populate("chat");
+  //   message = await Userroad.populate(message, {
+  //     path: "chat.users",
+  //     select: "name pic email",
+  //   });
+  //   await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
+  //
+  //   res.json(message);
+  // } catch (error) {
+  //   res.status(400);
+  //   throw new Error(error.message);
+  // }
+});
 

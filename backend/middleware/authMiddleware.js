@@ -11,13 +11,14 @@ export const protect = asyncHandler(async (req, res, next) => {
     ) {
         try {
             token = req.headers.authorization.split(" ")[1];
-            console.log("tokennn = ", token);
-            console.log("process.env.JWT_SECRET = ", process.env.JWT_SECRET);
+            //console.log("tokennn = ", token);
+            //console.log("process.env.JWT_SECRET = ", process.env.JWT_SECRET);
             //decodes token id
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log("decoded  = ", decoded );
+            //console.log("decoded  = ", decoded );
             req.user = await Userroad.findById(decoded.id).select("-password");
-            console.log("req.user = ", req.user);
+            console.log("authMiddleware 1");
+            console.log("req.user in authMiddleware = ", req.user);
             next();
         } catch (error) {
             res.status(401);
