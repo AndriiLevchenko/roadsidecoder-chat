@@ -296,7 +296,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     <div className='single_chat'>
                         <div className='single_chat_header1'>
                             <button type='button' className='icon_arrow icon_button' onClick={() => setSelectedChat("")} >
-                                <Arrowlefticon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
+                                <Arrowlefticon className = 'icon' focusable="false" aria-hidden="true" />
                             </button>
                             { encryption ?  <div className='read_write_button'>
                                                 <span className={`write_read_span1 ${writeRead ? 'writePassive ' : ' writeActive'}`}>READ </span>

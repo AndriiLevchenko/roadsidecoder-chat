@@ -1,12 +1,10 @@
-// import { FormControl } from "@chakra-ui/form-control";
+
 // import { Input } from "@chakra-ui/react";
-// import { Box, Text } from "@chakra-ui/layout";
 // import "../index.css";
 // import { IconButton, Spinner, useToast } from "@chakra-ui/react";
 // import { getSender, getSenderFull } from "../config/ChatLogics";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
-// import { ArrowBackIcon } from "@chakra-ui/icons";
 // import ProfileModal from "./miscellaneous/ProfileModal";
 // import ScrollableChat from "./ScrollableChat";
 // import Lottie from "react-lottie";
@@ -171,7 +169,7 @@
 //                         alignItems="center"
 //                     >
 //                         <button type='button' className='icon_arrow' onClick={() => setSelectedChat("")} >
-//                             <ArrowLeftIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
+//                             <ArrowLeftIcon className = 'icon' focusable="false" aria-hidden="true" />
 //                         </button>
 //                         { messages &&
 //                             (!selectedChat.isGroupChat ? (

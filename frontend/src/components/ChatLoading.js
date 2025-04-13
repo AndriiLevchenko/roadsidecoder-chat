@@ -1,24 +1,20 @@
-import { Stack } from "@chakra-ui/layout";
-import { Skeleton } from "@chakra-ui/skeleton";
-
 const ChatLoading = () => {
     return (
-        <Stack>
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-            <Skeleton height="45px" />
-        </Stack>
+        <div className='skeleton_block'>
+            <div id='skeleton' className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+            <div id='skeleton'  className='skeleton_unit' ></div>
+        </div>
     );
 };
 
 export default ChatLoading;
-//equal

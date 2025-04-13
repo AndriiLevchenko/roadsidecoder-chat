@@ -26,7 +26,6 @@ const ProfileModal = ({ user,  children, setOpenAvatar }) => {
             }
             { openProfileModal ? <div className=' timeProfile Time222' >
                 <div className = 'modalContent' >
-                    {/*<section className='modal_section' role="dialog" id="chakra-modal-:rf:" tabIndex="-1" aria-modal="true" >*/}
                     <section className='modal_section' >
                         <div className = 'modal_header'>
                             {userFromLocalstorage.name}

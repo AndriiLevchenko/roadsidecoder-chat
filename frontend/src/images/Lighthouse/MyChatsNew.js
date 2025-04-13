@@ -1,4 +1,4 @@
-// import { Box, Stack, Text } from "@chakra-ui/layout";
+
 // import { useToast } from "@chakra-ui/toast";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
@@ -66,7 +66,7 @@
 //                 <GroupChatModal>
 //                     <button className='newChat  neeTime' type='button' onClick={()=>setOpenProfileModal(true)} >
 //                         <span>New group chat</span>
-//                         <AddIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />
+//                         <AddIcon className = 'icon' focusable="false" aria-hidden="true" />
 //                     </button>
 //                 </GroupChatModal>
 //             </Box>

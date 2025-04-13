@@ -773,30 +773,33 @@ code {
   position: relative;
   margin: 8px;
 }
-/*.overlay {*/
-/*  opacity: 1;*/
-/*  position: fixed;*/
-/*  left: 0px;*/
-/*  top: 0px;*/
-/*  width: 100vw;*/
-/*  height: 100vh;*/
-/*  background: var(--chakra-colors-blackAlpha-600);*/
-/*  z-index: var(--chakra-zIndices-modal);*/
-/*}*/
 .modal_footer {
   display: flex;
   justify-content: center;
   margin: 4px;
   padding: 6px;
 }
-/*.enter_button {*/
-/*  padding: 4px 8px;*/
-/*  color: white;*/
-/*  border-radius: 3px;*/
-/*  background: linear-gradient(81.02deg, #FA5560 -23.47%, #B14BF4 45.52%, #4D91FF 114.8%);*/
-/*  font-size: 16px;*/
-/*  font-weight: 600;*/
-/*}*/
+.skeleton_block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.skeleton_unit {
+  opacity: 0.7;
+  border-radius: 4px;
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+  height: 45px;
+}
+#skeleton {
+  background: #DDD;
+  animation: 0.8s linear infinite alternate skeleton_animation;
+}
+@keyframes skeleton_animation {
+  from {background-color: #DDD;}
+  to {background-color: #A0AEC0;}
+}
 .inputSearch {
   width: 100%;
   padding: 4px;

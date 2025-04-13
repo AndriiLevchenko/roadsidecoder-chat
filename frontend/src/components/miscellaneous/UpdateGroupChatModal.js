@@ -229,7 +229,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     return (
         <>
             <button type='button' className='group_icon_button' onClick={()=>setOpenProfileModal(true)} >
-                {/*<EyeIcon className = 'icon chakra-icon' focusable="false" aria-hidden="true" />*/}
+                {/*<EyeIcon className = 'icon' focusable="false" aria-hidden="true" />*/}
                 <div className='group_avatar'>
                     <img className='imgAvatar'  src={selectedChat.groupAdmin.pic} alt='imgAvatar'/>
                     <div className='chat_item-image-images'>
@@ -241,8 +241,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 </div>
             </button>
             < ConfirmModal isOpen={isOpenModal} onClose={onCloseModal} onConfirm={onConfirmModal} />
-            { openProfileModal && <div className='modalContent chakra-modal__content-container css-wl0d9u' >
-                {/*<ModalOverlay />*/}
+            { openProfileModal && <div className='modalContent' >
                 <div className='modalOverlay'></div>
                 <div className='modalContentTime' role='dialog' tabIndex='-1' aria-modal='true'>
                     <div className='modal_header'>
@@ -250,8 +249,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                     </div>
                     {/*<ModalCloseButton />*/}
                     <button className='close_button' onClick={()=>setOpenProfileModal(false)}><Closeicon /></button>
-                    {/*<div id='chakra-modal--body' className='modal_body' display="flex" flexDir="column" alignItems="center">*/}
-                    <div id='chakra-modal--body' className='modal_body'>
+                    {/*<div  className='modal_body' display="flex" flexDir="column" alignItems="center">*/}
+                    {/*<div id='chakra-modal--body' className='modal_body'>    Видалити      */}
+                    <div className='modal_body'>
                         <div className='badgeBlock' >
                             {selectedChat.users.map((u) => (
                                 <UserBadgeItem

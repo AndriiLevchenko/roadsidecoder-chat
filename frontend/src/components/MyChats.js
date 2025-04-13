@@ -20,7 +20,8 @@ const MyChats = ({ fetchAgain }) => {
     const fetchChats = async () => {
         try {
             const config = {
-                headers: { Authorization: `Bearer ${user.token}`}
+                headers: { Authorization: `Bearer ${user.token}`},
+                withCredentials: true
             };
             const { data } = await axios.get("http://localhost:5000/api/chat", config);
             //console.log("data  = ", data );
