@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-//import {Box} from "@chakra-ui/react";
 import Login from "../components/Authentication/Login";
 import SignUp from "../components/Authentication/Signup";
 import {useHistory} from "react-router-dom";

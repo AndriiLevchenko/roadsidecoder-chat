@@ -6,15 +6,19 @@ import crypto  from 'crypto';
 
 export const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, pic} = req.body;
-    console.log("email = ", email);
     if( !name || !email || !password) {
         res.status(400);
         throw new Error("Please enter all the fields");
     }
     const userExist = await Userroad.findOne({email});
+    const userNameExist = await Userroad.findOne({name});
     if (userExist) {
         res.status(400);
         throw new Error("The user already exists");
+    }
+    if (userNameExist) {
+        res.status(400);
+        throw new Error("This name already exists. Choose another");
     }
     console.log(" name, email, password, pic = ",  name, email, password, pic);
     const user = await Userroad.create({
@@ -68,7 +72,6 @@ export const authUser = asyncHandler(async (req, res) => {
     }
 });
 export const allUsers = asyncHandler(async (req, res) => {
-    console.log("req.query.search = ", req.query.search);
     const keyword = req.query.search
     ? {
         $or: [
@@ -78,7 +81,6 @@ export const allUsers = asyncHandler(async (req, res) => {
     }
     : {};
     const users = await Userroad.find(keyword).find({_id: {$ne: req.user._id}});
-    console.log("keywod = ", keyword);
     res.send(users);
 
 });

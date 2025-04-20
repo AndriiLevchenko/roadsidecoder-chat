@@ -1,5 +1,6 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
+import {TOAST_PROPERTIES} from "../utils/Toast/toastProperties";
 
 
 const ChatContext = createContext();
@@ -25,6 +26,14 @@ const ChatProvider = ({children}) => {
         view: "button"
     });
     const [csrfToken, setCsrfToken] = useState('');
+    const [list, setList] = useState([]);
+    const showToast = (type) => {
+        console.log("type = ", type);
+        const toastProperties = TOAST_PROPERTIES.find((toast) => toast.title.toLowerCase() === type);
+        console.log(" TOAST_PROPERTIES = ",  TOAST_PROPERTIES);
+        console.log("toastProperties = ", toastProperties);
+        setList([...list, toastProperties]);
+    }
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         setUser(userInfo);
@@ -32,7 +41,7 @@ const ChatProvider = ({children}) => {
     }, [history]);
     //console.log("user = ", user);
     return (
-        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal, csrfToken, setCsrfToken }}>
+        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal, csrfToken, setCsrfToken, showToast, list }}>
             {children}
         </ChatContext.Provider>
     )

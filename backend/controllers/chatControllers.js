@@ -69,10 +69,17 @@ export const fetchChats = asyncHandler(async (req, res) => {
 });
 
 export const createGroupChat = asyncHandler(async (req, res) => {
+    const { name } = req.body;
     if (!req.body.users || !req.body.name) {
         return res.status(400).send({ message: "Please Fill all the feilds" });
     }
-
+    const chatNameExist = await Chat.findOne({chatName: name});
+    console.log(" name = ",  name);
+    console.log("chatNameExist = ", chatNameExist);
+    if (chatNameExist) {
+        console.log(" name = ",  name, "This name already exists. Choose another");
+        return res.status(400).send({ message: "This name already exists. Choose another"});
+    }
     var users = JSON.parse(req.body.users);
 
     if (users.length < 2) {
