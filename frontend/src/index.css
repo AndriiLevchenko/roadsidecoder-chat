@@ -1,4 +1,5 @@
 @import url("styles/login_signup.css");
+/*@import "./utils/Toast/Toast.css";*/
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -753,6 +754,9 @@ code {
   background-color: #fdfdff;
   margin-bottom: 3px;
 }
+.updateInput::placeholder {
+  color: #BBB;
+}
 .updateBlock .updateInput {
   /*margin-bottom: 3px;*/
   /*width: 100%;*/
@@ -799,6 +803,25 @@ code {
 @keyframes skeleton_animation {
   from {background-color: #DDD;}
   to {background-color: #A0AEC0;}
+}
+.loader {
+  border: 10px solid #CCC;
+  border-top: 10px solid #3498db;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  align-self: center;
+  margin: auto;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .inputSearch {
   width: 100%;
@@ -896,7 +919,7 @@ img {
   width: 30px;
   height: 30px;
   padding: 3px;
-  background-color: #eee;
+  /*background-color: #eee;*/
   border-radius: 3px;
   display: inline-block;
   line-height: 1em;

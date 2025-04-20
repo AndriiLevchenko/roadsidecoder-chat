@@ -1,7 +1,7 @@
 
 // import { Input } from "@chakra-ui/react";
 // import "../index.css";
-// import { IconButton, Spinner, useToast } from "@chakra-ui/react";
+// import { IconButton, useToast } from "@chakra-ui/react";
 // import { getSender, getSenderFull } from "../config/ChatLogics";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
@@ -202,13 +202,7 @@
 //                         overflowY="hidden"
 //                     >
 //                         {loading ? (
-//                             <Spinner
-//                                 size="xl"
-//                                 w={20}
-//                                 h={20}
-//                                 alignSelf="center"
-//                                 margin="auto"
-//                             />
+//                             <SpinnerCustom />
 //                         ) : (
 //                             <div className="messages">
 //                                 <ScrollableChat messages={messages} />

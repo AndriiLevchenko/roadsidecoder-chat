@@ -6,7 +6,8 @@ export const ModalWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  // background: rgba(0, 0, 0, 0.5);  
+  background: #ABF322;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +15,8 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background: white;
+  // background: white;
+    background: #ABF322;
   padding: 20px;
   border-radius: 8px;
   max-width: 400px;
@@ -29,7 +31,8 @@ export const CloseButton = styled.button`
   top: 15px;
   right: 15px;
   cursor: pointer;
-  background: transparent;
+  // background: transparent;
+  background: #ABF322;
   font-weight: bold;
   border: 0;
 `;
