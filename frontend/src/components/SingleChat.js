@@ -1,7 +1,7 @@
 import "../index.css";
-import { Spinner, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
@@ -13,9 +13,15 @@ import { ChatState } from "../Context/ChatProvider";
 import Arrowlefticon from "../images/Arrowlefticon";
 import notificationSound from "../utils/notification.mp3";
 import MessagesInputs from "./MessagesInputs";
-import ButtonConfirmNew from "./utils/ButtonConfirm/ButtonConfirmNew";
+// import {list} from "./../utils/Toast/List";
+//import ButtonConfirmNew from "./utils/ButtonConfirm/ButtonConfirmNew";
 import {getCsrfToken} from "../utils/functions";
 import login from "./Authentication/Login";
+import SpinnerCustom from "./SpinnerCustom";
+// import Toast from "../utils/Toast/Toast";
+// import { TOAST_PROPERTIES } from '../utils/Toast/toastProperties';
+
+// import { toast } from 'react-toastify';
 const ENDPOINT = "http://localhost:5000"; // "https://МОЄВЛАСНЕІМ'Я.herokuapp.com"; -> After deployment
 var socket;
 
@@ -26,7 +32,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState(false);
     const [istyping, setIsTyping] = useState(false);
-    const toast = useToast();
+    //const toast = useToast();
     const [selectedChatCompare, setSelectedChatCompare] = useState();
     const [fileName, setFileName] = useState(' ');
     let [codedMessage, setCodedMessage] = useState(" ");
@@ -43,7 +49,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
-    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption, writeRead, toggleWriteRead, setModal, modal, csrfToken } =
+    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption, writeRead, toggleWriteRead, setModal, modal, csrfToken,  showToast } =
         ChatState();
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -64,20 +70,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
             socket.emit("join chat", selectedChat._id);
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: "Failed to Load the Messages",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast (
+                'loaderror'
+            )
         }
     };
-    const getCsrfTokenForRequest = () => {
-        alert("token = "+ csrfToken);
-        return csrfToken; // Повертаємо CSRF-токен зі стану
-    };
+    // const getCsrfTokenForRequest = () => {
+    //     alert("token = "+ csrfToken);
+    //     return csrfToken; // Повертаємо CSRF-токен зі стану
+    // };
     const sendMessage = async (event) => {
         if (event.key === "Enter" && newMessage) {
             socket.emit("stop typing", selectedChat._id);
@@ -110,14 +111,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 //console.log("data in SingleChat = ", data);
                 //console.log("messages = ", messages);
             } catch (error) {
-                toast({
-                    title: "Error Occured!",
-                    description: "Failed to send the Message",
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "bottom",
-                });
+                showToast (
+                    'relogin'
+                )
             }
         }
     };
@@ -187,7 +183,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     useEffect(() => {
         if (selectedChat) {
             socket.emit("join chat", selectedChat._id);
-            //console.log("Joined chat:", selectedChat._id); // Додано лог
         }
     }, [selectedChat]);
 
@@ -221,13 +216,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         console.log("Make something = ", pics);
         setPicLoading(true);
         if(pics === undefined) {
-            toast({
-                title: 'Picture is absent.',
-                description: "Add a picture.",
-                status: 'warning',
-                duration: 9000,
-                isClosable: true,
-            })
+            showToast (
+                'picture'
+            )
             return;
         }
         console.log("pics = ", pics);
@@ -253,13 +244,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 setPicLoading(false);
             });
         } else {
-            toast({
-                title: 'Picture is absent.',
-                description: "Add a picture.",
-                status: 'warning',
-                duration: 9000,
-                isClosable: true,
-            });
+            // toast({
+            //     title: 'Picture is absent.',
+            //     description: "Add a picture.",
+            //     status: 'warning',
+            //     duration: 9000,
+            //     isClosable: true,
+            // });
             setPicLoading(false);
             return;
         }
@@ -309,6 +300,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                          :  <div className='read_write_button'>
                                                 <button onClick={()=>setEncryption(true)}><span className='write_read_span1' >Encryption is disabled </span> </button >
                                             </div> }
+                            {/*<Toast toastList = {list}   toastList={TOAST_PROPERTIES}*/}
+                            {/*       position="bottom-right" />*/}
                         </div>
                         <div className='single_chat_header2'>
                             { messages && // !openAvatar &&     When Avatar (Redistrierter User) is on - man must not open
@@ -334,14 +327,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     <div className ='single_chat-field'>
                         {/*<ButtonConfirmNew    title="" query="Включи режим писання! "/>*/}
                         {loading ? (
-                            <Spinner
-                                size="xl"
-                                w={20}
-                                h={20}
-                                alignSelf="center"
-                                margin="auto"
-                            />
-
+                            <SpinnerCustom />
                         ) : (
                             <div className="messages">
                                 <ScrollableChat messages={messages} deleteMessageHandler={deleteMessageHandler}/>
@@ -354,13 +340,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 {/*<span>{fileName}</span>*/}
                                 {/*{fileName && <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} ref={fileInput}  />}*/}
                                 {picLoading
-                                 ?   <Spinner
-                                        size="xl"
-                                        w={20}
-                                        h={20}
-                                        alignSelf="center"
-                                        margin="auto"
-                                    />
+                                 ?
+                                    <SpinnerCustom />
                                 // :  <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} key={messages.length} /> }
                                     :   <span>
                                             { fileName === ' ' ? <input type='file' onChange={(e) => handleFileChange(e.target.files[0])} key={messages.length} />

@@ -1,8 +1,4 @@
 import React, { useState} from 'react'
-import {
-    Spinner,
-} from "@chakra-ui/react";
-import { useDisclosure} from "@chakra-ui/hooks";
 import axios from "axios";
 import {useToast} from "@chakra-ui/toast";
 import ProfileModal from "./ProfileModal";
@@ -14,6 +10,7 @@ import {ChatState} from "../../Context/ChatProvider";
 import Bellicon from "./../../images/Bellicon";
 import Tooltip from "../../utils/Tooltip/Tooltip";
 import Closeicon from "../../images/Closeicon";
+import SpinnerCustom from "../SpinnerCustom";
 
 const SideDrawer = () => {
     const [search, setSearch] = useState("");
@@ -25,17 +22,16 @@ const SideDrawer = () => {
     const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal, encryption, setEncryption } = ChatState();
     //console.log("notification in Drawer = ", notification);
     const [drawerOpenClose, setDrawerOpenClose] = useState("close");
-    const [settings, setSettings] = useState(false);
+    const [settings, setSettings] = useState(true);
     const toast = useToast();
-    // const { isOpen, onOpen, onClose } = useDisclosure();
-    const {onClose } = useDisclosure();
     const history = useHistory();
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");
         history.push("/");
     };
     const handleSearch = async () => {
-        if (!search) {
+        if (search) {
+            alert("Search!!!! = " + !!search);
             toast({
                 title: "Please Enter something in search",
                 status: "warning",
@@ -79,7 +75,8 @@ const SideDrawer = () => {
             if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
             setSelectedChat(data);
             setLoadingChat(false);
-            onClose();
+            //onClose();
+            setDrawerOpenClose("close");
         } catch (error) {
             toast({
                 title: "Error fetching the chat",
@@ -197,7 +194,7 @@ const SideDrawer = () => {
                                 />
                             ))
                         )}
-                        {loadingChat && <Spinner ml="auto" d="flex" />}
+                        {loadingChat &&  <SpinnerCustom />}
                         {loadingChat && <ChatLoading />}
                     </div>
                 </div>

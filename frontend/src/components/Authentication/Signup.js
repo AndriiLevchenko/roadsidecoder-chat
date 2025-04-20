@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
+import {ChatState} from "../../Context/ChatProvider";
 
 
 
@@ -17,33 +18,36 @@ const SignUp = (props) => {
         confirmPassword: "",
         pic: null
     });
-
     const [picLoading, setPicLoading ] = useState(false);
+    const {showToast } = ChatState();
 
     // const handleCheckboxChange = (gender) => {
     //     setInputs({ ...inputs, gender });
     // };
-    const submitHandler = async () => {
+    const submitHandler = async (e) => {
+        alert("SubmitHandler1");
+        e.preventDefault();
         setPicLoading(true);
         if (!inputs.name || !inputs.email || !inputs.password || !inputs.confirmPassword) {
-            toast({
-                title: "Please Fill all the Feilds",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            alert("SubmitHandler2");
+            // toast({
+            //     title: "Please Fill all the Feilds",
+            //     status: "warning",
+            //     duration: 5000,
+            //     isClosable: true,
+            //     position: "bottom",
+            // });
+            showToast (
+                'fields'
+            );
             setPicLoading(false);
             return;
         }
         if (inputs.password !== inputs.confirmPassword) {
-            toast({
-                title: "Passwords Do Not Match",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast (
+                'password'
+            );
+            setPicLoading(false);
             return;
         }
         console.log(inputs.name, inputs.email, inputs.password, inputs.pic);
@@ -59,25 +63,31 @@ const SignUp = (props) => {
                 config
             );
             console.log(data);
-            toast({
-                title: "Registration Successful",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            // toast({
+            //     title: "Registration Successful",
+            //     status: "success",
+            //     duration: 5000,
+            //     isClosable: true,
+            //     position: "bottom",
+            // });
+            showToast (
+                'newusercreated'
+            );
             localStorage.setItem("userInfo", JSON.stringify(data));
             setPicLoading(false);
             history.push("/chats");
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: error.response.data.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            // toast({
+            //     title: "Error Occured!",
+            //     description: error.response.data.message,
+            //     status: "error",
+            //     duration: 5000,
+            //     isClosable: true,
+            //     position: "bottom",
+            // });
+            showToast (
+                'error'
+            );
             setPicLoading(false);
         }
     };
@@ -85,13 +95,16 @@ const SignUp = (props) => {
     const postDetails =(pics)=>{
         setPicLoading(true);
         if(pics === undefined) {
-            toast({
-                title: 'Picture is absent.',
-                description: "Add a picture.",
-                status: 'warning',
-                duration: 9000,
-                isClosable: true,
-            })
+            // toast({
+            //     title: 'Picture is absent.',
+            //     description: "Add a picture.",
+            //     status: 'warning',
+            //     duration: 9000,
+            //     isClosable: true,
+            // })
+            showToast (
+                'pictureabsent'
+            );
             return;
         }
         console.log("pics = ", pics);
@@ -117,13 +130,16 @@ const SignUp = (props) => {
                 setPicLoading(false);
             });
         } else {
-            toast({
-                title: 'Picture is absent.',
-                description: "Add a picture.",
-                status: 'warning',
-                duration: 9000,
-                isClosable: true,
-            });
+            // toast({
+            //     title: 'Picture is absent.',
+            //     description: "Add a picture.",
+            //     status: 'warning',
+            //     duration: 9000,
+            //     isClosable: true,
+            // });
+            showToast (
+                'pictureabsent'
+            );
             setPicLoading(false);
             return;
         }
@@ -135,7 +151,7 @@ const SignUp = (props) => {
                     Sign Up <b> ChatApp</b>
                 </h1>
 
-                <form  id="first-name" isrequired = {'true'}>
+                <form  id="first-name" >
                     <div className='form-group'>
                         <label className='label p-2'>
                             <span className='text-base text-white'>Name</span>
@@ -198,7 +214,7 @@ const SignUp = (props) => {
                         <button onClick={()=>props.setLoginSignup(true)} className='link_account'> Already have an account? </button>
                     </div>
                     <div className='signup_button'>
-                        <button className='button' disabled={picLoading} onClick={()=>submitHandler()} isLoading = {picLoading}>
+                        <button className='button' disabled={picLoading} onClick={(e)=>submitHandler(e)} isLoading = {picLoading}>
                             {picLoading ? <span className='loading loading-spinner'></span> : "Sign Up"}
                         </button>
                     </div>

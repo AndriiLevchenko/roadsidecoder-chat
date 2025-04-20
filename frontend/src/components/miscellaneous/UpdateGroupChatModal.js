@@ -1,14 +1,4 @@
 import {
-    // Modal,
-    // ModalOverlay,
-    // ModalContent,
-    // ModalHeader,
-    // ModalFooter,
-    // ModalBody,
-    // ModalCloseButton,
-    // Button,
-    // FormControl,
-    // Input,
     useToast,
     // Box,
     // IconButton,
@@ -23,6 +13,7 @@ import UserListItem from "../userAvatar/UserListItem";
 import ConfirmModal from "../Modals/ConfirmModal/ConfirmModal";
 import {ReactComponent as EyeIcon} from "../../images/eye-svgrepo.svg";
 import Closeicon from "../../images/Closeicon";
+import SpinnerCustom from "../SpinnerCustom";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     const [groupChatName, setGroupChatName] = useState();
@@ -286,7 +277,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                         </div>
 
                         {loading ? (
-                            <Spinner size="lg" />
+                            <SpinnerCustom />
                         ) : (
                             searchResult?.map((user) => (
                                 <UserListItem

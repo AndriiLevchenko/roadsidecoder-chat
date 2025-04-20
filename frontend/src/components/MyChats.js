@@ -1,4 +1,3 @@
-import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getSender } from "../config/ChatLogics";
@@ -12,8 +11,7 @@ import ConfirmModal from "./Modals/ConfirmModal/ConfirmModal";
 
 const MyChats = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
-    const { selectedChat, setSelectedChat, user, chats, setChats, setOpenCreateGroupChat } = ChatState();
-    const toast = useToast();
+    const { selectedChat, setSelectedChat, user, chats, setChats, setOpenCreateGroupChat, showToast } = ChatState();
     const [isOpen, setIsOpen] = useState(false);
     const [i, setI] = useState(null);
 
@@ -24,17 +22,11 @@ const MyChats = ({ fetchAgain }) => {
                 withCredentials: true
             };
             const { data } = await axios.get("http://localhost:5000/api/chat", config);
-            //console.log("data  = ", data );
             setChats(data);
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: "Failed to Load the chats",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom-left",
-            });
+            showToast (
+                'failedloadchats'
+            );
         }
     };
 
@@ -59,9 +51,7 @@ const MyChats = ({ fetchAgain }) => {
         setIsOpen(false);
     }
     return (
-        <div className='box31'
-            style={{display: `${!!selectedChat  ? 'none' : 'flex'}` }}
-        >
+        <div className='box31'  style={{display: `${!!selectedChat  ? 'none' : 'flex'}` }} >
             <div className='myChats_header'>
                 <span>My Chats</span>
                 <GroupChatModal>
@@ -91,7 +81,6 @@ const MyChats = ({ fetchAgain }) => {
                                         {chat.isGroupChat && chat.users.map((user, i) => {
                                             if (user.name === chat.groupAdmin.name) {
                                                 shift = shift + 1;
-                                                console.log("shift = ", shift, i);
                                                 return
                                             }
                                             return <img style={{left: `${(-i + shift + '0px')}`}} key={i}
