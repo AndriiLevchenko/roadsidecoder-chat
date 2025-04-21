@@ -14,8 +14,8 @@ const ChatProvider = ({children}) => {
     const history = useHistory();
     const [openAvatar, setOpenAvatar] = useState(false);
     const [openCreateGroupChat, setOpenCreateGroupChat] = useState(false);
-    const [writeRead, toggleWriteRead] = useState(false);
-    const [encryption, setEncryption] = useState(false);
+    const [writeRead, toggleWriteRead] = useState(true);
+    const [encryption, setEncryption] = useState(true);
     const [modal, setModal] = useState({
         title: "",
         classButtonName: 'buttonForm buttonAlert button ',

@@ -1,5 +1,4 @@
 import "../index.css";
-import { useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
@@ -9,19 +8,12 @@ import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-// import login from "./Authentication/Login";
 import Arrowlefticon from "../images/Arrowlefticon";
 import notificationSound from "../utils/notification.mp3";
 import MessagesInputs from "./MessagesInputs";
-// import {list} from "./../utils/Toast/List";
-//import ButtonConfirmNew from "./utils/ButtonConfirm/ButtonConfirmNew";
-import {getCsrfToken} from "../utils/functions";
-import login from "./Authentication/Login";
+// import {getCsrfToken} from "../utils/functions";
+//import login from "./Authentication/Login";
 import SpinnerCustom from "./SpinnerCustom";
-// import Toast from "../utils/Toast/Toast";
-// import { TOAST_PROPERTIES } from '../utils/Toast/toastProperties';
-
-// import { toast } from 'react-toastify';
 const ENDPOINT = "http://localhost:5000"; // "https://МОЄВЛАСНЕІМ'Я.herokuapp.com"; -> After deployment
 var socket;
 
@@ -32,7 +24,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState(false);
     const [istyping, setIsTyping] = useState(false);
-    //const toast = useToast();
     const [selectedChatCompare, setSelectedChatCompare] = useState();
     const [fileName, setFileName] = useState(' ');
     let [codedMessage, setCodedMessage] = useState(" ");
@@ -75,10 +66,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             )
         }
     };
-    // const getCsrfTokenForRequest = () => {
-    //     alert("token = "+ csrfToken);
-    //     return csrfToken; // Повертаємо CSRF-токен зі стану
-    // };
+
     const sendMessage = async (event) => {
         if (event.key === "Enter" && newMessage) {
             socket.emit("stop typing", selectedChat._id);
@@ -92,7 +80,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     headers: { "Content-type": "application/json", Authorization: `Bearer ${user.token}`,  'X-CSRF-Token': csrfToken },
                     withCredentials: true     //Це щоб додавались cookies
                 };
-                console.log("csrfToken = ", csrfToken);
+                //console.log("csrfToken = ", csrfToken);
                 setNewMessage("");
                 const { data } = await axios.post(
                     "http://localhost:5000/api/message",
@@ -217,7 +205,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         setPicLoading(true);
         if(pics === undefined) {
             showToast (
-                'picture'
+                'pictureabsent'
             )
             return;
         }
@@ -241,16 +229,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 setPicLoading(false);
             }).catch((err)=>{
                 console.log("err = ", err);
+                showToast (
+                    'pictureerror'
+                )
                 setPicLoading(false);
             });
         } else {
-            // toast({
-            //     title: 'Picture is absent.',
-            //     description: "Add a picture.",
-            //     status: 'warning',
-            //     duration: 9000,
-            //     isClosable: true,
-            // });
+            showToast (
+                'pictureerror'
+            )
             setPicLoading(false);
             return;
         }
@@ -300,8 +287,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                          :  <div className='read_write_button'>
                                                 <button onClick={()=>setEncryption(true)}><span className='write_read_span1' >Encryption is disabled </span> </button >
                                             </div> }
-                            {/*<Toast toastList = {list}   toastList={TOAST_PROPERTIES}*/}
-                            {/*       position="bottom-right" />*/}
                         </div>
                         <div className='single_chat_header2'>
                             { messages && // !openAvatar &&     When Avatar (Redistrierter User) is on - man must not open

@@ -8,7 +8,6 @@ const ProfileModal = ({ user,  children, setOpenAvatar }) => {
     const [userFromLocalstorage, setUserFromLocalstorage] = useState(user);
     console.log("user = ", user);
     console.log("userFromLocalstorage = ", userFromLocalstorage);
-    console.log("props = ", window.props);
 
     // useEffect(()=> {
     //     const userFromLocalstorageTime = JSON.parse(localStorage.getItem("userInfo"));

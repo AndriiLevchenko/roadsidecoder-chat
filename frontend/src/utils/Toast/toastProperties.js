@@ -50,16 +50,26 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
     {
+        id: 5,
+        title: 'FailedLoadChat',
+        description: 'Error fetching the chat. Request failed with status code 404',
+        backgroundColor: '#FF5277',
+        icon: errorIcon,
+        autoDelete: true,
+        autoDeleteTime: 415
+    },
+
+{
         id: 6,
-        title: 'Picture',
-        description: 'Picture is absent. Add a picture',
-        backgroundColor: '#F0AD4E',
-        icon: warningIcon
+        title: 'PictureError',
+        description: 'Error Occured! Failed to Load the picture',
+        backgroundColor: '#FF5277',
+        icon: errorIcon,
     },
     {
         id: 7,
-        title: 'Fields',
-        description: 'Please fill all the feilds.',
+        title: 'PictureAbsent',
+        description: 'Picture is absent. Add a picture.',
         backgroundColor: '#F0AD4E',
         icon: warningIcon,
         autoDelete: true,
@@ -67,8 +77,8 @@ export const TOAST_PROPERTIES = [
     },
     {
         id: 8,
-        title: 'PictureAbsent',
-        description: 'Picture is absent. Add a picture.',
+        title: 'Fields',
+        description: 'Please fill all the feilds.',
         backgroundColor: '#F0AD4E',
         icon: warningIcon,
         autoDelete: true,
@@ -94,34 +104,43 @@ export const TOAST_PROPERTIES = [
     },
     {
         id: 11,
+        title: 'SearchAbsent',
+        description: 'Search is absent. Please enter something in search.',
+        backgroundColor: '#F0AD4E',
+        icon: warningIcon,
+        autoDelete: true,
+        autoDeleteTime: 415
+    },
+    {
+        id: 12,
         title: 'GroupChatCreated',
         description: 'New Group Chat Created!',
         backgroundColor: '#5bc0de',
         icon: checkIcon
     },
     {
-        id: 12,
+        id: 13,
         title: 'NewUserCreated',
         description: 'New User Created!',
         backgroundColor: '#5bc0de',
         icon: checkIcon
     },
     {
-        id: 13,
+        id: 14,
         title: 'UserAlreadyAdded',  //Юзери для додавання в нову групу
         description: 'The user is already in this group. Choose next one',
         backgroundColor: '#F0AD4E',
         icon: warningIcon
     },
     {
-        id: 14,
+        id: 15,
         title: 'password',
         description: 'Password do not match',
         backgroundColor: '#F0AD4E',
         icon: warningIcon
     },
     {
-        id: 15,
+        id: 16,
         title: 'Info',
         description: 'This is an info toast component',
         backgroundColor: '#5bc0de',

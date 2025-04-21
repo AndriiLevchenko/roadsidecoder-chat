@@ -647,7 +647,7 @@ code {
   position: relative;
   width: 85px;
   height: 38px;
-  top: 3px;
+  /*top: 3px;*/
 }
 .switch-input {
   width: 0;
@@ -661,7 +661,7 @@ code {
   bottom: 0;
   right: 0;
   cursor: pointer;
-  background-color: #AFDBF5;
+  /*background-color: #AFDBF5;*/
   border: 1px solid #D3EBFA;
   border-radius: 34px;
   transition: 1s;
@@ -672,7 +672,7 @@ code {
   height: 30px;
   width: 30px;
   bottom: 4px;
-  left: 46px;
+  left: 2px;
   cursor: pointer;
   background-color: #FFF;
   border-radius: 50%;
@@ -683,12 +683,12 @@ code {
   box-shadow: 0 0 10px #AFDBF5;
 }
 .switch-input:checked + .switch-slider {
-  background-color: #FFF;
+  background-color: #AFDBF5;
 }
 .switch-input:checked + .switch-slider:before {
-  transform: translateX(-42px);
-  -webkit-transform: translateX(-42px);
-  -ms-transform: translateX(-42px);
+  transform: translateX(40px);
+  -webkit-transform: translateX(40px);
+  -ms-transform: translateX(40px);
 }
 .secret_block {
   display: flex;
@@ -750,7 +750,7 @@ code {
   outline-offset: 2px;
   position: relative;
   appearance: none;
-  border: 1px solid;
+  border: 1px solid #232a31;
   background-color: #fdfdff;
   margin-bottom: 3px;
 }
@@ -823,21 +823,22 @@ code {
     transform: rotate(360deg);
   }
 }
-.inputSearch {
-  width: 100%;
-  padding: 4px;
-  border-radius: 3px;
-  min-width: 0px;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  position: relative;
-  appearance: none;
-  font-size: 18px;
-  border: 1px solid;
-  border-color: inherit;
-  background: inherit;
-  margin-right: 4px;
-}
+/*.inputSearch {*/
+/*  min-width: 0px;*/
+/*  margin-right: 4px;*/
+
+/*  margin-bottom: 3px;*/
+/*  width: 100%;*/
+/*  font-size: 18px;*/
+/*  padding: 4px;*/
+/*  border-radius: 3px;*/
+/*  outline: 2px solid transparent;*/
+/*  outline-offset: 2px;*/
+/*  position: relative;*/
+/*  appearance: none;*/
+/*  border: 1px solid inherit;*/
+/*  margin-bottom: 3px;*/
+/*}*/
 .input_upload {
   width: 100%;
   position: relative;
@@ -1088,7 +1089,6 @@ button .span_avatar:hover{
 }
 .listElement {
   width: 190px;
-  /*padding: 4px 24px 4px 4px;*/
   font-size: 18px;
   overflow: hidden;
 }
@@ -1119,13 +1119,15 @@ button .span_avatar:hover{
 .myProfile_settings .switch-slider:before {
   width: 20px;
   height: 20px;
-  left: 30px;
+  bottom: 2px;
+  border: 1px solid #D3EBFA;
 }
 .myProfile_settings .switch-input:checked + .switch-slider::before {
-  transform: translateX(-28px);
-  -webkit-transform: translateX(-28px);
-  -ms-transform: translateX(-28px);
+  transform: translateX(28px);
+  -webkit-transform: translateX(28px);
+  -ms-transform: translateX(28px);
 }
+
 .settings_item {
   display: flex;
   justify-content: space-between;
@@ -1163,10 +1165,10 @@ li::marker { background-color: red }
   .single_chat {
     flex-direction: column;
   }
-  .list_menu {
-    right: initial;
-    left: 0;
-  }
+  /*.list_menu {*/
+  /*  right: initial;*/
+  /*  left: 0;*/
+  /*}*/
   .icon_arrow {
     display: none;
   }

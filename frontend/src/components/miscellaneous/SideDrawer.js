@@ -1,6 +1,6 @@
 import React, { useState} from 'react'
 import axios from "axios";
-import {useToast} from "@chakra-ui/toast";
+// import {useToast} from "@chakra-ui/react";
 import ProfileModal from "./ProfileModal";
 import {useHistory} from "react-router-dom";
 import ChatLoading from "../ChatLoading";
@@ -19,31 +19,25 @@ const SideDrawer = () => {
     const [loadingChat, setLoadingChat] = useState(false);
     // const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openNotifications, setOpenNotifications] = useState(false);
-    const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal, encryption, setEncryption } = ChatState();
-    //console.log("notification in Drawer = ", notification);
+    const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal, encryption, setEncryption, showToast } = ChatState();
     const [drawerOpenClose, setDrawerOpenClose] = useState("close");
     const [settings, setSettings] = useState(true);
-    const toast = useToast();
+    // const toast = useToast();
     const history = useHistory();
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");
         history.push("/");
     };
     const handleSearch = async () => {
-        if (search) {
-            alert("Search!!!! = " + !!search);
-            toast({
-                title: "Please Enter something in search",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "top-left",
-            });
+        if (!search) {
+            showToast (
+                'searchabsent'      //checked
+            )
             return;
         }
         try {
             setLoading(true);
-            //console.log("user.token = ", user.token);
+            console.log("user.token = ", user.token);
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` }
             };
@@ -51,15 +45,12 @@ const SideDrawer = () => {
             const { data } = await axios.get(`http://localhost:5000/api/user?search=${search}`, config);
             setLoading(false);
             setSearchResult(data);
+            console.log("data search  = ", data);
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: "Failed to Load the Search Results",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom-left",
-            });
+            console.log("data search  = ", error);
+            showToast (
+                'errorsearchresults'    //checked
+            )
         }
     }
 
@@ -78,17 +69,13 @@ const SideDrawer = () => {
             //onClose();
             setDrawerOpenClose("close");
         } catch (error) {
-            toast({
-                title: "Error fetching the chat",
-                description: error.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom-left",
-            });
+            console.log("Error fetching the chat. Request failed with status code 404  = ", error);
+            showToast (
+                'failedloadchat'    //checked
+            )
         }
     }
-    //console.log("user in SideDrawer  = ", user);
+
         return (
         <>
             <div  className='chats_header'>
@@ -105,7 +92,7 @@ const SideDrawer = () => {
                 </h2>
                 <div className='rightMenu'>
                     <div className = 'notification_menu'  >
-                        <button className='notification icon_button' onClick={()=>setOpenNotifications(!openNotifications)}>
+                        <button className='notification icon_button' onClick={()=>{setOpenNotifications(!openNotifications); setOpenAvatar(false);}}>
                             <Bellicon className = '' focusable="false" aria-hidden="true" />
                             {notification.length === 0 ? null : <span className='icon_button_notification'>{notification.length}</span>}
                         </button>
@@ -132,7 +119,7 @@ const SideDrawer = () => {
                         }
                     </div>
                     <div className='avatar_block'>
-                        <button className='avatar_button' onClick={()=>setOpenAvatar(!openAvatar)}>
+                        <button className='avatar_button' onClick={()=>{setOpenAvatar(!openAvatar); setOpenNotifications(false)}}>
                             <span className='span_avatar'>
                                 <img className='imgAvatar' name={user.name} src={user.pic} />
                             </span>
@@ -147,9 +134,10 @@ const SideDrawer = () => {
                                 <button  className='myProfile' onClick={()=>setSettings(!settings)} >Settings</button>
                                 <div className={`myProfile_settings ${settings ? 'active' : '' }`}>
                                     <span className='settings_item'>
-                                        <span onClick={()=>setEncryption(!encryption)}>Encryption</span>
+                                        {/*<span onClick={()=>setEncryption(!encryption)}>Encryption</span>*/}
+                                        <span >Encryption</span>
                                         <label className='switch px-2'>
-                                            <input type = 'checkbox' className='switch-input' onClick = {()=>setEncryption(!encryption)}/>
+                                            <input type = 'checkbox' className='switch-input' checked={encryption} onClick = {()=>setEncryption(!encryption)}/>
                                             <span className='switch-slider'></span>
                                         </label>
                                     </span>
@@ -176,7 +164,7 @@ const SideDrawer = () => {
                     <div className='search_block_Gross'>
                         <div className='search_block'>
                             <input
-                                className='inputSearch'
+                                className='updateInput'
                                 placeholder="Search by name or email"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
