@@ -5,6 +5,15 @@ import warningIcon from './assets/warning.svg';
 
 export const TOAST_PROPERTIES = [
     {
+        id: 0,
+        title: 'LoginError',
+        description: 'Error Occured! Check username=email and password.',
+        backgroundColor: '#FF5277',
+        icon: errorIcon,
+        autoDelete: true,
+        autoDeleteTime: 415
+    },
+    {
         id: 1,
         title: 'LoadError',
         description: 'Failed to Load the Messages',
@@ -16,7 +25,7 @@ export const TOAST_PROPERTIES = [
     {
         id: 2,
         title: 'ErrorCreateGroup',
-        description: 'Error Occured! Failed to create group.',
+        description: 'Error Occured! Failed to create group/user.',
         backgroundColor: '#FF5277',
         icon: errorIcon,
         autoDelete: true,
@@ -50,7 +59,7 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
     {
-        id: 5,
+        id: 6,
         title: 'FailedLoadChat',
         description: 'Error fetching the chat. Request failed with status code 404',
         backgroundColor: '#FF5277',
@@ -59,15 +68,22 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
 
-{
-        id: 6,
+    {
+        id: 7,
         title: 'PictureError',
         description: 'Error Occured! Failed to Load the picture',
         backgroundColor: '#FF5277',
         icon: errorIcon,
     },
     {
-        id: 7,
+        id: 8,
+        title: 'errorgroup',
+        description: 'Error Occured! Failed to create/change/delete group',
+        backgroundColor: '#FF5277',
+        icon: errorIcon,
+    },
+    {
+        id: 9,
         title: 'PictureAbsent',
         description: 'Picture is absent. Add a picture.',
         backgroundColor: '#F0AD4E',
@@ -76,7 +92,7 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
     {
-        id: 8,
+        id: 10,
         title: 'Fields',
         description: 'Please fill all the feilds.',
         backgroundColor: '#F0AD4E',
@@ -85,7 +101,7 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
     {
-        id: 9,
+        id: 11,
         title: 'AlreadyExists',
         description: 'This name is already is in DataBase. Choose another',
         backgroundColor: '#F0AD4E',
@@ -94,7 +110,7 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
     {
-        id: 10,
+        id: 12,
         title: 'GroupTooSmall',
         description: 'Group contains at least 3 groupmember including you',
         backgroundColor: '#F0AD4E',
@@ -103,7 +119,7 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
     {
-        id: 11,
+        id: 13,
         title: 'SearchAbsent',
         description: 'Search is absent. Please enter something in search.',
         backgroundColor: '#F0AD4E',
@@ -112,39 +128,83 @@ export const TOAST_PROPERTIES = [
         autoDeleteTime: 415
     },
     {
-        id: 12,
+        id: 14,
+        title: 'SetWrite',
+        description: 'Set the switch to the position WRITE',
+        backgroundColor: '#F0AD4E',
+        icon: warningIcon,
+        autoDelete: true,
+        autoDeleteTime: 415
+    },
+    {
+        id: 15,
         title: 'GroupChatCreated',
         description: 'New Group Chat Created!',
         backgroundColor: '#5bc0de',
         icon: checkIcon
     },
     {
-        id: 13,
+        id: 16,
         title: 'NewUserCreated',
-        description: 'New User Created!',
+        description: 'New user created/added!',
         backgroundColor: '#5bc0de',
         icon: checkIcon
     },
     {
-        id: 14,
+        id: 17,
+        title: 'LoginSuccessfull',
+        description: 'Login Successfull!',
+        backgroundColor: '#5bc0de',
+        icon: checkIcon
+    },
+    {
+        id: 18,
+        title: 'ChangeSuccess',
+        description: 'This change was successfull!',
+        backgroundColor: '#5bc0de',
+        icon: checkIcon
+    },
+    {
+        id: 19,
         title: 'UserAlreadyAdded',  //Юзери для додавання в нову групу
         description: 'The user is already in this group. Choose next one',
         backgroundColor: '#F0AD4E',
         icon: warningIcon
     },
     {
-        id: 15,
+        id: 20,
         title: 'password',
         description: 'Password do not match',
         backgroundColor: '#F0AD4E',
         icon: warningIcon
     },
     {
-        id: 16,
+        id: 21,
+        title: 'email',
+        description: 'Username should be an e-mail address',
+        backgroundColor: '#F0AD4E',
+        icon: warningIcon
+    },
+    {
+        id: 22,
+        title: 'onlyadmin',
+        description: 'Only admin can add/remove/change someone!',
+        backgroundColor: '#F0AD4E',
+        icon: warningIcon
+    },
+    {
+        id: 23,
         title: 'Info',
         description: 'This is an info toast component',
         backgroundColor: '#5bc0de',
         icon: infoIcon
+    },
+    {
+        id: 24,
+        title: 'erroradduser',
+        description: 'Error Occured! New user is not added',
+        backgroundColor: '#FF5277',
+        icon: errorIcon,
     },
 ];
 

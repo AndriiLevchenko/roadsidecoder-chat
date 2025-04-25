@@ -5,7 +5,7 @@ import Closeicon from "../../../images/Closeicon";
 
 
 const ModalContainer = styled.div`
-  display: ${props => (props.isOpen ? 'flex' : 'none')};
+  // display: ${props => (props.isOpen ? 'flex' : 'none')};
   // position: fixed;
   // top: 0;
   // left: 0;
@@ -36,8 +36,9 @@ const ConfirmModal = ({ isOpen, onClose, content, onConfirm }) => {
         onConfirm();
         onClose();
     };
+  //  alert("isOpen " + isOpen);
     return (
-        <ModalContainer className="modal-container " isOpen={isOpen}>
+        <div className="modal-container "    style={{display: `${isOpen  ? 'flex' : 'none' }` }}    isOpen={isOpen} >
             <div className="modal_section modal-content">
                 <button className='buttonClose' type='button' onClick={onClose} >
                     <Closeicon />
@@ -48,7 +49,7 @@ const ConfirmModal = ({ isOpen, onClose, content, onConfirm }) => {
                     <button className="button" onClick={onClose}>Cancel</button>
                 </div>
             </div>
-        </ModalContainer>
+        </div>
     );
 };
 

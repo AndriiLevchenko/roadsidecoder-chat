@@ -1,5 +1,4 @@
 
-// import { Input } from "@chakra-ui/react";
 // import "../index.css";
 // import { IconButton, useToast } from "@chakra-ui/react";
 // import { getSender, getSenderFull } from "../config/ChatLogics";

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useToast } from '@chakra-ui/react'
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
 import {ChatState} from "../../Context/ChatProvider";
@@ -9,23 +8,17 @@ const Login = (props) => {
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const toast = useToast();
     const [loading, setLoading ] = useState(false);
     const handleClick = ()=> setShow(!show);
     const history = useHistory();
-    //const { loading, login } = useLogin();
-    const { setCsrfToken } = ChatState();
-    const submitHandler = async () => {
-        //e.preventDefault();
+    const { setCsrfToken, showToast  } = ChatState();
+    const submitHandler = async (e) => {
+        e.preventDefault();
         setLoading(true);
         if (!email || !password) {
-            toast({
-                title: "Please Fill all the Feilds",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
+            showToast (
+                'fields'
+            );
             setLoading(false);
             return;
         }
@@ -43,27 +36,19 @@ const Login = (props) => {
                 config
             );
             console.log(data);
-            toast({
-                title: "Login successfull",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
+            showToast (
+                'loginsuccessfull'    //checked
+            );
             localStorage.setItem("userInfo", JSON.stringify(data));
             setCsrfToken(data.csrfToken); // Отримуємо CSRF-токен з відповіді
             console.log("Отриманий CSRF-токен:", data.csrfToken);
             setLoading(false);
             history.push("/chats");
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: error.response.data.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "top",
-            });
+            console.log("Login error = ", error.response.data.message);
+            showToast (
+                'loginerror'       //checked
+            );
             setLoading(false);
         }
     };
@@ -75,7 +60,6 @@ const Login = (props) => {
                     Login
                     <b> ChatApp</b>
                 </h1>
-
                 <form>
                     <div className='form-group'>
                         <label className='label p-2'>
@@ -104,9 +88,8 @@ const Login = (props) => {
                     <button onClick={()=>props.setLoginSignup(false)}  className='link_account'>
                         {"Don't"} have an account?
                     </button>
-
                     <div className='login_buttons'>
-                        <button className=' button signup_button' disabled={loading} isLoading={loading} onClick={submitHandler}>
+                        <button className=' button signup_button' disabled={loading} isLoading={loading} onClick={(e)=>submitHandler(e)}>
                             {loading ? <span className='loading loading-spinner '></span> : "Login"}
                         </button>
                         <button

@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { useToast } from '@chakra-ui/react'
+// import { useToast } from '@chakra-ui/react'
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
 import {ChatState} from "../../Context/ChatProvider";
 
 
-
 const SignUp = (props) => {
     const [show, setShow] = useState(false);
     const handleClick =()=> setShow(!show);
-    const toast = useToast();
+    // const toast = useToast();
     const history = useHistory();
     const [inputs, setInputs] = useState({
         name: "",
@@ -21,22 +20,19 @@ const SignUp = (props) => {
     const [picLoading, setPicLoading ] = useState(false);
     const {showToast } = ChatState();
 
-    // const handleCheckboxChange = (gender) => {
-    //     setInputs({ ...inputs, gender });
-    // };
     const submitHandler = async (e) => {
         alert("SubmitHandler1");
         e.preventDefault();
         setPicLoading(true);
+        if (!inputs.pic) {
+            showToast(
+                'pictureabsent'
+            );
+            setPicLoading(false);
+            return;
+        }
         if (!inputs.name || !inputs.email || !inputs.password || !inputs.confirmPassword) {
             alert("SubmitHandler2");
-            // toast({
-            //     title: "Please Fill all the Feilds",
-            //     status: "warning",
-            //     duration: 5000,
-            //     isClosable: true,
-            //     position: "bottom",
-            // });
             showToast (
                 'fields'
             );
@@ -50,7 +46,20 @@ const SignUp = (props) => {
             setPicLoading(false);
             return;
         }
-        console.log(inputs.name, inputs.email, inputs.password, inputs.pic);
+        function isValidEmail(email) {
+            // Регулярний вираз для перевірки email з виключенням недопустимих символів
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            // Перевірка email за шаблоном
+            return emailPattern.test(email);
+        }
+        if (!isValidEmail(inputs.email)) {
+            showToast (
+                'email'
+            );
+            setPicLoading(false);
+            return;
+        }
+
         try {
             const config = {
                 headers: {
@@ -62,14 +71,6 @@ const SignUp = (props) => {
                 { name: inputs.name, email: inputs.email, password: inputs.password, pic: inputs.pic},
                 config
             );
-            console.log(data);
-            // toast({
-            //     title: "Registration Successful",
-            //     status: "success",
-            //     duration: 5000,
-            //     isClosable: true,
-            //     position: "bottom",
-            // });
             showToast (
                 'newusercreated'
             );
@@ -77,16 +78,8 @@ const SignUp = (props) => {
             setPicLoading(false);
             history.push("/chats");
         } catch (error) {
-            // toast({
-            //     title: "Error Occured!",
-            //     description: error.response.data.message,
-            //     status: "error",
-            //     duration: 5000,
-            //     isClosable: true,
-            //     position: "bottom",
-            // });
             showToast (
-                'error'
+                'errorcreategroup'
             );
             setPicLoading(false);
         }
@@ -95,13 +88,6 @@ const SignUp = (props) => {
     const postDetails =(pics)=>{
         setPicLoading(true);
         if(pics === undefined) {
-            // toast({
-            //     title: 'Picture is absent.',
-            //     description: "Add a picture.",
-            //     status: 'warning',
-            //     duration: 9000,
-            //     isClosable: true,
-            // })
             showToast (
                 'pictureabsent'
             );
@@ -119,7 +105,6 @@ const SignUp = (props) => {
                 body: data
             }).then((res)=> res.json()).then((data)=> {
                 const newInputs = {...inputs};
-                console.log("newInputs = ", newInputs);
                 console.log("data.url.toString() = ", data.url.toString());
                 newInputs.pic = data.url.toString();
                 setInputs( newInputs);
@@ -130,13 +115,6 @@ const SignUp = (props) => {
                 setPicLoading(false);
             });
         } else {
-            // toast({
-            //     title: 'Picture is absent.',
-            //     description: "Add a picture.",
-            //     status: 'warning',
-            //     duration: 9000,
-            //     isClosable: true,
-            // });
             showToast (
                 'pictureabsent'
             );
@@ -150,7 +128,6 @@ const SignUp = (props) => {
                 <h1 className='display1'>
                     Sign Up <b> ChatApp</b>
                 </h1>
-
                 <form  id="first-name" >
                     <div className='form-group'>
                         <label className='label p-2'>
@@ -164,9 +141,8 @@ const SignUp = (props) => {
                             onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
                         />
                     </div>
-
                     <div>
-                        <label className='label p-2 '>
+                        <label className='label'>
                             <span className='text-base text-white'>Username</span>
                         </label>
                         <input
@@ -220,19 +196,6 @@ const SignUp = (props) => {
                     </div>
 
                 </form>
-                {/*<button className='update_button'*/}
-                {/*    onClick={() =>*/}
-                {/*        toast({*/}
-                {/*            title: 'Account created.',*/}
-                {/*            description: "We've created your account for you.",*/}
-                {/*            status: 'success',*/}
-                {/*            duration: 9000,*/}
-                {/*            isClosable: true,*/}
-                {/*        })*/}
-                {/*    }*/}
-                {/*>*/}
-                {/*    Show Toast*/}
-                {/*</button>*/}
             </div>
     );
 };

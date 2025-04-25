@@ -19,7 +19,7 @@ const SideDrawer = () => {
     const [loadingChat, setLoadingChat] = useState(false);
     // const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openNotifications, setOpenNotifications] = useState(false);
-    const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal, encryption, setEncryption, showToast } = ChatState();
+    const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal, encryption, setEncryption, showToast, sounds, setSounds } = ChatState();
     const [drawerOpenClose, setDrawerOpenClose] = useState("close");
     const [settings, setSettings] = useState(true);
     // const toast = useToast();
@@ -136,8 +136,15 @@ const SideDrawer = () => {
                                     <span className='settings_item'>
                                         {/*<span onClick={()=>setEncryption(!encryption)}>Encryption</span>*/}
                                         <span >Encryption</span>
-                                        <label className='switch px-2'>
+                                        <label className='switch'>
                                             <input type = 'checkbox' className='switch-input' checked={encryption} onClick = {()=>setEncryption(!encryption)}/>
+                                            <span className='switch-slider'></span>
+                                        </label>
+                                    </span>
+                                    <span className='settings_item'>
+                                        <span >Sounds</span>
+                                        <label className='switch'>
+                                            <input type = 'checkbox' className='switch-input' checked={sounds} onClick = {()=>setSounds(!sounds)}/>
                                             <span className='switch-slider'></span>
                                         </label>
                                     </span>

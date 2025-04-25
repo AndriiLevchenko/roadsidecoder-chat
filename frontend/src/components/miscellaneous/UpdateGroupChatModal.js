@@ -1,15 +1,10 @@
-import {
-    useToast,
-    //Spinner,
-} from "@chakra-ui/react";
+// import { useToast,} from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
-// import login from "../Authentication/Login";
 import ConfirmModal from "../Modals/ConfirmModal/ConfirmModal";
-import {ReactComponent as EyeIcon} from "../../images/eye-svgrepo.svg";
 import Closeicon from "../../images/Closeicon";
 import SpinnerCustom from "../SpinnerCustom";
 
@@ -19,9 +14,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [renameloading, setRenameLoading] = useState(false);
-    const toast = useToast();
+    // const toast = useToast();
 
-    const { selectedChat, setSelectedChat, user, openProfileModal, setOpenProfileModal } = ChatState();
+    const { selectedChat, setSelectedChat, user, openProfileModal, setOpenProfileModal, showToast } = ChatState();
     const [isOpenModal, setIsOpenModal] = useState(false); //modal Window Skynix
     const [isConfirmModal, setIsConfirmModal] = useState(false); //modal Window Confirm Skynix
     const onConfirmModal =()=> {
@@ -50,21 +45,21 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
             setLoading(false);
             setSearchResult(data);
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: "Failed to Load the Search Results",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom-left",
-            });
+            showToast (
+                'errorsearchresults'       //checked
+            );
             setLoading(false);
         }
     };
 
     const handleRename = async () => {
         if (!groupChatName) return;
-
+        if (selectedChat.groupAdmin._id !== user._id) {
+            showToast (
+                'onlyadmin'       //checked
+            );
+            return;
+        }
         try {
             setRenameLoading(true);
             const config = {
@@ -80,20 +75,18 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 },
                 config
             );
-
+            showToast (
+                'changesuccess'       //checked
+            );
             console.log(data._id);
             setSelectedChat(data);
             setFetchAgain(!fetchAgain);
             setRenameLoading(false);
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: error.response.data.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast (
+                'errorgroup'       //checked
+            );
+            console.log("Error Occured!", error.response.data.message);
             setRenameLoading(false);
         }
         setGroupChatName("");
@@ -101,24 +94,16 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     const handleAddUser = async (user1) => {
         if (selectedChat.users.find((u) => u._id === user1._id)) {
-            toast({
-                title: "User Already in group!",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast (
+                'useralreadyadded'       //checked
+            );
             return;
         }
 
         if (selectedChat.groupAdmin._id !== user._id) {
-            toast({
-                title: "Only admins can add someone!",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast (
+                'onlyadmin'       //checked
+            );
             return;
         }
 
@@ -138,18 +123,17 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 config
             );
             console.log("data = ", data);
+            showToast (
+                'newusercreated'       //checked
+            );
             setSelectedChat(data);
             setFetchAgain(!fetchAgain);
             setLoading(false);
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: error.response.data.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            console.log("Error Occured! ", error.response.data.message);
+            showToast (
+                'erroradduser'       //checked
+            );
             setLoading(false);
         }
         setGroupChatName("");
@@ -158,13 +142,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 //delete 1 group-participant
     const handleRemove = async (user1) => {
         if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
-            toast({
-                title: "Only admins can remove someone!",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast (
+                'onlyadmin'       //checked
+            );
             return;
         }
         if (selectedChat.groupAdmin._id === user1._id) {
@@ -194,31 +174,26 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 },
                 config
             );
-
+alert("group removed !!!!!!")
             user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
             setFetchAgain(!fetchAgain);
             fetchMessages();
             setLoading(false);
         } catch (error) {
-            toast({
-                title: "Error Occured!",
-                description: error.response.data.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            console.log("Error Occured!", error.response.data.message);
+            showToast (
+                'errorgroup'       //checked
+            );
             setLoading(false);
         }
         setGroupChatName("");
         setIsOpenModal(false);
         setIsConfirmModal(false);
     };
-    console.log("selectedChat = ", selectedChat);
+
     return (
         <>
             <button type='button' className='group_icon_button' onClick={()=>setOpenProfileModal(true)} >
-                {/*<EyeIcon className = 'icon' focusable="false" aria-hidden="true" />*/}
                 <div className='group_avatar'>
                     <img className='imgAvatar'  src={selectedChat.groupAdmin.pic} alt='imgAvatar'/>
                     <div className='chat_item-image-images'>
@@ -236,10 +211,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                     <div className='modal_header'>
                         {selectedChat.chatName}
                     </div>
-                    {/*<ModalCloseButton />*/}
                     <button className='close_button' onClick={()=>setOpenProfileModal(false)}><Closeicon /></button>
-                    {/*<div  className='modal_body' display="flex" flexDir="column" alignItems="center">*/}
-                    {/*<div id='chakra-modal--body' className='modal_body'>    Видалити      */}
                     <div className='modal_body'>
                         <div className='badgeBlock' >
                             {selectedChat.users.map((u) => (

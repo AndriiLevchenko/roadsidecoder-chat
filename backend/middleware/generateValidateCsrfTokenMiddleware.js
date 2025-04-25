@@ -100,19 +100,21 @@ export const validateCsrfToken = (req, res, next) => {
     // if (csrfTokenFromHeader !== csrfTokenFromSession) {
     //     return res.status(403).json({ message: "CSRF token validation failed" });
     // }
-    if (!csrfTokenFromHeader || !csrfTokenFromSession) {
-        return res.status(403).json({ message: "CSRF tokens are missing" });
-    }
 
-    if (csrfTokenFromHeader !== csrfTokenFromSession) {
-        console.error("Помилка ");
-        try {
-            return res.status(403).json({ message: "CSRF token validation failed" });
-        } catch (error) {
-            console.error("Помилка при відправці JSON про помилку CSRF:", error);
-            return res.status(500).send("Internal Server Error"); // Запасний варіант
-        }
-    }
+    // !!!!!!!!!!!!!!!!!!!!   Увімкнути для валідації токенів
+    // if (!csrfTokenFromHeader || !csrfTokenFromSession) {
+    //     return res.status(403).json({ message: "CSRF tokens are missing" });
+    // }
+    //
+    // if (csrfTokenFromHeader !== csrfTokenFromSession) {
+    //     console.error("Помилка ");
+    //     try {
+    //         return res.status(403).json({ message: "CSRF token validation failed" });
+    //     } catch (error) {
+    //         console.error("Помилка при відправці JSON про помилку CSRF:", error);
+    //         return res.status(500).send("Internal Server Error"); // Запасний варіант
+    //     }
+    // }
     console.log("реально спрацьовує валідація токенів валідація токенів при відправленні повідомлень.")
     next();
 };

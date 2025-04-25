@@ -75,4 +75,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "framer-motion": "^4.1.17"   - встановлено
+    "cra-template": "1.2.0" - видалено за рекомендацією друга за доомоги  --force
+    "framer-motion" - видалено за рекомендацією друга за доомоги  --force
 3. 

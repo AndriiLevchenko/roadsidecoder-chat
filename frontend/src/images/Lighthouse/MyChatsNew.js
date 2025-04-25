@@ -1,5 +1,4 @@
 
-// import { useToast } from "@chakra-ui/toast";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
 // import { getSender } from "../config/ChatLogics";
@@ -12,7 +11,6 @@
 // const MyChats = ({ fetchAgain }) => {
 //     const [loggedUser, setLoggedUser] = useState();
 //     const { selectedChat, setSelectedChat, user, chats, setChats, setOpenProfileModal } = ChatState();
-//     const toast = useToast();
 //
 //     const fetchChats = async () => {
 //         try {
@@ -23,14 +21,7 @@
 //             console.log("data  = ", data );
 //             setChats(data);
 //         } catch (error) {
-//             toast({
-//                 title: "Error Occured!",
-//                 description: "Failed to Load the chats",
-//                 status: "error",
-//                 duration: 5000,
-//                 isClosable: true,
-//                 position: "bottom-left",
-//             });
+//             console.log("error  = ", error );
 //         }
 //     };
 //

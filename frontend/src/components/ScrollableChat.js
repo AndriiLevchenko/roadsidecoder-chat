@@ -47,8 +47,8 @@ const ScrollableChat = ({ messages, deleteMessageHandler }) => {
           return (<div style={{ display: "flex" }} key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
               isLastMessage(messages, i, user._id)) && selectedChat.isGroupChat && (
-              <span className='chat_message_avatar' label={m.sender.name} placement="bottom-start" hasArrow>
-
+              // <span className='chat_message_avatar' label={m.sender.name} placement="bottom-start" hasArrow>
+              <span className='chat_message_avatar' label={m.sender.name} placement="bottom-start" >
                     <img alt='avatar' className='chat_message_avatar_image' src={m.sender.pic} />
 
               </span>

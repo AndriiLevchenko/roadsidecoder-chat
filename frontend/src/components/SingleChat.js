@@ -9,7 +9,9 @@ import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
 import Arrowlefticon from "../images/Arrowlefticon";
-import notificationSound from "../utils/notification.mp3";
+//import notificationSound from "../utils/notification.mp3";
+import notificationSound2 from "../utils/blow2.wav";
+import notificationSound3 from "../utils/blow3.wav";
 import MessagesInputs from "./MessagesInputs";
 // import {getCsrfToken} from "../utils/functions";
 //import login from "./Authentication/Login";
@@ -40,7 +42,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
-    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption, writeRead, toggleWriteRead, setModal, modal, csrfToken,  showToast } =
+    const { selectedChat, setSelectedChat, user, notification, setNotification, openAvatar, encryption, setEncryption, writeRead, toggleWriteRead, setModal, modal, csrfToken,  showToast, sounds } =
         ChatState();
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -73,14 +75,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             try {
                 if (writeRead === false) {
                     onClickSpanFunction();
-                    alert("Switch sending message");
+                    showToast (
+                        'setwrite'
+                    )
                     return
                 }
                 const config = {
                     headers: { "Content-type": "application/json", Authorization: `Bearer ${user.token}`,  'X-CSRF-Token': csrfToken },
                     withCredentials: true     //Це щоб додавались cookies
                 };
-                //console.log("csrfToken = ", csrfToken);
                 setNewMessage("");
                 const { data } = await axios.post(
                     "http://localhost:5000/api/message",
@@ -92,11 +95,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     config
                 );
                 socket.emit("new message", data);
-                const sound = new Audio(notificationSound);
-                sound.play();
+                if(sounds) {
+                    const sound = new Audio(notificationSound2);
+                    sound.play();
+                }
                 setMessages([...messages, data]);
                 setFileName(' ');
-                //console.log("data in SingleChat = ", data);
                 //console.log("messages = ", messages);
             } catch (error) {
                 showToast (
@@ -139,6 +143,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     }
                 } else {
                     setMessages([...messages, newMessageRecieved]);
+                    if(sounds) {
+                        const sound = new Audio(notificationSound3);
+                        sound.play();
+                    }
                 }
             } catch (error) {
                 console.error("Error in handleMessageRecieved:", error); // Додано лог помилки
@@ -279,7 +287,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             { encryption ?  <div className='read_write_button'>
                                                 <span className={`write_read_span1 ${writeRead ? 'writePassive ' : ' writeActive'}`}>READ </span>
                                                 <label className='switch px-2'>
-                                                    <input type = 'checkbox' className='switch-input' onClick = {()=>toggleWriteRead(!writeRead)}/>
+                                                    <input type = 'checkbox' className='switch-input' checked={writeRead} onClick = {()=>toggleWriteRead(!writeRead)}/>
                                                     <span className='switch-slider'></span>
                                                 </label>
                                                 <span className={`write_read_span1 read ${writeRead ? ' writeActive' : 'writePassive '}`}>WRITE</span>

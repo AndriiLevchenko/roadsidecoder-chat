@@ -34,6 +34,7 @@ const ChatProvider = ({children}) => {
         console.log("toastProperties = ", toastProperties);
         setList([...list, toastProperties]);
     }
+    const [sounds, setSounds] = useState(true)
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         setUser(userInfo);
@@ -41,7 +42,7 @@ const ChatProvider = ({children}) => {
     }, [history]);
     //console.log("user = ", user);
     return (
-        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal, csrfToken, setCsrfToken, showToast, list }}>
+        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal, csrfToken, setCsrfToken, showToast, list, sounds, setSounds }}>
             {children}
         </ChatContext.Provider>
     )
