@@ -15,8 +15,8 @@ const Toast = props => {
         // setAutoDelete(toastList[0].autoDelete);
         // setAutoDeleteTime(toastList[0].autoDeleteTime);
     }, [toastList]);
-    console.log("autoDelete = ", autoDelete );
-    console.log("autoDelete && toastList.length && list.length = ", autoDelete, toastList.length, list.length );
+    // console.log("autoDelete = ", autoDelete );
+    // console.log("autoDelete && toastList.length && list.length = ", autoDelete, toastList.length, list.length );
     const deleteToast = id => {
         const listItemIndex = list.findIndex(e => e.id === id);
         const toastListItem = toastList.findIndex(e => e.id === id);
@@ -41,7 +41,7 @@ const Toast = props => {
     // }, []);
     useEffect(() => {
         const interval = setInterval(() => {
-            console.log("interval = ", interval, "autoDeleteTime = ", autoDeleteTime);
+            // console.log("interval = ", interval, "autoDeleteTime = ", autoDeleteTime);
             if (autoDelete && toastList.length && list.length) {
                 //alert("delete toast !!!!!!!!!!!!");
                 deleteToast(toastList[0].id);
@@ -49,7 +49,7 @@ const Toast = props => {
         }, autoDeleteTime);
 
         return () => {
-            console.log(" clearInterval = ", interval);
+            // console.log(" clearInterval = ", interval);
             clearInterval(interval);
         }
 

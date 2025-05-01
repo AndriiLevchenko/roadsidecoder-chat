@@ -1,5 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
 
+:where(button, input, optgroup, select, textarea) {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin:
+          0;
+}
+:where(*, *::before, *::after) {
+  border-width: 0;
+  border-style: solid;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+button::-moz-focus-inner {
+  border: 0 !important;
+}
+button {
+  background: transparent;
+  padding: 0;
+}
+*, ::before, ::after {
+  border-color: #E2E8F0;
+}
 .App {
   min-height: 100vh;
   display: flex;

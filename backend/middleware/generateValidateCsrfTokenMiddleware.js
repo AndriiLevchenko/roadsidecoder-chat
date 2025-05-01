@@ -91,15 +91,6 @@ export const validateCsrfToken = (req, res, next) => {
     console.log("csrfTokenFromCookie = ", csrfTokenFromCookie);
     console.log("csrfTokenFromSession =", csrfTokenFromSession);
     console.log("ID сесії при валідації:", req.sessionID);
-    // Перевірка наявності обох токенів
-    // if (!csrfTokenFromHeader || !csrfTokenFromSession) {
-    //     return res.status(403).json({ message: "CSRF tokens are missing" });
-    // }
-    //
-    // // Порівняння токенів
-    // if (csrfTokenFromHeader !== csrfTokenFromSession) {
-    //     return res.status(403).json({ message: "CSRF token validation failed" });
-    // }
 
     // !!!!!!!!!!!!!!!!!!!!   Увімкнути для валідації токенів
     // if (!csrfTokenFromHeader || !csrfTokenFromSession) {

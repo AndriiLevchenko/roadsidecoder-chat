@@ -17,7 +17,6 @@ const SideDrawer = () => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
-    // const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openNotifications, setOpenNotifications] = useState(false);
     const {openAvatar, setOpenAvatar, user, setSelectedChat, chats, setChats, notification, setNotification, openProfileModal, setOpenProfileModal, encryption, setEncryption, showToast, sounds, setSounds } = ChatState();
     const [drawerOpenClose, setDrawerOpenClose] = useState("close");

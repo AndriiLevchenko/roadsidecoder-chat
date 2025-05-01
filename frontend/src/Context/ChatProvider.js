@@ -28,10 +28,9 @@ const ChatProvider = ({children}) => {
     const [csrfToken, setCsrfToken] = useState('');
     const [list, setList] = useState([]);
     const showToast = (type) => {
-        console.log("type = ", type);
         const toastProperties = TOAST_PROPERTIES.find((toast) => toast.title.toLowerCase() === type);
-        console.log(" TOAST_PROPERTIES = ",  TOAST_PROPERTIES);
-        console.log("toastProperties = ", toastProperties);
+        // console.log(" TOAST_PROPERTIES = ",  TOAST_PROPERTIES);
+        // console.log("toastProperties = ", toastProperties);
         setList([...list, toastProperties]);
     }
     const [sounds, setSounds] = useState(true)

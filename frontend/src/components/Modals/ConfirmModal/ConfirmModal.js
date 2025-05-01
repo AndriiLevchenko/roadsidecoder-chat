@@ -1,21 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import "./ConfirmModal.css";
 import Closeicon from "../../../images/Closeicon";
 
 
-const ModalContainer = styled.div`
-  // display: ${props => (props.isOpen ? 'flex' : 'none')};
-  // position: fixed;
-  // top: 0;
-  // left: 0;
-  // width: 100%;
-  // height: 100%;
-  // background: #23ba3e;
-  // justify-content: center;
-  // align-items: center;
-  // z-index: 999;
-`;
+// const ModalContainer = styled.div`
+//   // display: ${props => (props.isOpen ? 'flex' : 'none')};
+//   // position: fixed;
+//   // top: 0;
+//   // left: 0;
+//   // width: 100%;
+//   // height: 100%;
+//   // background: #23ba3e;
+//   // justify-content: center;
+//   // align-items: center;
+//   // z-index: 999;
+// `;
 //
 // const ModalContent = styled.div`
 //   // background: "#43ab0f";
@@ -36,7 +36,7 @@ const ConfirmModal = ({ isOpen, onClose, content, onConfirm }) => {
         onConfirm();
         onClose();
     };
-  //  alert("isOpen " + isOpen);
+
     return (
         <div className="modal-container "    style={{display: `${isOpen  ? 'flex' : 'none' }` }}    isOpen={isOpen} >
             <div className="modal_section modal-content">

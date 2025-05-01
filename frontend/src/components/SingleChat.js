@@ -10,12 +10,13 @@ import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
 import Arrowlefticon from "../images/Arrowlefticon";
 //import notificationSound from "../utils/notification.mp3";
-import notificationSound2 from "../utils/blow2.wav";
+import notificationSound2 from "../utils/blow4.wav";
 import notificationSound3 from "../utils/blow3.wav";
 import MessagesInputs from "./MessagesInputs";
 // import {getCsrfToken} from "../utils/functions";
 //import login from "./Authentication/Login";
 import SpinnerCustom from "./SpinnerCustom";
+import ConfirmModal from "./Modals/ConfirmModal/ConfirmModal";
 const ENDPOINT = "http://localhost:5000"; // "https://МОЄВЛАСНЕІМ'Я.herokuapp.com"; -> After deployment
 var socket;
 
@@ -30,9 +31,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [fileName, setFileName] = useState(' ');
     let [codedMessage, setCodedMessage] = useState(" ");
     let [decodedMessage, setDecodedMessage] = useState(" ");
-
+    const [isOpenCreateDelete, setIsOpenCreateDelete] = useState(false);
 
     const [picLoading, setPicLoading ] = useState(false);
+    const [scrollTopBeforeDeleteSingleChat, setScrollTopBeforeDeleteSingleChat] = useState(0);
+    const chatContainerRef = useRef(null); // Реф на контейнер прокрутки ScrollableChat
 
     const defaultOptions = {
         loop: true,
@@ -250,31 +253,56 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             return;
         }
     }
-    const deleteMessageHandler = async(index)=> {
-        console.log(" deleteMessageHandler before in async = ", index);
+    const onConfirmModal =(userId, messageId)=> {
+        deleteMessageHandler(userId, messageId);
+        setIsOpenCreateDelete(false);
+    }
+    const deleteMessageHandler = async(userId, messageId)=> {
         //const messagesNewArray = messages;
         const config = {
             headers: { Authorization: `Bearer ${user.token}` }
         };
 
         setLoading(true);
-        //messagesNewArray.splice(index, 1);
-        //setMessages([...messagesNewArray]);
-        console.log(" deleteMessageHandler before axios= ");
+        console.log(" userId, messageId, setSelectedChat = ", userId, messageId, selectedChat._id);
+        try {
         const { data } = await axios.post(
             "http://localhost:5000/api/message/deleteMessage",
             {
-                 _id: index
-            },
-            config
+                  userId: userId,
+                  messageId:  messageId,
+                  chatId: selectedChat._id
+                },
+                config
         );
         console.log(" deleteMessageHandler after axios, data = ", data);
         setLoading(false);
+        fetchMessages(selectedChat._id); // Запит на оновенні повідомлення
+            showToast (
+                'deletesuccess'
+            );
+            // if (chatContainerRef.current && scrollTopBeforeDeleteSingleChat !== undefined) {
+            //     chatContainerRef.current.scrollTop = scrollTopBeforeDeleteSingleChat;
+            //     console.log("scrollTopBeforeDeleteSingleChat = ", scrollTopBeforeDeleteSingleChat)
+            // }
+        } catch (error) {
+            setLoading(false);
+            console.error("Error deleting message:", error);
+            // Обробка помилки
+            showToast (
+                'deleteerror'
+            )
+        }
     }
     const onClickSpanFunction =()=> {
         setModal({ ...modal, view: "query"});
     }
     console.log(" coded  n Mesegas Input = ", codedMessage);
+
+    const handleSaveScrollTop = (scrollTop) => {      //Це для позиціонування повідомлень на місці видаленого повідомлення
+        setScrollTopBeforeDeleteSingleChat(scrollTop);
+        console.log("scrollTop збережено в батьківському:", scrollTop);
+    };
     return (
         <>
             {selectedChat ? (
@@ -286,7 +314,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             </button>
                             { encryption ?  <div className='read_write_button'>
                                                 <span className={`write_read_span1 ${writeRead ? 'writePassive ' : ' writeActive'}`}>READ </span>
-                                                <label className='switch px-2'>
+                                                <label className='switch'>
                                                     <input type = 'checkbox' className='switch-input' checked={writeRead} onClick = {()=>toggleWriteRead(!writeRead)}/>
                                                     <span className='switch-slider'></span>
                                                 </label>
@@ -323,7 +351,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             <SpinnerCustom />
                         ) : (
                             <div className="messages">
-                                <ScrollableChat messages={messages} deleteMessageHandler={deleteMessageHandler}/>
+                                {/*<ConfirmModal onConfirm={onConfirmModal}  onClose={()=>setIsOpenCreateDelete(false)} isOpen={isOpenCreateDelete} content = {"Ревльно хочеш видалити месседж?"} />*/}
+                                <ScrollableChat messages={messages} deleteMessageHandler={deleteMessageHandler} onSaveScrollTop={handleSaveScrollTop}   ref={chatContainerRef} scrollTopBeforeDeleteSingleChat={scrollTopBeforeDeleteSingleChat} />
                             </div>
                         )}
 

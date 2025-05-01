@@ -72,7 +72,7 @@ const MyChats = ({ fetchAgain }) => {
                             return <div className={`${selectedChat === chat ? "chat_item active" : "chat_item"}`}
                                  onClick={() => setSelectedChat(chat)}
                                  key={chat._id} onContextMenu={(e) => onClickSpanFunction(e, i)}>
-                                <div className='chat_item-image'>
+                                <div className= {`chat_item-image ${chat.isGroupChat ? '' : 'noGroup'}`}>
                                     {/*<img src={`${chat.users[0].name == user.name ? chat.users[1].pic : chat.users[0].pic}`}  alt='' />*/}
                                     <img
                                         src={chat.isGroupChat ? chat.groupAdmin.pic : chat.users[0].name == user.name ? chat.users[1].pic : chat.users[0].pic}

@@ -196,7 +196,7 @@ alert("group removed !!!!!!")
             <button type='button' className='group_icon_button' onClick={()=>setOpenProfileModal(true)} >
                 <div className='group_avatar'>
                     <img className='imgAvatar'  src={selectedChat.groupAdmin.pic} alt='imgAvatar'/>
-                    <div className='chat_item-image-images'>
+                    <div className='chat_item-image-images carousel'>
                          {selectedChat.users.map((user, i) => {
                              if(user.name === selectedChat.groupAdmin.name) { shift = shift + 1; return}
                              return <img style={{left: `${(-i*2 + shift*2 + '0px')}`}} key={i}  className='chat_item-image-images-image' src={user.pic} alt='groupMember'/>

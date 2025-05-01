@@ -201,10 +201,26 @@ export const TOAST_PROPERTIES = [
     },
     {
         id: 24,
+        title: 'DeleteSuccess',
+        description: 'Message successfull deleted!',
+        backgroundColor: '#5bc0de',
+        icon: checkIcon
+    },
+    {
+        id: 25,
         title: 'erroradduser',
         description: 'Error Occured! New user is not added',
         backgroundColor: '#FF5277',
         icon: errorIcon,
+    },
+    {
+        id: 26,
+        title: 'DeleteError',
+        description: 'Error Occured!  Failed to delete the message.',
+        backgroundColor: '#FF5277',
+        icon: errorIcon,
+        autoDelete: true,
+        autoDeleteTime: 415
     },
 ];
 

@@ -48,6 +48,7 @@ code {
   font-weight: 600;
   font-family: Work sans;
 }
+
 .myChats_header button  span.new_group_button {
   display: none;
 }
@@ -208,6 +209,13 @@ code {
   border: 1px solid #0FD3FF;
   border-radius: 50%;
 }
+.chat_item-image > img {
+  box-shadow: 0px 0px 3px #0FD3FF;
+}
+.chat_item-image.noGroup > img {
+  border: 1px solid #00FA9A;
+  box-shadow: 0px 0px 3px #00FA9A;
+}
 .chat_item-text {
   display: flex;
   flex-direction: column;
@@ -255,6 +263,7 @@ code {
 .group_avatar {
   display: flex;
   height: 50px;
+  cursor: pointer;
 }
 .group_avatar .imgAvatar {
   width: 50px;
@@ -285,6 +294,7 @@ code {
   max-height: inherit;
   height: inherit;
   overflow-y: auto;
+  scrollbar-width: none;
 }
 .chatMessage {
   display: flex;
@@ -548,6 +558,7 @@ code {
   padding: 6px;
   width: 100%;
   align-items: center;
+  overflow-x: hidden;
 }
 .single_chat_header1 {
   display: flex;
@@ -647,7 +658,7 @@ code {
   position: relative;
   width: 85px;
   height: 38px;
-  /*top: 3px;*/
+  top: 4px;
 }
 .switch-input {
   width: 0;
@@ -875,6 +886,9 @@ code {
   width: 100%;
   padding: 10px 10px 5px;
   border-width: 5px;
+}
+.chats_header h2 {
+  margin: 10px 0;
 }
 .modal_header {
   display: flex;
@@ -1138,14 +1152,26 @@ li::marker { background-color: red }
 }
 @media screen and (min-width: 768px) {
   .box31 {
-    display: flex!important;
+    /*display: flex!important;*/
     width: 31%;
-    min-width: 356px;
+    /*min-width: 356px;*/
+    display: flex !important;
+    /*width: 356px; !* Фіксована ширина *!*/
+    flex-shrink: 0; /* Забороняємо стискання */
+    box-sizing: border-box;
+    min-width: 365px; /* Забезпечуємо мінімальну ширину */
   }
   .box68group {
     display: flex;
     flex-direction: column;
     width: 68%;
+  }
+  .box68 {
+    flex-basis: 0;
+    flex-grow: 1;
+    width: auto; /* Дозволяємо браузеру визначати ширину */
+    min-width: 0; /* Спробуйте додати це */
+    box-sizing: border-box;
   }
   .single_chat {
     flex-direction: column;
