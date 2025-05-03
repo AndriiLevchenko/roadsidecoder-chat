@@ -437,6 +437,46 @@ code {
   border-radius: 4px;
   opacity: 1;
 }
+/*Logo animation*/
+.logo-container {
+  position: relative; /* Для позиціонування елемента .spark */
+  /* Додайте інші стилі для вашого контейнера логотипу */
+}
+
+.logo {
+  display: block; /* Щоб уникнути зайвих відступів під зображенням */
+  /* Додайте стилі для вашого логотипу (розмір, тощо) */
+}
+
+.spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0); /* Початковий розмір - нуль */
+  width: 140%;      /* Розмір спалаху (можна налаштувати) */
+  height: 140%;     /* Розмір спалаху (можна налаштувати) */
+  background-color: rgba(255, 255, 255, 0.8); /* Колір спалаху (білий з прозорістю) */
+  border-radius: 50%; /* Кругла форма спалаху */
+  opacity: 0;       /* Початкова прозорість - нуль */
+  animation: star-spark 2s infinite ease-out; /* Застосування анімації */
+}
+
+@keyframes star-spark {
+  0%, 80% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-50%, -50%) scale(1.2); /* Збільшення розміру для ефекту */
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1); /* Повернення до трохи меншого розміру */
+    opacity: 0.5;
+  }
+}
+
+
 .search_button {
   display: inline-flex;
   appearance: none;
@@ -706,6 +746,9 @@ code {
   justify-content: space-around;
   margin-bottom: 1px;
 }
+.secret_block img {
+  height: 34px;
+}
 .secret_block span {
   vertical-align: middle;
   line-height: 1.1;
@@ -724,32 +767,6 @@ code {
 }
 .updateBlock .update_button{
   width: 85px;
-}
-.update_button {
-  /*display: inline-flex;*/
-  /*appearance: none;*/
-  /*-webkit-box-align: center;*/
-  /*align-items: center;*/
-  /*-webkit-box-pack: center;*/
-  /*-ms-flex-pack: center;*/
-  /*-webkit-justify-content: center;*/
-  /*justify-content: center;*/
-  /*-webkit-user-select: none;*/
-  /*-moz-user-select: none;*/
-  /*-ms-user-select: none;*/
-  /*user-select: none;*/
-  /*position: relative;*/
-  /*white-space: nowrap;*/
-  /*vertical-align: middle;*/
-  /*border-radius: 3px;*/
-  /*font-weight: 500;*/
-  /*height: 2.5rem;*/
-  /*min-width: 2.5rem;*/
-  /*font-size: 12px;*/
-  /*margin-left: 2px;*/
-  /*padding: 4px;*/
-  /*color: #fff;*/
-  /*background: linear-gradient(81deg, rgba(219, 81, 158, 0.75) 13.83%, rgba(177, 75, 244, 0.75) 49.5%, rgba(102, 107, 209, 0.75) 85.32%);;*/
 }
 .updateInput {
   margin-bottom: 3px;
@@ -953,6 +970,7 @@ img {
   background: #eee;
   border-radius: 15px;
   padding: 0;
+  cursor: pointer;
 }
 .searchUser {
   display: none;
@@ -1077,19 +1095,20 @@ button .span_avatar:hover{
   position: absolute;
   top: 54px;
   right: 0;
-  padding: 4px 0;
-  padding: 4px 8px;
+  padding: 0;
+  /*padding: 4px 8px;*/
   background-color: white;
   transition: line-height 0.5s, color 0.5s;
   border: 1px solid #B9D0E2;
   border-radius: 3px;
   white-space: nowrap;
-  z-index: 22;
+  z-index: 3345;
 }
 .listElement {
   width: 190px;
   font-size: 18px;
   overflow: hidden;
+  padding: 2px 8px;
 }
 .listElement button {
   padding: 4px;
@@ -1111,8 +1130,9 @@ button .span_avatar:hover{
   transition: height 0.5s ease-in;
 }
 .myProfile_settings .switch {
+  top: 0;
   width: 56px;
-  height: 28px;
+  height: 27px;
   margin-left: 6px;
 }
 .myProfile_settings .switch-slider:before {

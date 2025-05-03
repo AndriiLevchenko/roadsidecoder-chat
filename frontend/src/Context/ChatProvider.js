@@ -40,8 +40,13 @@ const ChatProvider = ({children}) => {
         if(!userInfo) history.push("/");
     }, [history]);
     //console.log("user = ", user);
+    const updateUser = (userData) => {
+        setUser(userData);
+        localStorage.setItem("userInfo", JSON.stringify(userData));
+    };
+
     return (
-        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal, csrfToken, setCsrfToken, showToast, list, sounds, setSounds }}>
+        <ChatContext.Provider value={{ openAvatar, setOpenAvatar, selectedChat, setSelectedChat, user, setUser,  updateUser, notification, setNotification, chats, setChats, openProfileModal, setOpenProfileModal, openCreateGroupChat, setOpenCreateGroupChat, encryption, setEncryption, writeRead, toggleWriteRead, modal, setModal, csrfToken, setCsrfToken, showToast, list, sounds, setSounds }}>
             {children}
         </ChatContext.Provider>
     )

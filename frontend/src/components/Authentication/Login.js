@@ -11,7 +11,7 @@ const Login = (props) => {
     const [loading, setLoading ] = useState(false);
     const handleClick = ()=> setShow(!show);
     const history = useHistory();
-    const { setCsrfToken, showToast  } = ChatState();
+    const { setCsrfToken, showToast,  updateUser  } = ChatState();
     const submitHandler = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -40,8 +40,8 @@ const Login = (props) => {
                 'loginsuccessfull'    //checked
             );
             localStorage.setItem("userInfo", JSON.stringify(data));
+            updateUser(data);
             setCsrfToken(data.csrfToken); // Отримуємо CSRF-токен з відповіді
-            console.log("Отриманий CSRF-токен:", data.csrfToken);
             setLoading(false);
             history.push("/chats");
         } catch (error) {

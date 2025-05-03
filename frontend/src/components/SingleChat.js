@@ -281,10 +281,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             showToast (
                 'deletesuccess'
             );
-            // if (chatContainerRef.current && scrollTopBeforeDeleteSingleChat !== undefined) {
-            //     chatContainerRef.current.scrollTop = scrollTopBeforeDeleteSingleChat;
-            //     console.log("scrollTopBeforeDeleteSingleChat = ", scrollTopBeforeDeleteSingleChat)
-            // }
         } catch (error) {
             setLoading(false);
             console.error("Error deleting message:", error);
@@ -346,7 +342,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         </div>
                     </div>
                     <div className ='single_chat-field'>
-                        {/*<ButtonConfirmNew    title="" query="Включи режим писання! "/>*/}
                         {loading ? (
                             <SpinnerCustom />
                         ) : (

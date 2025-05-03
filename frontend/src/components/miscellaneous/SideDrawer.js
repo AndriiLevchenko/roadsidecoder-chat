@@ -75,6 +75,22 @@ const SideDrawer = () => {
         }
     }
 
+    let timer;
+    const toggleNotifications = () => {
+        setOpenNotifications(!openNotifications);
+        setOpenAvatar(false); // Закриваємо аватар при відкритті нотифікацій
+
+        // Якщо відкриваємо нотифікації, встановлюємо таймер на закриття
+        if (!openNotifications) {
+            timer = setTimeout(() => {
+                setOpenNotifications(false);
+            }, 8000);
+        } else {
+            // Якщо закриваємо нотифікації вручну, скасовуємо таймер
+            clearTimeout(timer);
+        }
+    };
+
         return (
         <>
             <div  className='chats_header'>
@@ -91,7 +107,7 @@ const SideDrawer = () => {
                 </h2>
                 <div className='rightMenu'>
                     <div className = 'notification_menu'  >
-                        <button className='notification icon_button' onClick={()=>{setOpenNotifications(!openNotifications); setOpenAvatar(false);}}>
+                        <button className='notification icon_button' onClick={()=>{toggleNotifications(); setOpenAvatar(false);}}>
                             <Bellicon className = '' focusable="false" aria-hidden="true" />
                             {notification.length === 0 ? null : <span className='icon_button_notification'>{notification.length}</span>}
                         </button>
@@ -123,7 +139,9 @@ const SideDrawer = () => {
                                 <img className='imgAvatar' name={user.name} src={user.pic} />
                             </span>
                         </button>
-                        { openAvatar && <ul className='list_menu'>
+                        { openAvatar && <>
+                            <div className='modalOverlay' onClick={()=>setOpenAvatar(false)}></div>
+                            <ul className='list_menu'>
                             <li className='listElement'>
                                 <ProfileModal user={user} setOpenProfileModal={setOpenProfileModal} setOpenAvatar={setOpenAvatar} >
                                     <button onClick={()=>setOpenProfileModal(true)}   className='myProfile' >My Profile</button>
@@ -152,7 +170,8 @@ const SideDrawer = () => {
                             <li className='listElement'>
                                 <button  className='myProfile' onClick={logoutHandler} >Logout</button>
                             </li>
-                        </ul> }
+                        </ul>
+                            </>}
                     </div>
                 </div>
             </div>
