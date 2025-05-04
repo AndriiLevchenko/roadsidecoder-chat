@@ -15,7 +15,7 @@
     text-align: center;
     width: 340px;
     max-height: 560px;
-    z-index: 1090;
+    z-index: 111090;
     opacity: 1;
 }
 
@@ -37,7 +37,7 @@
     position: absolute;
     min-width: 280px;
     padding: 6px;
-    box-shadow: 0 0  1px #004daa, 0 0  15px #48a6d9;
+    box-shadow: 0 0  1px #004daa, 0 0  12px #48a6d9;
     z-index: 32;
 }
 .buttons_yes_no {

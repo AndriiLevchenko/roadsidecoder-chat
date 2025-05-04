@@ -52,7 +52,7 @@ const MyChats = ({ fetchAgain }) => {
     }
     return (
         <div className='box31'  style={{display: `${!!selectedChat  ? 'none' : 'flex'}` }} >
-            <div className='myChats_header'>
+            <div className=' myChats_header'>
                 <span>My Chats</span>
                 <GroupChatModal>
                     <button className='newChat ' type='button'  onClick={()=>setOpenCreateGroupChat(true)} >

@@ -8,17 +8,10 @@ import ConfirmModal from "./Modals/ConfirmModal/ConfirmModal";
 const ScrollableChat = ({ messages, deleteMessageHandler, onSaveScrollTop, scrollTopBeforeDeleteSingleChat }) => {
   const { user, selectedChat, modal, setModal } = ChatState();
   const [i, setI] = useState(null);
-  console.log("selectedChat = ", selectedChat);
-  console.log("scrollTopBeforeDeleteSingleChat  = ", scrollTopBeforeDeleteSingleChat );
-  // console.log("isSameSender(messages, m, i, user._id) = ", isSameSender(messages, m, i, user._id);
-  // console.log("isLastMessage(messages, i, user._id)) = ", isLastMessage(messages, i, user._id);
-  // console.log("selectedChat.isGroupChat = ", selectedChat.isGroupChat);
   const [isOpen, setIsOpen] = useState(false);
   const [userId, setUserId] = useState("");
   const [messageId, setMessageId] = useState("");
   const chatContainerRef = useRef(null);
-  //const [currentScrollTop, setCurrentScrollTop] = useState(0);   //по-тиау не портібне, видалити
-  //let scrollTopBeforeDelete = 0; // Локальна змінна для збереження scrollTop
   const scrollTopBeforeDeleteRef = useRef(0); // Використовуємо useRef
   const handleSaveScrollTop = () => {              //Це для позиціонування повідомлень на місці видаленого повідомлення
     alert("handleSaveScrollTop = " + chatContainerRef.current.scrollTop);
@@ -27,17 +20,6 @@ const ScrollableChat = ({ messages, deleteMessageHandler, onSaveScrollTop, scrol
       console.log("scrollTop передано до батьківського:", chatContainerRef.current.scrollTop);
     }
   };
-  // const onContextMenuFunction =()=> {
-  //   alert("Delete !!!!!");
-  //   // if (e.which === 3 || e.button === 2)
-  //   {
-  //     //console.log('"Right" at ', e.clientX, ' x ', e.clientY);
-  //     console.log(' delete i =  ', i);
-  //     setModal({ ...modal, view: "button"});
-  //     deleteMessageHandler(i);
-  //     setI(null);
-  //   }
-  // }
   const onClickSpanFunction =(e, userId, messageId)=> {
     setIsOpen(true);
     console.log("e= ", e,  "userId = ", userId, "messageId = ", messageId);
@@ -48,11 +30,6 @@ const ScrollableChat = ({ messages, deleteMessageHandler, onSaveScrollTop, scrol
     // setCurrentScrollTop(chatContainerRef.current?.scrollTop);
     // scrollTopBeforeDelete = chatContainerRef.current?.scrollTop || 0; // Зберігаємо в локальну змінну
     // scrollTopBeforeDeleteRef.current = chatContainerRef.current?.scrollTop || 0;
-
-    console.log("scrollTopBeforeDeleteRef:", scrollTopBeforeDeleteRef);
-    console.log("scrollTopBeforeDeleteRef.current:", scrollTopBeforeDeleteRef.current);
-    //console.log("scrollTopBeforeDelete:", scrollTopBeforeDelete);
-    //console.log("currentScrollTop1:", currentScrollTop);
   }
   const onClose =()=> {
     setIsOpen(false);
@@ -77,16 +54,11 @@ const ScrollableChat = ({ messages, deleteMessageHandler, onSaveScrollTop, scrol
       <ConfirmModal onConfirm={()=>deleteMessageHandler(userId, messageId)} onClose={onClose} isOpen={isOpen} content = {"Видаляти можна лише власні повідомлення. Видалити?"} />
       {messages &&
         messages.map((m, i) => {
-          //console.log("isSameSender(messages, m, i, user._id) = ", isSameSender(messages, m, i, user._id));
-          //console.log("isLastMessage(messages, i, user._id) = ", isLastMessage(messages, i, user._id));
-          //console.log("selectedChat.isGroupChat = ", selectedChat.isGroupChat);
           return (<div style={{ display: "flex" }} key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
               isLastMessage(messages, i, user._id)) && selectedChat.isGroupChat && (
-              // <span className='chat_message_avatar' label={m.sender.name} placement="bottom-start" hasArrow>
               <span className='chat_message_avatar' label={m.sender.name} placement="bottom-start" >
                     <img alt='avatar' className='chat_message_avatar_image' src={m.sender.pic} />
-
               </span>
             )}
             <span className='chatMessage'
